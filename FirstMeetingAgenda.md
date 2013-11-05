@@ -23,6 +23,7 @@ Team Contract-ish Stuff
 + allowing other team members to help you
 	+ if you run into difficulty, whether it be you are too busy some week or you are having trouble getting certain code to work, SPEAK UP, don't keep it to yourself, since we are a team and more information/communication is always better, and we are here to help each other
 	+ this goes hand in hand with the following through point, since not being able to follow through is NOT THAT BIG AN ISSUE IF YOU WARN PEOPLE AHEAD OF TIME
++ Always set up next meeting during current meeting
 
 
 Possible Technologies To Use
@@ -48,4 +49,9 @@ Coding and Collaborating Habits and Practices
 + think about, discuss, and solidify design before writing code
 
 
-A lot of this seems like insignifcant detail and possibly a little silly, but it is crazy how little work it is to follow these kinds of things compared to how amazingly better the develoment experience and result ends up because of them.
+Set Up First Project Meeting For Tomorrow (Tuesday, 5 November 2013)
+--------------------------------------------------------------------
+
++ should start thinking on our own about project ideas tonight and tomorrow during the day
++ bring them to the next meeting, decide on one, and complete current assignments (proposal, team contract, etc.)
++ can also start discussing this stuff during this meeting if we end up having time and have ideas ready
