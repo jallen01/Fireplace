@@ -11,7 +11,7 @@ Design question responses
 Implementation question responses
 ---------------------------------
 + HTML5 geolocation, write some javascript to get location
-+ make sure to check for loops in Tag recursion
++ make sure to check for loops in Tag recursiong
 
 Critique question responses
 ---------------------------
