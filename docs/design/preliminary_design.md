@@ -111,6 +111,7 @@ We trust Heroku to keep our database secure from unauthorized access.
 
 
 ### User Interface
+See figures folder for workflow wireframe and individual page wireframes
 
 
 Challenges
