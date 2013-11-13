@@ -121,48 +121,46 @@ Challenges
 ### Design Challenges
 
 
-+ Number of Tags per Task - How should the user be encouraged to think of tags?
-        + Allow At Most 1 Tag per Task
-+ pushes the idea that Tags are disjoint categories into which a Task can be classified
-+ Pro: shortens process of choosing Tags upon Task creation since once a user chooses 1 Tag, they are done
-+ Con: means that if a user wants multiple tags to apply to a Task, they must first create a composite Tag, then apply that Tag to the Task in question
-        + Allow Multiple Tags per Task
-+ pushes the idea that Tags are like Piazza tags or Twitter hashtags (hence calling them “Tags”)
-+ Pro: more user control when creating Tasks
-+ Con: possibility of complicating the Task creation process
-        + Proposed Solution: Allow Multiple Tags per Task
++ Number of Tags per Task - How should the user be encouraged to think of tags? 
+    + Allow At Most 1 Tag per Task
+    > pushes the idea that Tags are disjoint categories into which a Task can be classified
+    > Pro: shortens process of choosing Tags upon Task creation since once a user chooses 1 Tag, they are done
+    > Con: means that if a user wants multiple tags to apply to a Task, they must first create a composite Tag, then apply that Tag to the Task in question
+    + Allow Multiple Tags per Task
+    > pushes the idea that Tags are like Piazza tags or Twitter hashtags (hence calling them “Tags”)  
+    > Pro: more user control when creating Tasks
+    > Con: possibility of complicating the Task creation process
+    + Proposed Solution: Allow Multiple Tags per Task
 
 
 + Overriding Automatic Hiding of Tasks - How should the user be able to ensure they do not miss relevant Tasks?
-        + Include Randomness In Display Condition
-+ Pro or Con: any Task theoretically could be shown at any time
-+ Con: does not guarantee problem is solved, since app could get extremely unlucky and still hide things the user wants
-        + “See All Tasks” button
-+ Pro: blanket solution, solves all problems regarding hiding too much
-+ Con: if used too often, defeats purpose of Fireplace
-+ Pro: possible variation on this solution is have incremental stages in between fully automatic filtering and seeing everything, for example “See Today Tasks” which ignores time and location
-        + Proposed Solution: “See All Tasks” button (or some variation)
+    + Include Randomness In Display Condition
+    > Pro or Con: any Task theoretically could be shown at any time
+    > Con: does not guarantee problem is solved, since app could get extremely unlucky and still hide things the user wants
+    + “See All Tasks” button
+    > Pro: blanket solution, solves all problems regarding hiding too much
+    > Con: if used too often, defeats purpose of Fireplace
+    > Pro: possible variation on this solution is have incremental stages in between fully automatic filtering and seeing everything, for example “See Today Tasks” which ignores time and location
+    + Proposed Solution: “See All Tasks” button (or some variation)
 
 
 + Non-periodic Conditions - What about Tasks whose relevance depends not only on day of week and time of day but also on something non-periodic, like a due date?
-        + Allow Due Date Input
-                + Con: more input means more work for user
-+ Con: user would also need to specify how long before the due date they want to start seeing the Task
-+ Pro: grants user commonly desired feature of hiding Tasks that are not due in the near future
-        + Only Allow Day of Week, Time of Day, Location
-+ Pro: do not have to worry about details of due dates
-+ Con: ignores popular trend that users value a Task more highly (the Task become more relevant) as the due date approaches
-        + Proposed Solution: Allow Due Date Input
-
-
+    + Allow Due Date Input
+    > Con: more input means more work for user
+    > Con: user would also need to specify how long before the due date they want to start seeing the Task
+    > Pro: grants user commonly desired feature of hiding Tasks that are not due in the near future
+    + Only Allow Day of Week, Time of Day, Location
+    > Pro: do not have to worry about details of due dates
+    > Con: ignores popular trend that users value a Task more highly (the Task become more relevant) as the due date approaches
++ Proposed Solution: Allow Due Date Input
 + Number of Different Pages - Across how many pages should all the features (viewing, creating, editing) be?
-        + Single Page For Everything
-+ Pro: dashboard feel, like everything you need is easily accessible
-+ Pro: managing Tasks and Tags do not feel like arduous tasks that require entire new pages to do
-+ Con: must be careful not to clutter the page since space is limited so everything would be in close proximity
-        + Separate Pages For Separate Functionalities
-+ Con: seems more difficult to perform simple tasks like creating or editing if a new page is rendered and the view of the to-do list itself disappears
-+ Pro: user can be easily guided through the process of performing the different functionalities Fireplace provides, with little variation and thus less room for error and confusion by the user
-        + Proposed Solution: Single Page For Everything
+    + Single Page For Everything
+    > Pro: dashboard feel, like everything you need is easily accessible
+    > Pro: managing Tasks and Tags do not feel like arduous tasks that require entire new pages to do
+    > Con: must be careful not to clutter the page since space is limited so everything would be in close proximity
+    + Separate Pages For Separate Functionalities
+    > Con: seems more difficult to perform simple tasks like creating or editing if a new page is rendered and the view of the to-do list itself disappears
+    + Proposed Solution: Single Page For Everything
+    > Pro: user can be easily guided through the process of performing the different functionalities Fireplace provides, with little variation and thus less room for error and confusion by the user
 
 
