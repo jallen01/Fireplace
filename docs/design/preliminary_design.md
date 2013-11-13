@@ -35,10 +35,7 @@ app, but for any given state of the user (time, day, location) only tasks releva
 ### Context Diagram:
 
 
-![Context Diagram](figures/context_diagram.png “Context Diagram”)
-
-
-+ Open this link (we can insert the photo later): https://docs.google.com/drawings/d/1aIoKybe-qSUVBeZX9H5n7NhXmQK_6HXsQHvJ3cYxQSQ/edit
+![Context Diagram](/figures/context_diagram.png “Context Diagram”)
 
 
 Concepts
@@ -58,7 +55,7 @@ Concepts
 ### Data Model
 
 
-![Data Model](figures/data_model.png “Data Model”)
+![Data Model](/figures/data_model.png “Data Model”)
 
 
 
