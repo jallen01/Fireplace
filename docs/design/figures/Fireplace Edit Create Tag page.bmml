@@ -56,9 +56,9 @@
         <text>Dorm%20Room%2C%20Morning%2C%20Afternoon%2C%20Evening%2C%20Weekdays</text>
       </controlProperties>
     </control>
-    <control controlID="12" controlTypeID="com.balsamiq.mockups::SubTitle" x="416" y="136" w="-1" h="-1" measuredW="91" measuredH="27" zOrder="12" locked="false" isInGroup="-1">
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::SubTitle" x="416" y="136" w="-1" h="-1" measuredW="175" measuredH="27" zOrder="12" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Edit%20Tag</text>
+        <text>Edit/Create%20Tag</text>
       </controlProperties>
     </control>
     <control controlID="13" controlTypeID="com.balsamiq.mockups::SubTitle" x="625" y="136" w="-1" h="-1" measuredW="113" measuredH="27" zOrder="13" locked="false" isInGroup="-1">

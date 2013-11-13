@@ -1,10 +1,9 @@
-﻿Preliminary Design
+Preliminary Design
 ==================
 
 
 Primary Authors
 ---------------
-
 
 + **Everyone:** data model, user interface
 + **Jon:** key concepts, feature descriptions, tasks
@@ -86,17 +85,15 @@ Behavior
 
 
 #### Security Requirements
-Fireplace has minimal security requirements
-
-
-+ Users only have read and write access to their To-Do lists and their personal information. Personal information includes addresses, their current location, and email address. 
+Fireplace has minimal security requirements:
+    
+> Users only have read and write access to their To-Do lists and their personal information. Personal information includes addresses, their current location, and email address. 
 
 
 #### Potential Risks
-Users and developers of Fireplace should be aware of potential risks associated when using Fireplace
+Users and developers of Fireplace should be aware of potential risks associated when using Fireplace:
 
-
-+ In the event of a breach in security, users must be aware that their addresses, current location, email and password could be compromised. Since Fireplace depends on this information and users cannot withhold this information to use this app, users should proceed use of Fireplace with caution. 
+> In the event of a breach in security, users must be aware that their addresses, current location, email and password could be compromised. Since Fireplace depends on this information and users cannot withhold this information to use this app, users should proceed use of Fireplace with caution. 
 
 
 #### Threat Model
