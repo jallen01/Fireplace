@@ -1,0 +1,85 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1173" measuredH="537" mockupW="1054" mockupH="537">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="119" y="0" w="1054" h="537" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Fireplace%20--%20Daniel%20Jackson%0Ahttp%3A//www.fireplace.com/</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Canvas" x="376" y="110" w="541" h="360" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="-1"/>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::SubTitle" x="391" y="125" w="-1" h="-1" measuredW="102" measuredH="27" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Edit%20Task</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="419" y="184" w="-1" h="-1" measuredW="29" measuredH="21" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Title%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="404" y="220" w="-1" h="-1" measuredW="44" measuredH="21" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Details%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::TextInput" x="463" y="181" w="-1" h="-1" measuredW="97" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>6.046%20p-set%203</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::TextArea" x="463" y="220" w="145" h="87" measuredW="200" measuredH="140" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>get%20together%20with%20Dupes</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Label" x="410" y="389" w="-1" h="-1" measuredW="32" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Tags%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::ButtonBar" x="386" y="425" w="516" h="27" measuredW="491" measuredH="27" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Homework%2C%20Dorm%20Room%2C%20Morning%2C%20Afternoon%2C%20Evening%2C%20Weekdays</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Arrow" x="635" y="169" w="10" h="220" measuredW="150" measuredH="100" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <leftArrow>false</leftArrow>
+        <rightArrow>false</rightArrow>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::Label" x="660" y="163" w="-1" h="-1" measuredW="33" measuredH="21" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Days%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::Label" x="660" y="241" w="-1" h="-1" measuredW="39" measuredH="21" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Times%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::Label" x="660" y="322" w="-1" h="-1" measuredW="60" measuredH="21" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Locations%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::ButtonBar" x="660" y="184" w="242" h="22" measuredW="210" measuredH="22" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>-1</selectedIndex>
+        <size>8</size>
+        <text>Mon%2C%20Tues%2C%20Wed%2C%20Thurs%2C%20Fri%2C%20Sat%2C%20Sun</text>
+      </controlProperties>
+    </control>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::HSlider" x="674" y="274" w="214" h="-1" measuredW="33" measuredH="11" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <value>70</value>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::ButtonBar" x="660" y="358" w="242" h="22" measuredW="141" measuredH="22" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>-1</selectedIndex>
+        <size>8</size>
+        <text>MacGregor%2C%20Work%2C%20Z-Center</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
