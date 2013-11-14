@@ -8,16 +8,16 @@ class Location < ActiveRecord::Base
 	has_many :location_tags
 	has_many :tags, :through => :location_tags
 
-  serialize :address, class_name: :hash
-	geocoded_by :address_to_s
+  serialize :address_hash, class_name: :hash
+	geocoded_by :address
 
   # All allowed address fields
   ADDRESS_FIELDS_ALL = ['street', 'city', 'state', 'country']
 
   # Returns string representation of address_data. Includes all fields in ADDRESS_FIELDS_SHOW that aren't nil.
   ADDRESS_FIELDS_SHOW = ['street', 'city', 'state', 'country']
-  def address_to_s
-    ADDRESS_FIELDS_SHOW.map { |key| self.address[key] }.compact.join(", ")
+  def address
+    ADDRESS_FIELDS_SHOW.map { |key| self.address_hash[key] }.compact.join(", ")
   end
 
 

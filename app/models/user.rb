@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+
+  # Attributes
+  # ----------
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -16,27 +20,34 @@ class User < ActiveRecord::Base
     self.last_name = split.last
   end
 
+
   # Validations
   # -----------
 
   NAME_MAX_LENGTH = 20
-  validates :name, presence: true, length: { maximum: Group::NAME_MAX_LENGTH }, uniqueness: { scope: :owner }
-
-  # Capitalize first letter of each word in name
-  before_validation { self.name = self.name.downcase.split.map(&:capitalize).join(' ') }
+  validates :name, presence: true, length: { maximum: User::NAME_MAX_LENGTH }
 
   # Make sure that owner is a group user
-  after_save { self.add_user(self.owner) }
+  after_save { self.add_location("all_locations", {}) }, if: :locations_changed?
 
 
   # Methods
   # -------
 
-  def add_location
+  def add_location(name, address_hash)
+    if 
+      self.locations.create_with(address_hash: address_hash).find_or_create_by(name: name)
+  end
+
+  def get_location(name)
 
   end
 
-  def remove_location
+  def remove_location(name)
     Location
+  end
+
+  def include_location?(name)
+    return self.locations.find_by(:name)
   end
 end
