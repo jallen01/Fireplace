@@ -8,7 +8,23 @@ class LocationsController < ApplicationController
   end
 
   def create
-    @new_location = current_user.add_location(location_params)
+    @new_location = current_user.add_location(params[:name], params[:address])
+  end
+
+  def update
+    @location.update(location_params)
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def destroy
+    @location.destroy
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   private 

@@ -39,19 +39,15 @@ class User < ActiveRecord::Base
     return self.locations.create(name: name, address_hash: address_hash)
   end
 
-  def remove_location(location)
-    location.destroy
+  def include_location(location)
+    return self.locations.exists?(location)
   end
 
   def add_task(title, content)
-    return self.tasks.create()
+    return self.tasks.create(title: title, content: content)
   end
 
-  def remove_task(task)
-    task.destroy
-  end
-
-  def include_location(location)
-    return self.locations.exists?(location)
+  def include_task(task)
+    return self.tasks.exists?(task)
   end
 end
