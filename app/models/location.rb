@@ -1,13 +1,35 @@
 class Location < ActiveRecord::Base
+
+  # Attributes
+  # ----------
+
 	belongs_to :user
 
-	has_many :tag_locations
-	has_many :tags, :through => :tag_locations
+	has_many :location_tags
+	has_many :tags, :through => :location_tags
 
-	geocoded_by :address
+  serialize :address, class_name: :hash
+	geocoded_by :address_to_s
+
+  # All allowed address fields
+  ADDRESS_FIELDS_ALL = ['street', 'city', 'state', 'country']
+
+  # Returns string representation of address_data. Includes all fields in ADDRESS_FIELDS_SHOW that aren't nil.
+  ADDRESS_FIELDS_SHOW = ['street', 'city', 'state', 'country']
+  def address_to_s
+    ADDRESS_FIELDS_SHOW.map { |key| self.address[key] }.compact.join(", ")
+  end
+
+
+  # Validations
+  # -----------
+
+  NAME_MAX_LENGTH = 10
+  validates :name, presence: true, length: { maximum: Location::NAME_MAX_LENGTH }, uniqueness: { scope: :user }
+
+  # Capitalize first letter of each word in name
+  before_validation { self.name = self.name.downcase.split.map(&:capitalize).join(' ') }
+
 	after_validation :geocode, :if => :address_changed?
-
-	def address
-		[self.street, self.city, self.state, self.country].compact.join(", ")
-	end
+  
 end

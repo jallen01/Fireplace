@@ -60,10 +60,7 @@ GEM
     mime-types (1.25)
     minitest (4.7.5)
     multi_json (1.8.2)
-<<<<<<< HEAD
-=======
     orm_adapter (0.5.0)
->>>>>>> Add tag model
     pg (0.17.0)
     polyglot (0.3.3)
     rack (1.5.2)
@@ -129,11 +126,8 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
-<<<<<<< HEAD
-  geocoder
-=======
   devise
->>>>>>> Add tag model
+  geocoder
   jbuilder (~> 1.2)
   jquery-rails
   pg
