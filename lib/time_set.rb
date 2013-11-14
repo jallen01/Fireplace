@@ -1,6 +1,3 @@
-require 'time'
-require 'set'
-
 class TimeSet
   def initialize(array=[])
     @_time_set = Set.new(array)
@@ -8,10 +5,12 @@ class TimeSet
 
   def add_range(start_t, stop_t)
     @_time_set.merge(start_t.strftime("%H:%M")..stop_t.strftime("%H:%M"))
+    nil
   end
 
   def remove_range(start_t, stop_t)
     @_time_set.subtract(start_t.strftime("%H:%M")..stop_t.strftime("%H:%M"))
+    nil
   end
 
   def include?(time)
@@ -21,7 +20,7 @@ class TimeSet
   def get_discretized(n)
     ("00:00".."24:00").step((24.0*60.0/n).ceil).map do |t| 
       time = Time.parse(t)
-      [time, include?(time)]
+      [time, self.include?(time)]
     end
   end
 

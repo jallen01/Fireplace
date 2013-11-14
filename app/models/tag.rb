@@ -1,7 +1,13 @@
-require 'date'
-require 'set'
-
 class Tag < ActiveRecord::Base
+
+  # Attributes
+  # ----------
+
+  belongs_to :user
+
+  # Optional relation for assigning a tag to a task. 
+  belongs_to :task
+
   serialize :time_set, class_name: :TimeSet
   serialize :day_set, class_name: :Set
 
@@ -11,8 +17,24 @@ class Tag < ActiveRecord::Base
   has_many :tag_relations, foreign_key: :parent_tag_id, dependent: :destroy
   has_many :reverse_tag_relations, class_name: :TagRelation,
       foreign_key: :child_tag_id, dependent: :destroy
-
   has_many :child_tags, :through => :tag_relations, :source => :child_tag
+
+  def init
+    self.time_set = Set.new
+  end
+  after_initialize :init
+
+  # Validations
+  # -----------
+
+
+
+  # Methods
+  # -------
+
+  def hidden?
+    return self.task.blank?
+  end
 
   def add_time_range(start_t, end_t)
     self.time_set.add_range(start_t, end_t)
@@ -55,8 +77,11 @@ class Tag < ActiveRecord::Base
     return self.days.include?(day)
   end
 
-  def add_location(locations)
-    self.locations.
+  def add_location(location)
+    if location = current_user.include_location?(location)
+
+    else
+      self.errors[:base] << ""
   end
 
   def remove_location

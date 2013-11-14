@@ -6,7 +6,7 @@ class Location < ActiveRecord::Base
 	belongs_to :user
 
 	has_many :location_tags
-	has_many :tags, :through => :location_tags
+	has_many :tags, through: :location_tags
 
   serialize :address_hash, class_name: :hash
 	geocoded_by :address
@@ -30,6 +30,6 @@ class Location < ActiveRecord::Base
   # Capitalize first letter of each word in name
   before_validation { self.name = self.name.downcase.split.map(&:capitalize).join(' ') }
 
-	after_validation :geocode, :if => :address_changed?
+	after_validation :geocode, if: :address_changed?
   
 end

@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   has_many :locations
 
   def full_name
-    [first_name, last_name].join(' ')
+    [first_name, last_name].compact.join(' ')
   end
 
   def full_name=(name)
@@ -28,26 +28,30 @@ class User < ActiveRecord::Base
   validates :name, presence: true, length: { maximum: User::NAME_MAX_LENGTH }
 
   # Make sure that owner is a group user
-  after_save { self.add_location("all_locations", {}) }, if: :locations_changed?
+  DEFAULT_NAME = "All Locations"
+  after_create { self.add_location(DEFAULT_NAME, {}) }
 
 
   # Methods
   # -------
 
   def add_location(name, address_hash)
-    if 
-      self.locations.create_with(address_hash: address_hash).find_or_create_by(name: name)
+    return self.locations.create(name: name, address_hash: address_hash)
   end
 
-  def get_location(name)
-
+  def remove_location(location)
+    location.destroy
   end
 
-  def remove_location(name)
-    Location
+  def add_task(title, content)
+    return self.tasks.create()
   end
 
-  def include_location?(name)
-    return self.locations.find_by(:name)
+  def remove_task(task)
+    task.destroy
+  end
+
+  def include_location(location)
+    return self.locations.exists?(location)
   end
 end
