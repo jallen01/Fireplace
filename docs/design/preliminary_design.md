@@ -15,7 +15,6 @@ Primary Authors
 Overview
 --------
 
-
 ### Purpose and Goals:
 
 
@@ -83,7 +82,7 @@ Behavior
 
 #### Security Requirements
 Fireplace has minimal security requirements:
-    
+
 > Users only have read and write access to their To-Do lists and their personal information. Personal information includes addresses, their current location, and email address. 
 
 
