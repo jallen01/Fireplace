@@ -1,11 +1,18 @@
+# Primary Author: Jonathan Allen (jallen01)
 class Tag < ActiveRecord::Base
+
+  # Constants
+  # ---------
+
+  NAME_MAX_LENGTH = 10
+
 
   # Attributes
   # ----------
 
   belongs_to :user
 
-  # Optional relation for assigning a tag to a task. 
+  # Optional relation for assigning a tag to a task. If task is not nil, then tag is hidden in the UI and cannot be edited directly.
   belongs_to :task
 
   serialize :day_set, SortedSet
@@ -34,7 +41,8 @@ class Tag < ActiveRecord::Base
   # Validations
   # -----------
 
-  NAME_MAX_LENGTH = 10
+  validates :user, existence: true
+
   validates :name, presence: true, length: { maximum: Tag::NAME_MAX_LENGTH }, uniqueness: { scope: :user }, unless: :hidden?
 
 
@@ -56,7 +64,15 @@ class Tag < ActiveRecord::Base
   end
 
   def include_time?(time)
-    self.time_set.include?(time)
+    if self.time_set.blank?
+      if self.child_tags.empty?
+        return true
+      else
+        return self.child_tags.any? { |tag| include_time?(time) }
+      end
+    else
+      return self.time_set.include?(time)
+    end
   end
 
   def add_day(day)
@@ -68,7 +84,15 @@ class Tag < ActiveRecord::Base
   end
 
   def include_day?(day)
-    return self.day_set.include?(day)
+    if self.day_set.blank?
+      if self.child_tags.empty?
+        return true
+      else
+        return self.child_tags.any? { |tag| include_day?(day) }
+      end
+    else
+      return self.day_set.include?(day)
+    end
   end
 
   def add_location(location)
@@ -76,7 +100,14 @@ class Tag < ActiveRecord::Base
   end
 
   def include_location?(location)
-    self.locations.exists?(location)
+    if self.day_set.blank?
+      if self.child_tags.empty?
+        return true
+      else
+        return self.child_tags.any? { |tag| include_location?(location) }
+      end
+    else
+      return self.locations.exists?(location)
+    end
   end
-
 end

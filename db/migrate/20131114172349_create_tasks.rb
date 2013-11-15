@@ -8,6 +8,7 @@ class CreateTasks < ActiveRecord::Migration
 
       t.boolean :important
       t.boolean :long_lasting
+      t.date :deadline
 
       t.timestamps
     end

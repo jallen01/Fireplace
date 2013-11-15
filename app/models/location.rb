@@ -1,4 +1,18 @@
+# Primary Author: Jonathan Allen (jallen01)
 class Location < ActiveRecord::Base
+
+  # Constants
+  # ---------
+
+  # All allowed address fields
+  ADDRESS_FIELDS_ALL = [:street, :city, :state, :country]
+
+  # Address fields shown in address string
+  ADDRESS_FIELDS_SHOW = [:street, :city, :state, :country]
+
+  ALL_LOCATIONS_NAME = "All Locations"
+  NAME_MAX_LENGTH = 10
+
 
   # Attributes
   # ----------
@@ -11,22 +25,17 @@ class Location < ActiveRecord::Base
   serialize :address_hash, class_name: :hash
 	geocoded_by :address
 
-  # All allowed address fields
-  ADDRESS_FIELDS_ALL = [:street, :city, :state, :country]
-
   # Returns string representation of address_data. Includes all fields with keys in ADDRESS_FIELDS_SHOW that aren't nil.
-  ADDRESS_FIELDS_SHOW = [:street, :city, :state, :country]
   def address
     ADDRESS_FIELDS_SHOW.map { |key| self.address_hash[key] }.compact.join(", ")
   end
-
-  ALL_LOCATIONS_NAME = "All Locations"
 
 
   # Validations
   # -----------
 
-  NAME_MAX_LENGTH = 10
+  validates :user, existence: true
+
   validates :name, presence: true, length: { maximum: Location::NAME_MAX_LENGTH }, uniqueness: { scope: :user }
 
   # Capitalize first letter of each word in name
@@ -38,7 +47,6 @@ class Location < ActiveRecord::Base
     self.address_hash.each do |k, v|
       self.address_hash[k] = String(v)
     end
-
   end
 
 	after_validation :geocode, if: :address_changed?

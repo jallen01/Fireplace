@@ -2,25 +2,32 @@
 class SimpleDay
   include Comparable
 
-  DAYS = Date::DAYNAMES
+  DAY_NAMES = Date::DAYNAMES
   # Used to compare days (Sunday=0, Saturday=7)
-  attr_reader :day_index
+  attr_reader :day_int
 
   # str should be a valid day name. String case is ignored.
-  def initialize(str)
-    index = DAYS.index(str.capitalize)
-    throw TypeError, "invalid day" unless index
-
-    @day_index = index
+  def initialize(day_int)
+    @day_int = day_int
   end
 
-  # Compare days based on day_index.
+  def self.from_s(str)
+    day_int = SimpleDay::DAY_NAMES.index(str.capitalize)
+    return day_int ? SimpleDay(day_int) : nil
+  end
+
+  # Get next day.
+  def succ
+    return SimpleDay(@day_int + 1)
+  end
+
+  # Compare days based on day_int.
   def <=>(other)
-    @day_index <=> other.day_index
+    @day_int <=> other.day_int
   end
 
   def to_s
-    SimpleDay::DAYS[@day_index]
+    SimpleDay::DAY_NAMES[@day_int]
   end
 
   def inspect
