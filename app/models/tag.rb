@@ -8,9 +8,20 @@ class Tag < ActiveRecord::Base
   # Optional relation for assigning a tag to a task. 
   belongs_to :task
 
-  serialize :time_set, class_name: :TimeSet
-  serialize :day_set, class_name: :Set
+  serialize :day_set, SortedSet
+  serialize :time_set, SortedSet
 
+  # Initialize serialized objects
+  after_initialize do
+    if self.day_set.blank?
+      self.day_set = SortedSet.new
+    end
+
+    if self.time_set.blank?
+      self.time_set = SortedSet.new
+    end
+  end
+    
   has_many :location_tags
   has_many :locations, through: :location_tags
 
@@ -19,14 +30,12 @@ class Tag < ActiveRecord::Base
       foreign_key: :child_tag_id, dependent: :destroy
   has_many :child_tags, :through => :tag_relations, :source => :child_tag
 
-  def init
-    self.time_set = Set.new
-  end
-  after_initialize :init
 
   # Validations
   # -----------
 
+  NAME_MAX_LENGTH = 10
+  validates :name, presence: true, length: { maximum: Tag::NAME_MAX_LENGTH }, uniqueness: { scope: :user }, unless: :hidden?
 
 
   # Methods
@@ -37,58 +46,37 @@ class Tag < ActiveRecord::Base
   end
 
   def add_time_range(start_t, end_t)
-    self.time_set.add_range(start_t, end_t)
+    self.time_set.merge(start_t..end_t)
     self.save
   end
 
   def remove_time_range(start_t, end_t)
-    self.time_set.remove_range(start_t, end_t)
+    self.time_set.subtract(start_t..end_t)
     self.save
-  end
-
-  def get_discretized_time(n)
-
   end
 
   def include_time?(time)
     self.time_set.include?(time)
   end
-  
 
   def add_day(day)
-    if Date::DAYNAMES.include?(day)
-      self.day_set.add(day)
-      self.save
-    else
-      self.errors[:base] << "Invalid day"
-    end
+    self.day_set.add(day)
   end
 
   def remove_day(day)
-    if Date::DAYNAMES.include?(day)
-      self.day_set.delete(day)
-      self.save
-    else
-      self.errors[:base] << "Invalid day"
-    end
+    self.day_set.delete(day)
   end
 
   def include_day?(day)
-    return self.days.include?(day)
+    return self.day_set.include?(day)
   end
 
   def add_location(location)
-    if location = current_user.include_location?(location)
-
-    else
-      self.errors[:base] << ""
-  end
-
-  def remove_location
-
+    LocationTag.create(tag: self, location: location)
   end
 
   def include_location?(location)
     self.locations.exists?(location)
   end
+
 end

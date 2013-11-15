@@ -24,12 +24,14 @@ class User < ActiveRecord::Base
   # Validations
   # -----------
 
-  NAME_MAX_LENGTH = 20
-  validates :name, presence: true, length: { maximum: User::NAME_MAX_LENGTH }
+  FIRST_NAME_MAX_LENGTH = 10
+  validates :first_name, presence: true, length: { maximum: User::FIRST_NAME_MAX_LENGTH }
 
-  # Make sure that owner is a group user
-  DEFAULT_NAME = "All Locations"
-  after_create { self.add_location(DEFAULT_NAME, {}) }
+  LAST_NAME_MAX_LENGTH = 10
+  validates :last_name, presence: true, length: { maximum: User::LAST_NAME_MAX_LENGTH }
+
+  # Add special "All Locations" to locations list.
+  after_create { self.add_location(Location::ALL_LOCATIONS_NAME, {}) }
 
 
   # Methods
@@ -49,5 +51,14 @@ class User < ActiveRecord::Base
 
   def include_task(task)
     return self.tasks.exists?(task)
+  end
+
+  POLICIES = [:only_important, :show_long_lasting, :today, :tomorrow, :week]
+  def update_policies(policies)
+    policies.each do |k, v|
+      if (POLICIES.include?(k.to_sym))
+        session[k.to_sym] = !!v # Ensure that value is boolean
+      end
+    end
   end
 end

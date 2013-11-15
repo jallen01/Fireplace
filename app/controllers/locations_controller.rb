@@ -1,14 +1,26 @@
 class LocationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_location, except: [:create]
+  before_action :set_location, except: [:index, :new, :create]
   before_action :check_permissions
 
-  def edit
-    Location.ADDRESS_FIELDS_ALL.each { |field| self.instance_variable_set(field, self[field]) }
+  def index
+
+  end
+
+  def new
+
   end
 
   def create
     @new_location = current_user.add_location(params[:name], params[:address])
+  end
+
+  def show
+
+  end
+
+  def edit
+    Location.ADDRESS_FIELDS_ALL.each { |field| self.instance_variable_set(field, self[field]) }
   end
 
   def update
@@ -28,6 +40,7 @@ class LocationsController < ApplicationController
   end
 
   private 
+
     def set_location
       @location = Location.find_by(id: params[:id])
 

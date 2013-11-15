@@ -1,9 +1,9 @@
 class CreateTasks < ActiveRecord::Migration
   def change
     create_table :tasks do |t|
-      t.belongs_to :user, null: false
+      t.belongs_to :user
 
-      t.string :title, null: false
+      t.string :title
       t.string :content
 
       t.boolean :important

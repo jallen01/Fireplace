@@ -1,11 +1,11 @@
 class CreateLocationTags < ActiveRecord::Migration
   def change
     create_table :location_tags do |t|
-      t.belongs_to :user, null: false
+      t.belongs_to :user
 
-      t.string :name, null: false
+      t.string :name
 
-      t.text :address_hash, null: false
+      t.text :address_hash
 
       t.timestamps
     end

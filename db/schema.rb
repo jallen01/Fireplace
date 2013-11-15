@@ -14,9 +14,9 @@
 ActiveRecord::Schema.define(version: 20131114172349) do
 
   create_table "location_tags", force: true do |t|
-    t.integer  "user_id",      null: false
-    t.string   "name",         null: false
-    t.text     "address_hash", null: false
+    t.integer  "user_id"
+    t.string   "name"
+    t.text     "address_hash"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -25,20 +25,20 @@ ActiveRecord::Schema.define(version: 20131114172349) do
     t.integer  "user_id"
     t.float    "latitude"
     t.float    "longitude"
-    t.text     "address_data", null: false
+    t.text     "address_data"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "tag_relations", force: true do |t|
-    t.integer  "parent_tag_id", null: false
-    t.integer  "child_tag_id",  null: false
+    t.integer  "parent_tag_id"
+    t.integer  "child_tag_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "tags", force: true do |t|
-    t.integer  "user_id",    null: false
+    t.integer  "user_id"
     t.integer  "task_id"
     t.string   "name"
     t.text     "time_set"
@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(version: 20131114172349) do
   end
 
   create_table "tasks", force: true do |t|
-    t.integer  "user_id",      null: false
-    t.string   "title",        null: false
+    t.integer  "user_id"
+    t.string   "title"
     t.string   "content"
     t.boolean  "important"
     t.boolean  "long_lasting"
