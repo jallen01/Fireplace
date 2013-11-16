@@ -103,4 +103,8 @@ class User < ActiveRecord::Base
 
     relevant_tasks.to_a.select { |task| task.relevant?(time, day, location) }
   end
+
+  def get_current_location
+    
+  end
 end
