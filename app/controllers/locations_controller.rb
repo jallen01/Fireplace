@@ -1,7 +1,6 @@
 class LocationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_location, except: [:index, :new, :create]
-  before_action :check_permissions
 
   def index
   end
@@ -14,11 +13,9 @@ class LocationsController < ApplicationController
   end
 
   def show
-
   end
 
   def edit
-    Location.ADDRESS_FIELDS_ALL.each { |field| self.instance_variable_set(field, self[field]) }
   end
 
   def update
@@ -49,14 +46,8 @@ class LocationsController < ApplicationController
           format.js { render js: "window.location.href = '#{home_url}" }
         end
       end 
-    end
 
-    # Sanitize params.
-    def location_params
-      params.require(:location).permit(:name, :address)
-    end
-
-    def check_permissions
+      # Check that current user owns location.
       unless @location.user == current_user
         respond_to do |format|
           flash.alert = "Forbidden to access location."
@@ -64,5 +55,4 @@ class LocationsController < ApplicationController
         end
       end
     end
-
 end

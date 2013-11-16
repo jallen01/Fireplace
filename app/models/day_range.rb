@@ -9,10 +9,14 @@ class DayRange < ActiveRecord::Base
 
   # Attributes
   # ----------
+
   belongs_to :user
 
+  # Used when attaching day range to tags
   has_many :tag_day_ranges
   has_many :tags, through: :tag_day_ranges
+
+  # Used if this is a hidden day range associated with a tag
   belongs_to :parent_tag, class_name: :Tag
 
   serialize :day_set, SortedSet

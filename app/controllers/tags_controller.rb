@@ -1,7 +1,6 @@
 class TagsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_location, except: [:index, :new, :create]
-  before_action :check_permissions
+  before_action :set_tag, except: [:index, :new, :create]
 
   def index
     current_user.get_tasks()
@@ -44,19 +43,18 @@ class TagsController < ApplicationController
           format.js { render js: "window.location.href = '#{home_url}" }
         end
       end 
-    end
 
-    # Sanitize params.
-    def tag_params
-      params.require(:tag).permit(:name)
-    end
-
-    def check_permissions
+      # Check that current user owns tag.
       unless @tag.user == current_user
         respond_to do |format|
           flash.alert = "Forbidden to access tag."
           format.js { render js: "window.location.href = '#{home_url}'" }
         end
       end
+    end
+
+    # Sanitize params.
+    def tag_params
+      params.require(:tag).permit(:name)
     end
 end
