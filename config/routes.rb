@@ -23,13 +23,6 @@ TscizzleMichelleojKrosnickJallen01Final::Application.routes.draw do
 
   resources :locations
 
-  # Aliases
-  devise_scope :user do
-    get "sign_up" => "devise/registrations#new"
-    get "log_in" => "devise/session#new"
-    get "log_out" => "devise/sessions#destroy"
-  end
-
   # Route root to group index
   root :to => "tasks#index"
 

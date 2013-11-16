@@ -4,6 +4,12 @@ class Task < ActiveRecord::Base
   # Constants
   # ---------
 
+  # Filter policies
+  POLICIES = [:show_only_important, :show_long_lasting]
+
+  # Filter time frame
+  TIME_FRAMES = [:now, :today, :tomorrow, :week]
+
   TITLE_MAX_LENGTH = 30
 
   

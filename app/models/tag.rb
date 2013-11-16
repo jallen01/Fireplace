@@ -66,7 +66,7 @@ class Tag < ActiveRecord::Base
   end
 
   def include_day?(day)
-    all_day_ranges.all? { |day_range| day_range.include_day?(day) }
+    all_day_ranges.any? { |day_range| day_range.include_day?(day) }
   end
 
   def add_time_range(time_range)

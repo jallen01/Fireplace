@@ -7,12 +7,6 @@ class User < ActiveRecord::Base
   FIRST_NAME_MAX_LENGTH = 10
   LAST_NAME_MAX_LENGTH = 10
 
-  # Filter policies
-  POLICIES = [:only_important, :show_long_lasting]
-
-  # Filter time frame
-  TIME_FRAMES = [:now, :today, :tomorrow, :week]
-
   # Attributes
   # ----------
 
@@ -81,37 +75,32 @@ class User < ActiveRecord::Base
     self.tasks.exists?(task)
   end
 
-  # Stores filter policies in session.
-  # 'policies' must be a hash. Ignores keys not in 'POLICIES'.
-  def update_policies(policies)
-    policies.each do |k, v| 
-      # Ensure that value is boolean with !!
-      session[k] = !!v if User::POLICIES.include?(k)
-    end
-  end
-
-  # Stores filter time frame in session. 
-  # 'time_frame' must be in 'TIME_FRAMES'.
-  def update_time_frame(time_frame)
-    session[:time_frame] = time_frame if User::TIME_FRAMES.include?(time_frame)
-  end
-
-  def get_tasks
+  def get_tasks(time_frame, policy, location)
     time = nil
     day = nil
-    location = nil
 
-    case session[:time_frame]
+    case time_frame
     when :now
       time = SimpleTime.new(Time.now.hour, Time.now.min)
       day = SimpleDay.new(Time.now.wday)
-      location = Location.current_location
     when :today
       day = SimpleDay.new(Time.now.wday).succ
+      location = nil
     when :tomorrow
       day = SimpleDay.new(Time.now.wday).succ.succ
+      location = nil
     end
 
-    self.tasks.to_a.select { |tag| tag.include?(time, day, location) }
+    relevant_tasks = self.tasks
+    
+    if policies[:show_only_important]
+      relevant_tasks = relevant_tasks.where(important: true)
+    end
+
+    unless polcies[:show_long_lasting]
+      relevant_tasks = relevant_tasks.where(long_lasting: [false, nil])
+    end
+
+    relevant_tasks.to_a.select { |task| task.relevant?(time, day, location) }
   end
 end
