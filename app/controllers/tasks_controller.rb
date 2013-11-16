@@ -4,6 +4,8 @@ class TasksController < ApplicationController
   before_action :check_permissions
 
   def index
+    @tasks = Task.all
+
   end
 
   def new
@@ -50,7 +52,7 @@ class TasksController < ApplicationController
     end
 
     def check_permissions
-      unless @task.user == current_user
+      unless current_user
         respond_to do |format|
           flash.alert = "Forbidden to access task."
           format.js { render js: "window.location.href = '#{home_url}'" }

@@ -54,6 +54,9 @@ gem "twitter-bootstrap-rails"
 # Flat UI
 gem 'flatui-rails'
 
+# Pretify the DB in Rails Console
+gem "hirb", "~> 0.7.1"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
