@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_location, except: [:index, :new, :create]
-  before_action :check_permissions
+  before_action :set_task, except: [:index, :new, :create]
+  before_action :check_permissions, except: [:index, :new, :create]
 
   def index
   end
@@ -42,14 +42,8 @@ class TasksController < ApplicationController
           format.js { render js: "window.location.href = '#{home_url}" }
         end
       end 
-    end
 
-    # Sanitize params.
-    def task_params
-      params.require(:task).permit(:title, :content, :important, :long_lasting)
-    end
-
-    def check_permissions
+      # Check that current user owns task.
       unless @task.user == current_user
         respond_to do |format|
           flash.alert = "Forbidden to access task."
@@ -58,4 +52,8 @@ class TasksController < ApplicationController
       end
     end
 
+    # Sanitize params.
+    def task_params
+      params.require(:task).permit(:title, :content, :important, :long_lasting)
+    end
 end
