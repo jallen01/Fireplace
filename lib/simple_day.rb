@@ -13,17 +13,26 @@ class SimpleDay
 
   def self.from_s(str)
     day_int = SimpleDay::DAY_NAMES.index(str.capitalize)
-    return day_int ? SimpleDay(day_int) : nil
+
+    day_int ? SimpleDay(day_int) : nil
   end
 
   # Get next day.
   def succ
-    return SimpleDay(@day_int + 1)
+    SimpleDay(@day_int + 1)
   end
 
   # Compare days based on day_int.
   def <=>(other)
     @day_int <=> other.day_int
+  end
+
+  def eql?(other)
+    @day_int == other.day_int
+  end
+
+  def hash
+    @day_int.hash
   end
 
   def to_s

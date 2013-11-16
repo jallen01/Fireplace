@@ -6,9 +6,6 @@ class CreateTags < ActiveRecord::Migration
 
       t.string :name
 
-      t.text :time_set
-      t.text :day_set
-
       t.timestamps
     end
   end

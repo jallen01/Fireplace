@@ -1,10 +1,10 @@
 # Primary Author: Jonathan Allen (jallen01)
-class LocationTag < ActiveRecord::Base
+class TaskTag < ActiveRecord::Base
 
   # Attributes
   # ----------
 
-  belongs_to :location
+  belongs_to :task
   belongs_to :tag
-  
+
 end

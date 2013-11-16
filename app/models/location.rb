@@ -10,7 +10,6 @@ class Location < ActiveRecord::Base
   # Address fields shown in address string
   ADDRESS_FIELDS_SHOW = [:street, :city, :state, :country]
 
-  ALL_LOCATIONS_NAME = "All Locations"
   NAME_MAX_LENGTH = 10
 
 
@@ -19,10 +18,18 @@ class Location < ActiveRecord::Base
 
 	belongs_to :user
 
-	has_many :location_tags
-	has_many :tags, through: :location_tags
+	has_many :tag_locations
+	has_many :tags, through: :tag_locations
 
-  serialize :address_hash, class_name: :hash
+  serialize :address_hash, class_name: Hash
+
+  # Initialize serialized object
+  after_initialize do
+    if self.address_hash.blank?
+      self.address_hash = Hash.new
+    end
+  end
+
 	geocoded_by :address
 
   # Returns string representation of address_data. Includes all fields with keys in ADDRESS_FIELDS_SHOW that aren't nil.
@@ -34,9 +41,9 @@ class Location < ActiveRecord::Base
   # Validations
   # -----------
 
-  validates :user, existence: true
+  # validates :user, presence: true
 
-  validates :name, presence: true, length: { maximum: Location::NAME_MAX_LENGTH }, uniqueness: { scope: :user }
+  # validates :name, presence: true, length: { maximum: Location::NAME_MAX_LENGTH }, uniqueness: { scope: :user }
 
   # Capitalize first letter of each word in name
   before_validation do 

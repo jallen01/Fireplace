@@ -11,28 +11,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131114172349) do
+ActiveRecord::Schema.define(version: 20131116025050) do
 
-  create_table "location_tags", force: true do |t|
+  create_table "day_ranges", force: true do |t|
     t.integer  "user_id"
+    t.integer  "parent_tag_id"
     t.string   "name"
-    t.text     "address_hash"
+    t.text     "day_set"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "locations", force: true do |t|
     t.integer  "user_id"
+    t.string   "name"
     t.float    "latitude"
     t.float    "longitude"
-    t.text     "address_data"
+    t.text     "address_hash"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "tag_relations", force: true do |t|
-    t.integer  "parent_tag_id"
-    t.integer  "child_tag_id"
+  create_table "tag_day_ranges", force: true do |t|
+    t.integer  "day_range_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tag_locations", force: true do |t|
+    t.integer  "location_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tag_time_ranges", force: true do |t|
+    t.integer  "time_range_id"
+    t.integer  "tag_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -41,8 +57,13 @@ ActiveRecord::Schema.define(version: 20131114172349) do
     t.integer  "user_id"
     t.integer  "task_id"
     t.string   "name"
-    t.text     "time_set"
-    t.text     "day_set"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "task_tags", force: true do |t|
+    t.integer  "task_id"
+    t.integer  "tag_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -53,6 +74,16 @@ ActiveRecord::Schema.define(version: 20131114172349) do
     t.string   "content"
     t.boolean  "important"
     t.boolean  "long_lasting"
+    t.date     "deadline"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "time_ranges", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "parent_tag_id"
+    t.string   "name"
+    t.text     "time_set"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

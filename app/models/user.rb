@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
 
   # Filter time frame
   TIME_FRAMES = [:now, :today, :tomorrow, :week]
-  
 
   # Attributes
   # ----------
@@ -22,7 +21,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :locations
+  has_many :tags, dependent: :destroy
+  has_many :tasks, dependent: :destroy
+  has_many :locations, dependent: :destroy
+  has_many :time_ranges, dependent: :destroy
+  has_many :day_ranges, dependent: :destroy
 
   def full_name
     [first_name, last_name].compact.join(' ')
@@ -38,31 +41,28 @@ class User < ActiveRecord::Base
   # Validations
   # -----------
 
-  validates :first_name, presence: true, length: { maximum: User::FIRST_NAME_MAX_LENGTH }
+  # validates :first_name, presence: true, length: { maximum: User::FIRST_NAME_MAX_LENGTH }
 
-  validates :last_name, presence: true, length: { maximum: User::LAST_NAME_MAX_LENGTH }
-
-  # Add special "All Locations" to locations list.
-  after_create { self.add_location(Location::ALL_LOCATIONS_NAME, {}) }
+  # validates :last_name, presence: true, length: { maximum: User::LAST_NAME_MAX_LENGTH }
 
 
   # Methods
   # -------
 
   def add_location(name, address_hash)
-    return self.locations.create(name: name, address_hash: address_hash)
+    self.locations.create(name: name, address_hash: address_hash)
   end
 
   def include_location?(location)
-    return self.locations.exists?(location)
+    self.locations.exists?(location)
   end
 
   def add_task(title, content)
-    return self.tasks.create(title: title, content: content)
+    self.tasks.create(title: title, content: content)
   end
 
   def include_task?(task)
-    return self.tasks.exists?(task)
+    self.tasks.exists?(task)
   end
 
   # Stores filter policies in session.
@@ -96,6 +96,6 @@ class User < ActiveRecord::Base
       day = SimpleDay.new(Time.now.wday).succ.succ
     end
 
-    return self.tasks.to_a.select { |tag| tag.include?(time, day, location) }
+    self.tasks.to_a.select { |tag| tag.include?(time, day, location) }
   end
 end
