@@ -44,14 +44,11 @@ class TasksController < ApplicationController
           format.js { render js: "window.location.href = '#{home_url}" }
         end
       end 
+    end
 
-<<<<<<< HEAD
     def check_permissions
-      unless current_user
-=======
       # Check that current user owns task.
       unless @task.user == current_user
->>>>>>> a74db6a214bf512db2a106805af020c86d0e736a
         respond_to do |format|
           flash.alert = "Forbidden to access task."
           format.js { render js: "window.location.href = '#{home_url}'" }
