@@ -1,3 +1,4 @@
+# Primary Author: Jonathan Allen (jallen01)
 class DayRange < ActiveRecord::Base
 
   # Constants
@@ -35,6 +36,7 @@ class DayRange < ActiveRecord::Base
   # Methods
   # -------
 
+  # Returns true if this is a hidden day range associated with a tag
   def hidden?
     !self.parent_tag.blank?
   end

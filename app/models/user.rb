@@ -45,9 +45,6 @@ class User < ActiveRecord::Base
 
   # validates :last_name, presence: true, length: { maximum: User::LAST_NAME_MAX_LENGTH }
 
-  # Add special "All Locations" to locations list.
-  after_create { self.add_location(Location::DEFAULT_NAME, {}) }
-
 
   # Methods
   # -------

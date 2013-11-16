@@ -10,7 +10,6 @@ class Location < ActiveRecord::Base
   # Address fields shown in address string
   ADDRESS_FIELDS_SHOW = [:street, :city, :state, :country]
 
-  ALL_LOCATIONS_NAME = "All Locations"
   NAME_MAX_LENGTH = 10
 
 

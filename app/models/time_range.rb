@@ -1,3 +1,4 @@
+# Primary Author: Jonathan Allen (jallen01)
 class TimeRange < ActiveRecord::Base
 
   # Constants
@@ -40,12 +41,12 @@ class TimeRange < ActiveRecord::Base
     !self.parent_tag.blank?
   end
   
-  def add_time_range(start_t, end_t)
+  def add_time(start_t, end_t)
     self.time_set.merge(start_t..end_t)
     self.save
   end
 
-  def remove_time_range(start_t, end_t)
+  def remove_time(start_t, end_t)
     self.time_set.subtract(start_t..end_t)
     self.save
   end
