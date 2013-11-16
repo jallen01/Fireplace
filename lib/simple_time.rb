@@ -16,6 +16,14 @@ class SimpleTime
     (@hour*60 + @minute) <=> (other.hour*60 + other.minute)
   end
 
+  def eql?(other)
+    (@hour*60 + @minute) == (other.hour*60 + other.minute)
+  end
+
+  def hash
+    (@hour*60 + @minute).hash
+  end
+
   # Get time a minute later. Used for Range.
   def succ
     return SimpleTime(@hour, @minute+1)

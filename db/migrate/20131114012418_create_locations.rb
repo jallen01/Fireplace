@@ -3,10 +3,12 @@ class CreateLocations < ActiveRecord::Migration
     create_table :locations do |t|
       t.belongs_to :user
 
+      t.string :name
+
       t.float :latitude
       t.float :longitude
 
-      t.text :address_data
+      t.text :address_hash
 
       t.timestamps
     end

@@ -1,5 +1,5 @@
 # Primary Author: Jonathan Allen (jallen01)
-class LocationTag < ActiveRecord::Base
+class TagLocation < ActiveRecord::Base
 
   # Attributes
   # ----------
