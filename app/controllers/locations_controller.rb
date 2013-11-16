@@ -4,11 +4,9 @@ class LocationsController < ApplicationController
   before_action :check_permissions
 
   def index
-
   end
 
   def new
-
   end
 
   def create

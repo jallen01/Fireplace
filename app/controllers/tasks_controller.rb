@@ -4,8 +4,6 @@ class TasksController < ApplicationController
   before_action :check_permissions
 
   def index
-    current_user.get_tasks()
-
   end
 
   def new

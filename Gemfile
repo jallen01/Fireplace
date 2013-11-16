@@ -48,6 +48,9 @@ gem 'devise'
 # Needed for Heroku
 gem 'rails_12factor', group: :production
 
+# Bootstrap
+gem "twitter-bootstrap-rails"
+
 # Flat UI
 gem 'flatui-rails'
 
