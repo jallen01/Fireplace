@@ -1,0 +1,28 @@
+<!-- Primary Author: Jonathan Allen (jallen01) -->
+<!-- Modal for displaying a form. -->
+<!-- Add 'modal-form' class to primary form in the modal -->
+<!-- Partial variables: modal_id, modal_data, modal_title, modal_content -->
+
+<!-- Set default partial variables -->
+<% modal_id = nil if local_assigns[:modal_id].nil? %>
+<% modal_data = {} if local_assigns[:modal_data].nil? %>
+<% modal_title = "" if local_assigns[:modal_title].nil? %>
+<% modal_content = "" if local_assigns[:modal_content].nil? %>
+
+<%= content_tag :div, class: "modal fade", id: modal_id, data: modal_data, "aria-hidden" => true, style: "display: none;" do %>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><%= modal_title %></h4>
+        </div>
+        <div class="modal-body">
+          <%= render modal_content %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary modal-form-submit">Save</button>
+        </div>
+      </div>
+    </div>
+<% end %>
