@@ -1,4 +1,7 @@
 $(function(){
+
+	$('.btn-group').button()
+
 	$("#create_task_btn").click(function(){
 		$("#new-task-modal").modal('show');
 	});
@@ -6,25 +9,32 @@ $(function(){
 	var dayTruthList = [false, false, false, false, false, false, false]
 
 	$("#sun").click(function(){
-		dayTruthList[0] = !truthList[0]
+		dayTruthList[0] = !dayTruthList[0]
+		console.log("sun")
 	});
 	$("#mon").click(function(){
-		dayTruthList[1] = !truthList[1]
+		dayTruthList[1] = !dayTruthList[1]
+		console.log("mon")
 	});
 	$("#tues").click(function(){
-		dayTruthList[2] = !truthList[2]
+		dayTruthList[2] = !dayTruthList[2]
+		console.log("tues")
 	});
 	$("#wed").click(function(){
-		dayTruthList[3] = !truthList[3]
+		dayTruthList[3] = !dayTruthList[3]
+		console.log("wed")
 	});
 	$("#thurs").click(function(){
-		dayTruthList[4] = !truthList[4]
+		dayTruthList[4] = !dayTruthList[4]
+		console.log("thurs")
 	});
 	$("#fri").click(function(){
-		dayTruthList[5] = !truthList[5]
+		dayTruthList[5] = !dayTruthList[5]
+		console.log("fri")
 	});
 	$("#sat").click(function(){
-		dayTruthList[6] = !truthList[6]
+		dayTruthList[6] = !dayTruthList[6]
+		console.log("sat")
 	});
 
 	var getDayTruthList = function(){
@@ -167,27 +177,27 @@ $(function(){
 
 
 
-	document.on("submit", "form_custom", function(){
+	$(document).on("submit", "form_custom", function(){
 		$("#tags").val(tagIDList)
 	});
 
-	document.on("submit", "form_custom", function(){
+	$(document).on("submit", "form_custom", function(){
 		$("#day_ranges").val(dayIDList)
 	});
 
-	document.on("submit", "form_custom", function(){
+	$(document).on("submit", "form_custom", function(){
 		$("#form_day_range").val(dayTruthList)
 	});
 
-	document.on("submit", "form_custom", function(){
+	$(document).on("submit", "form_custom", function(){
 		$("#time_ranges").val(timeIDList)
 	});
 
-	document.on("submit", "form_custom", function(){
+	$(document).on("submit", "form_custom", function(){
 		$("#form_time_range").val(timeTruthList)
 	});
 
-	document.on("submit", "form_custom", function(){
+	$(document).on("submit", "form_custom", function(){
 		$("#locations").val(locationIDList)
 	});
 

@@ -59,7 +59,7 @@ class Task < ActiveRecord::Base
     self.clear_metadata
 
     # If no attached tags, update hidden tag metadata.
-    if tags.blank?
+    if tags == nil
       self.hidden_tag.update_metadata(metadata)
     # Else, update tags list
     else

@@ -19,13 +19,15 @@
 			<button type="button" class="btn btn-default tag" id=<%=tag.id%> >tag.name</button>
 		<% end %>
 
-		<%= f.submit, :class => " btn btn-primary" %>
+		<%= hidden_field_tag 'tags' %>
+
+		<%= f.submit 'Create', :class => 'btn btn-primary' %>
 
 	<% end %>
 </div>
 
 <div id="form_custom">
-	<% form_for @new_task do |f| %>
+	<%= form_for @new_task do |f| %>
 		<%= f.label :title %>
 		<%= f.text_field :title %><br>
 		<%= f.label :content %>
@@ -43,14 +45,28 @@
 					<button type="button" class="btn btn-default" id="custom_days"%> > Custom </button>
 				</div>
 			</div>
-			<div id="days">
-				<button type="button" class="btn btn-default" id="sun"%> > Sunday </button>
-				<button type="button" class="btn btn-default" id="mon"%> > Monday </button>
-				<button type="button" class="btn btn-default" id="tues"%> > Tuesday </button>
-				<button type="button" class="btn btn-default" id="wed"%> > Wednesday </button>
-				<button type="button" class="btn btn-default" id="thurs"%> > Thursday </button>
-				<button type="button" class="btn btn-default" id="fri"%> > Friday </button>
-				<button type="button" class="btn btn-default" id="sat"%> > Saturday </button>
+			<div class="btn-group" data-toggle="buttons" id="days">
+			  <label class="btn btn-default">
+			    <input type="checkbox" id="sun"> Sunday
+			  </label>
+			  <label class="btn btn-default">
+			    <input type="checkbox" id="mon"> Monday
+			  </label>
+			  <label class="btn btn-default">
+			    <input type="checkbox" id="tues"> Tuesday
+			  </label>
+			  <label class="btn btn-default">
+			    <input type="checkbox" id="wed"> Wednesday
+			  </label>
+			  <label class="btn btn-default">
+			    <input type="checkbox" id="thurs"> Thursday
+			  </label>
+			  <label class="btn btn-default">
+			    <input type="checkbox" id="fri"> Friday
+			  </label>
+			  <label class="btn btn-default">
+			    <input type="checkbox" id="sat"> Saturday
+			  </label>
 			</div>
 		</div>
 
@@ -111,14 +127,14 @@
 			</div>
 		</div>
 
-		<%= hidden_field_tag 'tags' %>
 		<%= hidden_field_tag 'day_ranges' %>
 		<%= hidden_field_tag 'form_day_range' %>
 		<%= hidden_field_tag 'time_ranges' %>
 		<%= hidden_field_tag 'form_time_range' %>
 		<%= hidden_field_tag 'locations' %>
+		<%= hidden_field_tag 'metadata' %>
 
-		<%= f.submit, :class => " btn btn-primary" %>
+		<%= f.submit 'Create', :class => 'btn btn-primary' %>
 
 	<% end %>
 </div>
