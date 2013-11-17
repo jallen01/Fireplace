@@ -3,20 +3,30 @@ class TasksController < ApplicationController
   before_action :set_task, except: [:index, :new, :create]
 
   def index
-    @new_task = Task.new(user: current_user)
+    @task = Task.new(user: current_user)
     @tasks = current_user.get_tasks(session[:time_frame], session[:policies], session[:location])
+    #logger.debug "all-my-tasks"
+    #logger.debug @tasks
   end
 
   def new
+     @task = Task.new(user: current_user)
   end
 
   def create
-    @new_task = current_user.add_task(task_params[:title], task_params[:content])
-    unless @new_task.errors.any?
-      #@new_task = Task.new(user: current_user)
-      #@new_task.update_metadata(nil, params[:metadata])
-      @new_task.update_metadata(params[:tags], params[:day_ranges], params[:form_day_range], params[:time_ranges], params[:form_time_range], params[:locations])
-
+    @task = current_user.add_task(task_params[:title], task_params[:content])
+    unless @task.errors.any?
+      day_check_array = nil
+      if params[:daychecks] != nil
+        day_check_array = Util.process_days(params[:daychecks])
+      end
+      time_check_array = nil
+      if params[:timechecks] != nil
+        time_check_array = Util.process_times(params[:timechecks])
+      end
+      @task.update_metadata(params[:tags], params[:day_ranges], day_check_array, params[:time_ranges], time_check_array, params[:locations])
+      logger.debug "task-creation"
+      logger.debug @task.hidden_tag.hidden_day_range.id
       # metadata[:day_range] = [false, true, true, false, false,...]
       # metadata[:time_range] = [false, true, true, ...]
       # metadata[:locations] = [id1, id2, ...]

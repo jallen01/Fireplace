@@ -61,10 +61,10 @@ class TimeRange < ActiveRecord::Base
   def update_from_array(array)
     n = array.length
     self.clear
-    real_array = array.split(",")
-    #imes = (SimpleTime.new(0, 0)..SimpleTime.new(24, 0)).step((24.0*60.0/(n+1)).ceil).to_a[0..-2]
+    #real_array = array.split(",")
+    times = (SimpleTime.new(0, 0)..SimpleTime.new(24, 0)).step((24.0*60.0/(n+1)).ceil).to_a[0..-2]
     #real_array.each_index { |i| self.add_time(times[i]) if real_array[i] }
-    real_array.each_index { |i| self.add_time(SimpleTime.new(i, 0), SimpleTime.new(i+1, 0)) if real_array[i] }
+    array.each_index { |i| self.add_time(SimpleTime.new(i, 0), SimpleTime.new(i+1, 0)) if array[i] }
     self.save
   end
 

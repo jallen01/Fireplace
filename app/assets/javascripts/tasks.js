@@ -6,9 +6,38 @@ $(function(){
 		$("#new-task-modal").modal('show');
 	});
 
-	var dayTruthList = [false, false, false, false, false, false, false]
+	//var dayTruthList = [false, false, false, false, false, false, false]
 
-	$("#sun").click(function(){
+	/*$("input:checkbox").click(function(){
+		//console.log("checkbox action")
+		var checkbox_id = $(this).attr('id')
+		if(checkbox_id === "sun"){
+			dayTruthList[0] = !dayTruthList[0]
+			//console.log("sun")
+		}else if(checkbox_id === "mon"){
+			dayTruthList[1] = !dayTruthList[1]
+			//console.log("mon")
+		}else if(checkbox_id === "tues"){
+			dayTruthList[2] = !dayTruthList[2]
+			//console.log("tues")
+		}else if(checkbox_id === "wed"){
+			dayTruthList[3] = !dayTruthList[3]
+			//console.log("wed")
+		}else if(checkbox_id === "thurs"){
+			dayTruthList[4] = !dayTruthList[4]
+			//console.log("thurs")
+		}else if(checkbox_id === "fri"){
+			dayTruthList[5] = !dayTruthList[5]
+			//console.log("fri")
+		}else if(checkbox_id === "sat"){
+			dayTruthList[6] = !dayTruthList[6]
+			//console.log("sat")
+		}
+
+
+	});*/
+
+	/*$("#sun").click(function(){
 		dayTruthList[0] = !dayTruthList[0]
 		console.log("sun")
 	});
@@ -35,17 +64,12 @@ $(function(){
 	$("#sat").click(function(){
 		dayTruthList[6] = !dayTruthList[6]
 		console.log("sat")
-	});
-
-	var getDayTruthList = function(){
-		return dayTruthList
-	};
+	});*/
 
 
+	//var timeTruthList = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
-	var timeTruthList = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
-
-	$("#time_12am").click(function(){
+	/*$("#time_12am").click(function(){
 		timeTruthList[0] = !timeTruthList[0]
 	});
 	$("#time_1am").click(function(){
@@ -116,11 +140,7 @@ $(function(){
 	});
 	$("#time_11pm").click(function(){
 		timeTruthList[23] = !timeTruthList[23]
-	});
-
-	var getTimeTruthList = function(){
-		return timeTruthList
-	};
+	});*/
 
 
 
@@ -178,26 +198,13 @@ $(function(){
 
 
 	$(document).on("submit", "form.new_task", function(){
+		//console.log(dayTruthList)
 		$("#tags").val(tagIDList)
-	});
-
-	$(document).on("submit", "form.new_task", function(){
 		$("#day_ranges").val(dayIDList)
-	});
-
-	$(document).on("submit", "form.new_task", function(){
-		$("#form_day_range").val(dayTruthList)
-	});
-
-	$(document).on("submit", "form.new_task", function(){
+		//$("#form_day_range").val(dayTruthList)
+		//console.log($("#form_day_range").val())
 		$("#time_ranges").val(timeIDList)
-	});
-
-	$(document).on("submit", "form.new_task", function(){
-		$("#form_time_range").val(timeTruthList)
-	});
-
-	$(document).on("submit", "form.new_task", function(){
+		//$("#form_time_range").val(timeTruthList)
 		$("#locations").val(locationIDList)
 	});
 

@@ -89,9 +89,7 @@ class User < ActiveRecord::Base
     end
 
     relevant_tasks = self.tasks
-    #logger.debug "TASK_NUM"
-    #logger.debug relevant_tasks.size
-    
+
     if policies
       relevant_tasks = relevant_tasks.where(important: true) if policies[:show_only_important]
       relevant_tasks = relevant_tasks.where(long_lasting: [false, nil]) unless policies[:show_long_lasting]
@@ -99,8 +97,9 @@ class User < ActiveRecord::Base
 
     real_rel_tasks = relevant_tasks.to_a.select { |task| task.relevant?(date, time, day, location) }
 
-    #logger.debug "REL_TASK_NUM"
-    #logger.debug real_rel_tasks.size
+    logger.debug "real-rel-tasks"
+    logger.debug real_rel_tasks.size
+
     real_rel_tasks
 
   end

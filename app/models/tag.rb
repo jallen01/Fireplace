@@ -98,16 +98,32 @@ class Tag < ActiveRecord::Base
 
   # TODO
   def update_metadata(day_ranges, form_day_range, time_range, form_time_range, locations)
+    
+    logger.debug "tag update_metadata params"
+    logger.debug day_ranges
+    logger.debug form_day_range
+    logger.debug time_range
+    logger.debug form_time_range
+    logger.debug locations
+
     if day_ranges != nil && day_ranges.size > 0
       day_ranges.each(&self.add_day_range)
     else
-      self.hidden_day_range.update_from_array(form_day_range)
+      if form_day_range
+        self.hidden_day_range.update_from_array(form_day_range)
+        logger.debug "see-day-range"
+        logger.debug self.hidden_day_range.id
+      end
     end
 
     if time_ranges != nil && time_ranges.size > 0
       time_ranges.each(&self.add_time_range)
     else
-      self.hidden_time_range.update_from_array(form_time_range)
+      if form_time_range
+        self.hidden_time_range.update_from_array(form_time_range)
+        logger.debug "see-time-range"
+        logger.debug self.hidden_time_range.id
+      end
     end
     if locations != nil && locations.size > 0
       locations.each(&self.add_location)
@@ -134,9 +150,9 @@ class Tag < ActiveRecord::Base
 
   def relevant?(time, day, location)
     result = true
-    result &&= location.blank? || self.include_location?(location)
-    result &&= day.blank? || self.include_day?(day)
-    result &&= time.blank? || self.include_time?(time)
+    result &&= (location.blank? || self.include_location?(location))
+    result &&= (day.blank? || self.include_day?(day))
+    result &&= (time.blank? || self.include_time?(time))
     
     result
   end
