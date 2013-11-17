@@ -94,7 +94,7 @@ class Task < ActiveRecord::Base
 
     intermediate = false
 
-    if self.tags.size > 0
+    if self.tags && self.tags.size > 0
       self.tags.each { |tag| intermediate ||= tag.relevant?(date, time, day, location) }
       result &&= intermediate
     else
