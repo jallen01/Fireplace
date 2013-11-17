@@ -1,8 +1,124 @@
 <h1>Create Task</h1>
 
-<% form_for @task do |f| %>
-	<%= f.label :title %>
-	<%= f.text_field :title %><br>
-	<%= f.label :content %>
-	<%= f.text_area :content %><br>
-<% end %>
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#tags">Tags</a></li>
+  <li><a href="#custom">Custom</a></li>
+</ul>
+
+<div id="form_with_tags">
+	<% form_for @new_task do |f| %>
+		<%= f.label :title %>
+		<%= f.text_field :title %><br>
+		<%= f.label :content %>
+		<%= f.text_area :content %><br>
+
+		<div>
+			Choose tags
+		</div>
+		<% current_user.tags.each do |tag| %>
+			<button type="button" class="btn btn-default tag" id=<%=tag.id%> >tag.name</button>
+		<% end %>
+
+		<%= f.submit, :class => " btn btn-primary" %>
+
+	<% end %>
+</div>
+
+<div id="form_custom">
+	<% form_for @new_task do |f| %>
+		<%= f.label :title %>
+		<%= f.text_field :title %><br>
+		<%= f.label :content %>
+		<%= f.text_area :content %><br>
+
+		<div>
+			<div>
+				Days:
+			</div>
+			<div>
+				<% current_user.day_ranges.each do |day_range| %>
+					<button type="button" class="btn btn-default range_days" id=<%=day_range.id%> >day_range.name</button>
+				<% end %>
+				<div>
+					<button type="button" class="btn btn-default" id="custom_days"%> > Custom </button>
+				</div>
+			</div>
+			<div id="days">
+				<button type="button" class="btn btn-default" id="sun"%> > Sunday </button>
+				<button type="button" class="btn btn-default" id="mon"%> > Monday </button>
+				<button type="button" class="btn btn-default" id="tues"%> > Tuesday </button>
+				<button type="button" class="btn btn-default" id="wed"%> > Wednesday </button>
+				<button type="button" class="btn btn-default" id="thurs"%> > Thursday </button>
+				<button type="button" class="btn btn-default" id="fri"%> > Friday </button>
+				<button type="button" class="btn btn-default" id="sat"%> > Saturday </button>
+			</div>
+		</div>
+
+		<div>
+			<div>
+				Times:
+			</div>
+			<div>
+				<% current_user.time_ranges.each do |time_range| %>
+					<button type="button" class="btn btn-default range_times" id=<%=time_range.id%> >time_range.name</button>
+				<% end %>
+				<div>
+					<button type="button" class="btn btn-default" id="custom_days"%> > Custom </button>
+				</div>
+			</div>
+			<div id="times">
+				<div id="am_times">
+					<div> AM </div>
+					<button type="button" class="btn btn-default" id="time_12am"%> > 12 </button>
+					<button type="button" class="btn btn-default" id="time_1am"%> > 1 </button>
+					<button type="button" class="btn btn-default" id="time_2am"%> > 2 </button>
+					<button type="button" class="btn btn-default" id="time_3am"%> > 3 </button>
+					<button type="button" class="btn btn-default" id="time_4am"%> > 4 </button>
+					<button type="button" class="btn btn-default" id="time_5am"%> > 5 </button>
+					<button type="button" class="btn btn-default" id="time_6am"%> > 6 </button>
+					<button type="button" class="btn btn-default" id="time_7am"%> > 7 </button>
+					<button type="button" class="btn btn-default" id="time_8am"%> > 8 </button>
+					<button type="button" class="btn btn-default" id="time_9am"%> > 9 </button>
+					<button type="button" class="btn btn-default" id="time_10am"%> > 10 </button>
+					<button type="button" class="btn btn-default" id="time_11am"%> > 11 </button>
+				</div>
+				<div id="pm_times">
+					<div> PM </div>
+					<button type="button" class="btn btn-default" id="time_12pm"%> > 12 </button>
+					<button type="button" class="btn btn-default" id="time_1pm"%> > 1 </button>
+					<button type="button" class="btn btn-default" id="time_2pm"%> > 2 </button>
+					<button type="button" class="btn btn-default" id="time_3pm"%> > 3 </button>
+					<button type="button" class="btn btn-default" id="time_4pm"%> > 4 </button>
+					<button type="button" class="btn btn-default" id="time_5pm"%> > 5 </button>
+					<button type="button" class="btn btn-default" id="time_6pm"%> > 6 </button>
+					<button type="button" class="btn btn-default" id="time_7pm"%> > 7 </button>
+					<button type="button" class="btn btn-default" id="time_8pm"%> > 8 </button>
+					<button type="button" class="btn btn-default" id="time_9pm"%> > 9 </button>
+					<button type="button" class="btn btn-default" id="time_10pm"%> > 10 </button>
+					<button type="button" class="btn btn-default" id="time_11pm"%> > 11 </button>
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<div>
+				Locations:
+			</div>
+			<div>
+				<% current_user.locations.each do |location| %>
+					<button type="button" class="btn btn-default loc" id=<%=location.id%> >location.name</button>
+				<% end %>
+			</div>
+		</div>
+
+		<%= hidden_field_tag 'tags' %>
+		<%= hidden_field_tag 'day_ranges' %>
+		<%= hidden_field_tag 'form_day_range' %>
+		<%= hidden_field_tag 'time_ranges' %>
+		<%= hidden_field_tag 'form_time_range' %>
+		<%= hidden_field_tag 'locations' %>
+
+		<%= f.submit, :class => " btn btn-primary" %>
+
+	<% end %>
+</div>
