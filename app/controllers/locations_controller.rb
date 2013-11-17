@@ -3,6 +3,8 @@ class LocationsController < ApplicationController
   before_action :set_location, except: [:index, :new, :create]
 
   def index
+    @locations = Location.where(:user_id => current_user.id)
+
   end
 
   def new

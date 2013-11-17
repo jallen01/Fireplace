@@ -5,9 +5,14 @@ class TasksController < ApplicationController
   def index
     @new_task = Task.new(user: current_user)
     @tasks = current_user.get_tasks(session[:time_frame], session[:policies], session[:location])
+
+    #save user's current location to db
+   
     @lat_lng = cookies[:lat_lng].split("|")
     @address = Geocoder.search("#{@lat_lng[0]}, #{@lat_lng[1]}")[0].address(format = :full)
-    @country_code = request.location.country_code
+    
+    @current_location = Location.new
+    @current_location.save_current_location(current_user, @lat_lng[0], @lat_lng[1])
     
 
 
