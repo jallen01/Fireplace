@@ -4,10 +4,10 @@
 
 <div>
 	Current location: <%= "current_user.get_current_location" %>
-</div>
+</div><br>
 
 <div>
-	<span> Is this correct? </span>
+	<!-- <span> Is this correct? </span><br> -->
 	<span>
 		<select class="form-control">
 			<option>Select</option>
@@ -24,17 +24,20 @@
 			<option value="this_week">This Week</option>
       		<option value="all_time">All Time</option>
 		</select>
-	</span>
-	<span>
-		<label class="checkbox-inline">
-			<input type="checkbox" id="importantCheckbox">Important?
-		</label>
-	</span>
-	<span>
-		<label class="checkbox-inline">
-			<input type="checkbox" id="longtermCheckbox">Long Term?
-		</label>
-	</span>
+	</span><br><br>
+	<div>
+		Show:
+		<span>
+			<label class="checkbox-inline">
+				<input type="checkbox" id="importantCheckbox"> Important Tasks
+			</label>
+		</span>
+		<span>
+			<label class="checkbox-inline">
+				<input type="checkbox" id="longtermCheckbox"> Long Term Tasks
+			</label>
+		</span>
+	</div><br>
 </div>
 
 <div class="task-list">
