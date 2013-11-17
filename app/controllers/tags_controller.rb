@@ -3,8 +3,8 @@ class TagsController < ApplicationController
   before_action :set_tag, except: [:index, :new, :create]
 
   def index
-    current_user.get_tasks()
-
+    @new_tag = Tag.new(user: current_user)
+    @tags = current_user.tags
   end
 
   def new

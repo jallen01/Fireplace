@@ -12,7 +12,7 @@
         <td><%= link_to task.title, task %></td>
         <td><%= task.content %></td>
       </tr>
-      <%= render "layouts/modal_form", modal_id: "edit-task-modal", modal_title: "Edit Tast", modal_data: {form: "temporary"}, modal_content: "tasks/edit_form" %>
+      <%= render "layouts/modal_form", modal_id: "edit-task-modal", modal_title: "Edit Task", modal_data: {form: "temporary"}, modal_content: "tasks/edit_form" %>
     <% end %>
   </tbody>
 </table>
