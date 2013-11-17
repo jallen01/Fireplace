@@ -3,8 +3,12 @@ class TasksController < ApplicationController
   before_action :set_task, except: [:index, :new, :create]
 
   def index
+<<<<<<< HEAD
     @tasks = current_user.get_tasks(session[:time_frame], session[:policies])
     @new_task = Task.new(user: current_user)
+=======
+    @tasks = current_user.get_tasks(session[:time_frame], session[:policies], session[:location])
+>>>>>>> 4c8a1a61b92b9b2ce080305b2196a37d8eb6f08c
   end
 
   def new

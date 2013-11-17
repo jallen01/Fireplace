@@ -1,11 +1,45 @@
 <% provide(:title, "Tasks") %>
-<h1>Listing users</h1>
+<h1>Fireplace</h1>
+
+<br>
+
+<div>
+	Current location: <%=current_user.get_current_location%>
+</div>
+
+<div>
+	<span> Is this correct? </span>
+	<span>
+		<select class="form-control">
+			<option>Select</option>
+			<% current_user.locations do |loc| %>
+				<option>loc.name</option>
+			<% end %>
+		</select>
+	</span>
+	<span>
+		<select class="form-control">
+			<option>Now</option>
+			<option>Today</option>
+			<option>Tomorrow</option>
+			<option>This Week</option>
+		</select>
+	</span>
+	<span>
+		<label class="checkbox-inline">
+			<input type="checkbox" id="importantCheckbox"> Important?
+		</label>
+	</span>
+	<span>
+		<label class="checkbox-inline">
+			<input type="checkbox" id="importantCheckbox"> Long term?
+		</label>
+	</span>
+</div>
 
 <div class="task-list">
   <%= render partial: "task_list", locals: {tasks: @tasks} %>
 </div>
-
-<br>
 
 <%= render "layouts/modal_form", modal_id: "new-task-modal", modal_title: "New Task", modal_data: { form: "temporary" }, modal_content: "tasks/new_form" %>
 
