@@ -21,12 +21,6 @@ class TasksController < ApplicationController
   end
 
   def create
-<<<<<<< HEAD
-    @new_task = current_user.add_task(task_params[:title], task_params[:content])
-    unless @new_task.errors.any?
-      @new_task.update_metadata(params[:tags], params[:day_ranges], params[:form_day_range],
-        params[:time_ranges], params[:form_time_range], params[:locations])
-=======
     @task = current_user.add_task(task_params[:title], task_params[:content])
     unless @task.errors.any?
       day_check_array = nil
@@ -38,13 +32,6 @@ class TasksController < ApplicationController
         time_check_array = Util.process_times(params[:timechecks])
       end
       @task.update_metadata(params[:tags], params[:day_ranges], day_check_array, params[:time_ranges], time_check_array, params[:locations])
-      logger.debug "task-creation"
-      logger.debug @task.hidden_tag.hidden_day_range.id
-      # metadata[:day_range] = [false, true, true, false, false,...]
-      # metadata[:time_range] = [false, true, true, ...]
-      # metadata[:locations] = [id1, id2, ...]
-      # metadata[:tags] = [id1, id2, ...]
->>>>>>> de024ef9c049ce1dad65015e1c0db485dec56fc2
     end
     respond_to do |format|
       format.html { redirect_to tasks_path }
