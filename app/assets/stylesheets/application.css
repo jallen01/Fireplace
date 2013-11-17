@@ -12,3 +12,46 @@
  *= require_self
  *= require_tree .
  */
+
+/* ------- General ------- */
+
+.no_left_margin {
+	margin-left: 0px !important;
+}
+
+.vertical_line {
+	border-left: solid black 2px;
+}
+
+.devise_form {
+	margin-top: 50px;
+}
+
+body {
+	min-height: 100%;
+	padding-bottom: 30px;
+	background: -moz-linear-gradient(top, #fefcea 0%, #ffcc66 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffcc66),
+		color-stop(100%,#ffcc66)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #fefcea 0%,#ffcc66 100%); /* Chrome10+,Safari5.1+ */
+}
+
+html {
+	min-height: 100%;
+}
+
+/* ------ Tasks ------- */
+
+#tasksHeaderRow {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.table-striped tbody > tr:nth-child(2n) > td {
+	background-color: #dddddd;
+}
+
+#tasksRightPane {
+	padding-left: 30px;
+	text-align: right;
+}
