@@ -59,6 +59,13 @@ class Task < ActiveRecord::Base
     #self.clear_metadata
 
     # If no attached tags, update hidden tag metadata.
+    logger.debug "task update_metadata params"
+    logger.debug tags
+    logger.debug day_ranges
+    logger.debug form_day_range
+    logger.debug time_range
+    logger.debug form_time_range
+    logger.debug locations
     if tags == nil || tags.size == 0
       self.hidden_tag.update_metadata(day_ranges, form_day_range, time_range, form_time_range, locations)
     # Else, update tags list
@@ -87,15 +94,12 @@ class Task < ActiveRecord::Base
   def relevant?(date, time, day, location)
     result = true
     # if a deadline has been set is the deadline soon enough to show the task?
-    result &&= self.deadline.blank? || (date - self.deadline) < self.days_notice
-
-    logger.debug "SELF_TAGS"
-    logger.debug self.tags.size
+    result &&= (self.deadline.blank? || ((date - self.deadline) < self.days_notice))
 
     intermediate = false
 
     if self.tags && self.tags.size > 0
-      self.tags.each { |tag| intermediate ||= tag.relevant?(date, time, day, location) }
+      self.tags.each { |tag| intermediate ||= tag.relevant?(time, day, location) }
       result &&= intermediate
     else
       result &&= self.hidden_tag.relevant?(time, day, location)

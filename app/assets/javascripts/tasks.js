@@ -123,8 +123,6 @@ $(function(){
 		return timeTruthList
 	};
 
-
-
 	var tagIDList = []
 	var timeIDList = []
 	var locationIDList = []
@@ -179,26 +177,13 @@ $(function(){
 
 
 	$(document).on("submit", "form.new_task", function(){
+		//console.log(dayTruthList)
 		$("#tags").val(tagIDList)
-	});
-
-	$(document).on("submit", "form.new_task", function(){
 		$("#day_ranges").val(dayIDList)
-	});
-
-	$(document).on("submit", "form.new_task", function(){
-		$("#form_day_range").val(dayTruthList)
-	});
-
-	$(document).on("submit", "form.new_task", function(){
+		//$("#form_day_range").val(dayTruthList)
+		//console.log($("#form_day_range").val())
 		$("#time_ranges").val(timeIDList)
-	});
-
-	$(document).on("submit", "form.new_task", function(){
-		$("#form_time_range").val(timeTruthList)
-	});
-
-	$(document).on("submit", "form.new_task", function(){
+		//$("#form_time_range").val(timeTruthList)
 		$("#locations").val(locationIDList)
 	});
 
@@ -238,7 +223,7 @@ $(function(){
 
 	// });
 	
-	function getGeoLocation() {
+	/*function getGeoLocation() {
 	  navigator.geolocation.getCurrentPosition(setGeoCookie, errorMsg, {enableHighAccuracy: true});
 	}
 
@@ -251,6 +236,6 @@ $(function(){
 	  document.cookie = "lat_lng=" + escape(cookie_val);
 	}
 
-	getGeoLocation();
+	getGeoLocation();*/
 
 })
