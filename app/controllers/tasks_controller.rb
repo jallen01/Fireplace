@@ -3,12 +3,8 @@ class TasksController < ApplicationController
   before_action :set_task, except: [:index, :new, :create]
 
   def index
-<<<<<<< HEAD
-    @tasks = current_user.get_tasks(session[:time_frame], session[:policies])
     @new_task = Task.new(user: current_user)
-=======
     @tasks = current_user.get_tasks(session[:time_frame], session[:policies], session[:location])
->>>>>>> 4c8a1a61b92b9b2ce080305b2196a37d8eb6f08c
   end
 
   def new
@@ -19,6 +15,12 @@ class TasksController < ApplicationController
     @new_task = current_user.add_task(params[:title], params[:content])
     unless @new_task.errors.any?
       @new_task = Task.new(user: current_user)
+      @new_task.update_metadata(params[:metadata])
+
+      # metadata[:day_range] = [false, true, true, false, false,...]
+      # metadata[:time_range] = [false, true, true, ...]
+      # metadata[:locations] = [id1, id2, ...]
+      # metadata[:tags] = [id1, id2, ...]
     end
     respond_to do |format|
       format.js
@@ -35,7 +37,12 @@ class TasksController < ApplicationController
 
   def update
     @task.update(task_params)
-    
+    @task.update_metadata(params[:metadata])
+
+    # metadata[:day_range] = [false, true, true, false, false,...]
+    # metadata[:time_range] = [false, true, true, ...]
+    # metadata[:locations] = [id1, id2, ...]
+    # metadata[:tags] = [id1, id2, ...]
   end
 
   def destroy
