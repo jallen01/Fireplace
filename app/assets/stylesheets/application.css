@@ -55,3 +55,14 @@ html {
 	padding-left: 30px;
 	text-align: right;
 }
+
+/* ------ Tags ------- */
+
+#tagsHeaderRow {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.table-striped tbody > tr:nth-child(2n) > td {
+	background-color: #dddddd;
+}

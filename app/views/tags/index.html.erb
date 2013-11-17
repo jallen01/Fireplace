@@ -1,9 +1,22 @@
 <% provide(:title, "Tags") %>
 
-<h1><%= current_user.first_name %>'s Tags</h1><br>
 
-<div class="tag-list">
-  <%= render partial: "tag_list", locals: {tags: @tags} %>
+<div class="row">
+  <div id="tagsHeaderRow" class="span12">
+    <h1><%= current_user.first_name %>'s Tags</h1><br>
+  </div>
+</div>
+
+<div class="row">
+
+  <div id="tagsPane" class="span4 offset4">
+	<div class="tag-list">
+	  <%= render partial: "tag_list", locals: {tags: @tags} %>
+	</div>
+
+	<button type="button" class="btn btn-primary" id="create_tag_btn">New Tag</button>
+  </div>
+
 </div>
 
 <%= render "layouts/modal_form", modal_id: "new-tag-modal", modal_title: "New Tag", modal_data: { form: "temporary" }, modal_content: "tags/new_form" %>

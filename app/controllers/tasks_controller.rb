@@ -6,15 +6,13 @@ class TasksController < ApplicationController
     @new_task = Task.new(user: current_user)
     @tasks = current_user.get_tasks(session[:time_frame], session[:policies], session[:location])
 
-    #save user's current location to db
+    # save user's current location to db
    
-    @lat_lng = cookies[:lat_lng].split("|")
-    @address = Geocoder.search("#{@lat_lng[0]}, #{@lat_lng[1]}")[0].address(format = :full)
+    # @lat_lng = cookies[:lat_lng].split("|")
+    # @address = Geocoder.search("#{@lat_lng[0]}, #{@lat_lng[1]}")[0].address(format = :full)
     
-    @current_location = Location.new
-    @current_location.save_current_location(current_user, @lat_lng[0], @lat_lng[1])
-    
-
+    # @current_location = Location.new
+    # @current_location.save_current_location(current_user, @lat_lng[0], @lat_lng[1])
 
   end
 
@@ -25,14 +23,8 @@ class TasksController < ApplicationController
   def create
     @new_task = current_user.add_task(task_params[:title], task_params[:content])
     unless @new_task.errors.any?
-      #@new_task = Task.new(user: current_user)
-      #@new_task.update_metadata(nil, params[:metadata])
-      @new_task.update_metadata(params[:tags], params[:day_ranges], params[:form_day_range], params[:time_ranges], params[:form_time_range], params[:locations])
-
-      # metadata[:day_range] = [false, true, true, false, false,...]
-      # metadata[:time_range] = [false, true, true, ...]
-      # metadata[:locations] = [id1, id2, ...]
-      # metadata[:tags] = [id1, id2, ...]
+      @new_task.update_metadata(params[:tags], params[:day_ranges], params[:form_day_range],
+        params[:time_ranges], params[:form_time_range], params[:locations])
     end
     respond_to do |format|
       format.html { redirect_to tasks_path }
@@ -49,12 +41,6 @@ class TasksController < ApplicationController
   def update
     @task.update(task_params)
     @task.update_metadata(nil, params[:metadata])
-
-
-    # metadata[:day_range] = [false, true, true, false, false,...]
-    # metadata[:time_range] = [false, true, true, ...]
-    # metadata[:locations] = [id1, id2, ...]
-    # metadata[:tags] = [id1, id2, ...]
   end
 
   def destroy

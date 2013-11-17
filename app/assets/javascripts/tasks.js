@@ -1,6 +1,6 @@
 $(function(){
 
-	$('.btn-group').button()
+	$('.btn-group').button();
 
 	$("#create_task_btn").click(function(){
 		$("#new-task-modal").modal('show');
@@ -10,36 +10,36 @@ $(function(){
 	var dayTruthList = [false, false, false, false, false, false, false]
 
 	$("#sun").click(function(){
-		dayTruthList[0] = !dayTruthList[0]
-		console.log("sun")
+		dayTruthList[0] = !dayTruthList[0];
+		console.log("sun");
 	});
 	$("#mon").click(function(){
-		dayTruthList[1] = !dayTruthList[1]
-		console.log("mon")
+		dayTruthList[1] = !dayTruthList[1];
+		console.log("mon");
 	});
 	$("#tues").click(function(){
-		dayTruthList[2] = !dayTruthList[2]
-		console.log("tues")
+		dayTruthList[2] = !dayTruthList[2];
+		console.log("tues");
 	});
 	$("#wed").click(function(){
-		dayTruthList[3] = !dayTruthList[3]
-		console.log("wed")
+		dayTruthList[3] = !dayTruthList[3];
+		console.log("wed");
 	});
 	$("#thurs").click(function(){
-		dayTruthList[4] = !dayTruthList[4]
-		console.log("thurs")
+		dayTruthList[4] = !dayTruthList[4];
+		console.log("thurs");
 	});
 	$("#fri").click(function(){
-		dayTruthList[5] = !dayTruthList[5]
-		console.log("fri")
+		dayTruthList[5] = !dayTruthList[5];
+		console.log("fri");
 	});
 	$("#sat").click(function(){
-		dayTruthList[6] = !dayTruthList[6]
-		console.log("sat")
+		dayTruthList[6] = !dayTruthList[6];
+		console.log("sat");
 	});
 
 	var getDayTruthList = function(){
-		return dayTruthList
+		return dayTruthList;
 	};
 
 
