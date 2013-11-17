@@ -1,0 +1,22 @@
+<h1>Tags</h1>
+
+<table class="table table-striped">
+	<tbody>
+	    <!-- event passed in -->
+	    <% current_user.tags.each do |tag| %>
+	    <tr>
+		    <td>
+                <!--<a href="#" class="username"><%=debt.debtor.name%></a>-->
+                <div> <%= tag.name %> </div>
+		    </td>
+		    <td>
+				<!--<a href="#" class="amount"><%=number_to_currency(debt.amount)%></a>-->
+				<div> <%= number_to_currency(debt.amount) %> </div>
+			</td>
+			<td>
+			    <%= link_to 'Remove', debt, method: :delete, remote: true, class: "btn btn-small btn-primary" %>
+			</td>
+		</tr>
+	    <%end%>
+	</tbody>
+</table>

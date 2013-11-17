@@ -41,7 +41,11 @@
   <%= render partial: "task_list", locals: {tasks: @tasks} %>
 </div>
 
-<%= render "layouts/modal_form", modal_id: "new-task-modal", modal_title: "New Task", modal_data: { form: "temporary" }, modal_content: "tasks/new_form" %>
+<div>
+	<div>
+		<button type="button" class="btn btn-primary" id="create_task_btn">Create a task</button>
+		<button type="button" class="btn btn-primary" id="customizations_btn">Customizations</button>
+	</div>
+</div>
 
-<%= render "layouts/modal_form", modal_id: "edit-task-model", modal_title: "Edit Tast", modal_data: {form: "temporary"},
-  modal_content: "tasks/edit_form" %>
+<%= render "layouts/modal_form", modal_id: "new-task-modal", modal_title: "New Task", modal_data: { form: "temporary" }, modal_content: "tasks/new_form" %>
