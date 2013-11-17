@@ -40,6 +40,15 @@ class Task < ActiveRecord::Base
   # Methods
   # -----------
 
+  def update_metadata(metadata)
+
+    metadata[:day_range]
+    metadata[:time_range]
+    metadata[:locations]
+    metadata[:tags]
+
+  end
+
   def relevant?(time, day, location)
     result = true
     result &&= self.tag.include_time?(time) if time
