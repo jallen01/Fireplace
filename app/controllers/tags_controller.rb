@@ -34,10 +34,6 @@ class TagsController < ApplicationController
   def update
     @task.update(task_params)
     @task.update_metadata(params[:metadata])
-
-    # metadata[:day_range] = [false, true, true, false, false,...]
-    # metadata[:time_range] = [false, true, true, ...]
-    # metadata[:locations] = [id1, id2, ...]
   end
 
   def destroy

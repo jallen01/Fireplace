@@ -72,10 +72,6 @@ class TimeRange < ActiveRecord::Base
 
   # Returns true if time_set is empty or time is in time_set.
   def include_time?(time)
-    if self.time_set.blank?
-      return true
-    else
-      return self.time_set.include?(time)
-    end
+    self.time_set.include?(time) || self.time_set.blank?
   end
 end
