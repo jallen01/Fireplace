@@ -4,14 +4,21 @@ class TasksController < ApplicationController
 
   def index
     @tasks = current_user.get_tasks(session[:time_frame], session[:policies])
+    @new_task = Task.new(user: current_user)
   end
 
   def new
-
+    @new_task = Task.new(user: current_user)
   end
 
   def create
-
+    @new_task = current_user.add_task(params[:title], params[:content])
+    unless @new_task.errors.any?
+      @new_task = Task.new(user: current_user)
+    end
+    respond_to do |format|
+      format.js
+    end
   end
 
   def show
@@ -23,7 +30,8 @@ class TasksController < ApplicationController
   end
 
   def update
-
+    @task.update(task_params)
+    
   end
 
   def destroy
