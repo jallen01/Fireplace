@@ -5,9 +5,17 @@ class TasksController < ApplicationController
   def index
     @task = Task.new(user: current_user)
     @tasks = current_user.get_tasks(session[:time_frame], session[:policies], session[:location])
-    #logger.debug "all-my-tasks"
-    #logger.debug @tasks
+
+    #save user's current location to db
+   
+    #@lat_lng = cookies[:lat_lng].split("|")
+    #@address = Geocoder.search("#{@lat_lng[0]}, #{@lat_lng[1]}")[0].address(format = :full)
+    
+    #@current_location = Location.new
+    #@current_location.save_current_location(current_user, @lat_lng[0], @lat_lng[1])
+    
   end
+
 
   def new
      @task = Task.new(user: current_user)
@@ -47,6 +55,7 @@ class TasksController < ApplicationController
   def update
     @task.update(task_params)
     @task.update_metadata(nil, params[:metadata])
+
 
     # metadata[:day_range] = [false, true, true, false, false,...]
     # metadata[:time_range] = [false, true, true, ...]

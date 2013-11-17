@@ -1,0 +1,12 @@
+<h2>Saved Locations</h2>
+
+
+	
+<div> 
+	<% @locations.each do |location| %>
+			<p>latitude: <%= location.latitude %>,<br>
+				longitude: <%= location.longitude %>
+			</p>
+	<% end %>
+
+</div>

@@ -1,12 +1,15 @@
 <% provide(:title, "Tasks") %>
 
+
 <div class="row">
   <div id="tasksHeaderRow" class="span12">
     <h1><%= current_user.first_name %>'s Fireplace</h1><br>
   </div>
 </div>
 
+
 <div class="row">
+
 
   <div id="tasksLeftPane" class="span4 offset1">
 	<div class="task-list">
@@ -19,7 +22,7 @@
   </div>
 
   <div id="tasksRightPane" class="span6 vertical_line">
-	<span><b>Current location:</b> *This will be the user's location -- <%= "current_user.get_current_location" %>*</span>
+	<span><b>Current location:</b> <%= @address %></span>
 	<br><br>
 	<span>
 		<b>Location:</b>
@@ -52,8 +55,7 @@
 				<input type="checkbox" id="longtermCheckbox"> Long Term Tasks
 			</label>
 		</span>
-	</div><br>
-	<button type="button" class="btn btn-primary" id="customizations_btn">Customize Fireplace</button>
+	</div>
   </div>
 
 </div>
