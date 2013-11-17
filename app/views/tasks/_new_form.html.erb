@@ -85,33 +85,81 @@
 			<div id="times">
 				<div id="am_times">
 					<div> AM </div>
-					<button type="button" class="btn btn-default" id="time_12am"%> > 12 </button>
-					<button type="button" class="btn btn-default" id="time_1am"%> > 1 </button>
-					<button type="button" class="btn btn-default" id="time_2am"%> > 2 </button>
-					<button type="button" class="btn btn-default" id="time_3am"%> > 3 </button>
-					<button type="button" class="btn btn-default" id="time_4am"%> > 4 </button>
-					<button type="button" class="btn btn-default" id="time_5am"%> > 5 </button>
-					<button type="button" class="btn btn-default" id="time_6am"%> > 6 </button>
-					<button type="button" class="btn btn-default" id="time_7am"%> > 7 </button>
-					<button type="button" class="btn btn-default" id="time_8am"%> > 8 </button>
-					<button type="button" class="btn btn-default" id="time_9am"%> > 9 </button>
-					<button type="button" class="btn btn-default" id="time_10am"%> > 10 </button>
-					<button type="button" class="btn btn-default" id="time_11am"%> > 11 </button>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_12am"> 12
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_1am"> 1
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_2am"> 2
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_3am"> 3
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_4am"> 4
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_5am"> 5
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_6am"> 6
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_7am"> 7
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_8am"> 8
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_9am"> 9
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_10am"> 10
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_11am"> 11
+					</label>
 				</div>
 				<div id="pm_times">
 					<div> PM </div>
-					<button type="button" class="btn btn-default" id="time_12pm"%> > 12 </button>
-					<button type="button" class="btn btn-default" id="time_1pm"%> > 1 </button>
-					<button type="button" class="btn btn-default" id="time_2pm"%> > 2 </button>
-					<button type="button" class="btn btn-default" id="time_3pm"%> > 3 </button>
-					<button type="button" class="btn btn-default" id="time_4pm"%> > 4 </button>
-					<button type="button" class="btn btn-default" id="time_5pm"%> > 5 </button>
-					<button type="button" class="btn btn-default" id="time_6pm"%> > 6 </button>
-					<button type="button" class="btn btn-default" id="time_7pm"%> > 7 </button>
-					<button type="button" class="btn btn-default" id="time_8pm"%> > 8 </button>
-					<button type="button" class="btn btn-default" id="time_9pm"%> > 9 </button>
-					<button type="button" class="btn btn-default" id="time_10pm"%> > 10 </button>
-					<button type="button" class="btn btn-default" id="time_11pm"%> > 11 </button>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_12pm"> 12
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_1pm"> 1
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_2pm"> 2
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_3pm"> 3
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_4pm"> 4
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_5pm"> 5
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_6pm"> 6
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_7pm"> 7
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_8pm"> 8
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_9pm"> 9
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_10pm"> 10
+					</label>
+					<label class="btn btn-default">
+					  <input type="checkbox" id="time_11pm"> 11
+					</label>
 				</div>
 			</div>
 		</div>
@@ -122,7 +170,7 @@
 			</div>
 			<div>
 				<% current_user.locations.each do |location| %>
-					<button type="button" class="btn btn-default loc" id=<%=location.id%> >location.name</button>
+					<button type="button" class="btn btn-default loc" id=''+<%=location.id%> >location.name</button>
 				<% end %>
 			</div>
 		</div>
@@ -132,7 +180,6 @@
 		<%= hidden_field_tag 'time_ranges' %>
 		<%= hidden_field_tag 'form_time_range' %>
 		<%= hidden_field_tag 'locations' %>
-		<%= hidden_field_tag 'metadata' %>
 
 		<%= f.submit 'Create', :class => 'btn btn-primary' %>
 

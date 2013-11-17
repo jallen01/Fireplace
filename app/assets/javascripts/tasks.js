@@ -177,27 +177,27 @@ $(function(){
 
 
 
-	$(document).on("submit", "form_custom", function(){
+	$(document).on("submit", "form.new_task", function(){
 		$("#tags").val(tagIDList)
 	});
 
-	$(document).on("submit", "form_custom", function(){
+	$(document).on("submit", "form.new_task", function(){
 		$("#day_ranges").val(dayIDList)
 	});
 
-	$(document).on("submit", "form_custom", function(){
+	$(document).on("submit", "form.new_task", function(){
 		$("#form_day_range").val(dayTruthList)
 	});
 
-	$(document).on("submit", "form_custom", function(){
+	$(document).on("submit", "form.new_task", function(){
 		$("#time_ranges").val(timeIDList)
 	});
 
-	$(document).on("submit", "form_custom", function(){
+	$(document).on("submit", "form.new_task", function(){
 		$("#form_time_range").val(timeTruthList)
 	});
 
-	$(document).on("submit", "form_custom", function(){
+	$(document).on("submit", "form.new_task", function(){
 		$("#locations").val(locationIDList)
 	});
 

@@ -61,7 +61,8 @@ class TimeRange < ActiveRecord::Base
   def update_from_array(array)
     n = array.length
     self.clear
-    array.each_index { |i| self.add_day(SimpleDay(i)) if array[i] }
+    real_array = array.split(",")
+    real_array.each_index { |i| self.add_time(SimpleTime.new(i), SimpleTime.new(i+1)) if real_array[i] }
     self.save
   end
 

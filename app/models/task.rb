@@ -55,12 +55,12 @@ class Task < ActiveRecord::Base
   end
 
   # Update metadata and tags. Tags should have keys :form_day_range, :form_time_range, :locations (ids), :tags (ids).
-  def update_metadata(tags, metadata)
+  def update_metadata(tags, day_ranges, form_day_range, time_range, form_time_range, locations)
     self.clear_metadata
 
     # If no attached tags, update hidden tag metadata.
-    if tags == nil
-      self.hidden_tag.update_metadata(metadata)
+    if tags == nil || tags.size == 0
+      self.hidden_tag.update_metadata(day_ranges, form_day_range, time_range, form_time_range, locations)
     # Else, update tags list
     else
       tags.each(&self.add_tag)
@@ -68,6 +68,20 @@ class Task < ActiveRecord::Base
 
     self.save
   end
+
+  #def update_metadata(tags, metadata)
+  #  self.clear_metadata
+
+    # If no attached tags, update hidden tag metadata.
+  #  if tags == nil
+  #    self.hidden_tag.update_metadata(metadata)
+    # Else, update tags list
+  #  else
+  #    tags.each(&self.add_tag)
+  #  end
+
+  #  self.save
+  #end
 
   # Returns true if task is relevant for specified date, time, day, and location. Any nil arguments are ignored.
   def relevant?(date, time, day, location)

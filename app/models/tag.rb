@@ -97,22 +97,40 @@ class Tag < ActiveRecord::Base
   end
 
   # TODO
-  def update_metadata(metadata)
-    if metadata[:day_ranges]
-      metadata[:day_ranges].each(&self.add_day_range)
+  def update_metadata(day_ranges, form_day_range, time_range, form_time_range, locations)
+    if day_ranges != nil && day_ranges.size > 0
+      day_ranges.each(&self.add_day_range)
     else
-      self.hidden_day_range.update_from_array(metadata[:form_day_range])
+      self.hidden_day_range.update_from_array(form_day_range)
     end
 
-    if metadata[:time_ranges] 
-      metadata[:time_ranges].each(&self.add_time_range)
+    if time_ranges != nil && time_ranges.size > 0
+      time_ranges.each(&self.add_time_range)
     else
-      self.hidden_time_range.update_from_array(metadata[:form_time_range])
+      self.hidden_time_range.update_from_array(form_time_range)
     end
-
-    metadata[:locations].each(&self.add_location)
+    if locations != nil && locations.size > 0
+      locations.each(&self.add_location)
+    end
     self.save
   end
+
+  #def update_metadata(metadata)
+  #  if metadata[:day_ranges]
+  #    metadata[:day_ranges].each(&self.add_day_range)
+  #  else
+  #    self.hidden_day_range.update_from_array(metadata[:form_day_range])
+  #  end
+
+  # if metadata[:time_ranges] 
+  #    metadata[:time_ranges].each(&self.add_time_range)
+  #  else
+  #    self.hidden_time_range.update_from_array(metadata[:form_time_range])
+  #  end
+
+  #  metadata[:locations].each(&self.add_location)
+  #  self.save
+  #end
 
   def relevant?(time, day, location)
     result = true
