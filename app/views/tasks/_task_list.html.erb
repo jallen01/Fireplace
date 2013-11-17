@@ -1,8 +1,6 @@
 <table class="table table-striped table-bordered">
   <tbody>
-      <tr><td>Placeholder Task 1</td></tr>
-      <tr><td>Placeholder Task 2</td></tr>
-    <% tasks.each do |task| %>
+    <% @tasks.each do |task| %>
       <tr>
         <td><%= link_to task.title, task_path(task) %></td>
       </tr>

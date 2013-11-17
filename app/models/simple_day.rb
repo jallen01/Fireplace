@@ -20,7 +20,7 @@ class SimpleDay
 
   # Get next day. Wraps around, so next day after Saturday is Sunday.
   def succ
-    SimpleDay(@day_int + 1)
+    SimpleDay.new(@day_int + 1)
   end
 
   # Compare days based on day_int.

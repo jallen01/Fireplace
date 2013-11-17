@@ -26,7 +26,7 @@ class SimpleTime
 
   # Get time a minute later. Used for Range.
   def succ
-    return SimpleTime(@hour, @minute+1)
+    return SimpleTime.new(@hour, @minute+1)
   end
 
   def +(time)

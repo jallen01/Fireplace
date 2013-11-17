@@ -134,9 +134,9 @@ class Tag < ActiveRecord::Base
 
   def relevant?(time, day, location)
     result = true
-    result &&= self.include_location?(location) || location.blank?
-    result &&= self.include_day?(day) || day.blank?
-    result &&= self.include_time?(time) || time.blank?
+    result &&= location.blank? || self.include_location?(location)
+    result &&= day.blank? || self.include_day?(day)
+    result &&= time.blank? || self.include_time?(time)
     
     result
   end
