@@ -57,6 +57,7 @@ class Tag < ActiveRecord::Base
   # Methods
   # -------
 
+  # Returns true if this has a parent task.
   def hidden?
     !self.parent_task.blank?
   end
@@ -85,9 +86,35 @@ class Tag < ActiveRecord::Base
     locations.exists?(location)
   end
 
+  def clear
+    self.hidden_day_range.clear
+    self.tag_day_ranges.destroy_all
+    self.hidden_time_range.clear
+    self.tag_time_ranges.destroy_all
+    self.locations = []
+    self.save
+  end
+
+  def update_metadata(metadata)
+    if metadata[:day_ranges]
+      metadata[:day_ranges].each(&self.add_day_range)
+    else
+      self.hidden_day_range.update_from_array(metadata[:form_day_range])
+    end
+
+    if metadata[:time_ranges] 
+      metadata[:time_ranges].each(&self.add_time_range)
+    else
+      self.hidden_time_range.update_from_array(metadata[:form_time_range])
+    end
+
+    metadata[:locations].each(&self.add_location)
+    self.save
+  end
+
   def relevant?(time, day, location)
     result = true
-    # result &&= self.include_location?(location)
+    result &&= self.include_location?(location)
     result &&= self.include_day?(day)
     result &&= self.include_time?(time)
     
