@@ -1,4 +1,5 @@
 TscizzleMichelleojKrosnickJallen01Final::Application.routes.draw do
+  
   devise_for :users do
     member do
       post 'update_flags', defaults: { format: 'js' }
