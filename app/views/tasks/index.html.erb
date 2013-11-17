@@ -1,22 +1,37 @@
 <% provide(:title, "Tasks") %>
 
-<h1><%= current_user.first_name %>'s Fireplace</h1><br>
+<div class="row">
+  <div id="tasksHeaderRow" class="span12">
+    <h1><%= current_user.first_name %>'s Fireplace</h1><br>
+  </div>
+</div>
 
-<div>
-	Current location: <%= "current_user.get_current_location" %>
-</div><br>
+<div class="row">
 
-<div>
-	<!-- <span> Is this correct? </span><br> -->
+  <div id="tasksLeftPane" class="span4 offset1">
+	<div class="task-list">
+	  <h2>Tasks</h2>
+
+	  <%= render partial: "task_list", locals: {tasks: @tasks} %>
+
+	  <button type="button" class="btn btn-primary" id="create_task_btn">New Task</button>
+	</div>
+  </div>
+
+  <div id="tasksRightPane" class="span6 vertical_line">
+	<span><b>Current location:</b> *This will be the user's location -- <%= "current_user.get_current_location" %>*</span>
+	<br><br>
 	<span>
+		<b>Location:</b>
 		<select class="form-control">
-			<option>Select</option>
+			<option value="no_location">Select Location</option>
 			<% current_user.locations do |loc| %>
 				<option value="%{loc.id}">loc.name</option>
 			<% end %>
 		</select>
-	</span>
+	</span><br>
 	<span>
+		<b>Time Frame:</b>
 		<select class="form-control">
 			<option value="now">Now</option>
 			<option value="today">Today</option>
@@ -26,7 +41,7 @@
 		</select>
 	</span><br><br>
 	<div>
-		Show:
+		<b>Only Show:</b>
 		<span>
 			<label class="checkbox-inline">
 				<input type="checkbox" id="importantCheckbox"> Important Tasks
@@ -38,16 +53,13 @@
 			</label>
 		</span>
 	</div><br>
-</div>
+	<button type="button" class="btn btn-primary" id="customizations_btn">Customize Fireplace</button>
+  </div>
 
-<div class="task-list">
-  <%= render partial: "task_list", locals: {tasks: @tasks} %>
 </div>
 
 <div>
 	<div>
-		<button type="button" class="btn btn-primary" id="create_task_btn">Create a task</button>
-		<button type="button" class="btn btn-primary" id="customizations_btn">Customizations</button>
 	</div>
 </div>
 
