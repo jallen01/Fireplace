@@ -37,6 +37,7 @@ class TimeRange < ActiveRecord::Base
   # Methods
   # -------
 
+  # Returns true if this is a hidden day range associated with a tag.
   def hidden?
     !self.parent_tag.blank?
   end
@@ -56,6 +57,20 @@ class TimeRange < ActiveRecord::Base
     self.save
   end
 
+  # 'array' should be an array of boolean values of length 7. 
+  def update_from_array(array)
+    n = array.length
+    self.clear
+    array.each_index { |i| self.add_day(SimpleDay(i)) if array[i] }
+    self.save
+  end
+
+  # Get 
+  def get_discrete(n)
+    
+  end
+
+  # Returns true if time_set is empty or time is in time_set.
   def include_time?(time)
     if self.time_set.blank?
       return true

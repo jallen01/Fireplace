@@ -57,9 +57,5 @@ class Location < ActiveRecord::Base
   end
 
 	after_validation :geocode, if: :address_changed?
-
-
-  # Methods
-  # -------
   
 end
