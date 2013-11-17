@@ -8,27 +8,39 @@ class TagsController < ApplicationController
   end
 
   def new
-
   end
 
   def create
+    @new_tag = current_user.add_tag(params[:name])
+    unless @new_tag.errors.any?
+      @new_tag = Tag.new(user: current_user)
+      @new_tag.update_metadata(params[:metadata])
 
+      # metadata[:day_range] = [false, true, true, false, false,...]
+      # metadata[:time_range] = [false, true, true, ...]
+      # metadata[:locations] = [id1, id2, ...]
+    end
+    respond_to do |format|
+      format.js
+    end
   end
 
   def show
-
   end
 
   def edit
-
   end
 
   def update
+    @task.update(task_params)
+    @task.update_metadata(params[:metadata])
 
+    # metadata[:day_range] = [false, true, true, false, false,...]
+    # metadata[:time_range] = [false, true, true, ...]
+    # metadata[:locations] = [id1, id2, ...]
   end
 
   def destroy
-
   end
 
   private
