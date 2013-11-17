@@ -86,12 +86,19 @@ class Task < ActiveRecord::Base
   # Returns true if task is relevant for specified date, time, day, and location. Any nil arguments are ignored.
   def relevant?(date, time, day, location)
     result = true
-    result &&= (date - self.deadline) < self.days_notice || (date && self.deadline).blank?
+    # if a deadline has been set is the deadline soon enough to show the task?
+    result &&= self.deadline.blank? || (date - self.deadline) < self.days_notice
 
-    if self.tags
-      self.tags.each { |tag| tag.relevant?(date, time, day, location) }
+    logger.debug "SELF_TAGS"
+    logger.debug self.tags.size
+
+    intermediate = false
+
+    if self.tags.size > 0
+      self.tags.each { |tag| intermediate ||= tag.relevant?(date, time, day, location) }
+      result &&= intermediate
     else
-      self.hidden_tag.relevant?(date, time, day, location)
+      result &&= self.hidden_tag.relevant?(time, day, location)
     end
     
     result

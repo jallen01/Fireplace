@@ -23,6 +23,7 @@ class TasksController < ApplicationController
       # metadata[:tags] = [id1, id2, ...]
     end
     respond_to do |format|
+      format.html { redirect_to tasks_path }
       format.js
     end
   end

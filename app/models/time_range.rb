@@ -62,13 +62,13 @@ class TimeRange < ActiveRecord::Base
     n = array.length
     self.clear
     real_array = array.split(",")
-    real_array.each_index { |i| self.add_time(SimpleTime.new(i), SimpleTime.new(i+1)) if real_array[i] }
+    real_array.each_index { |i| self.add_time(SimpleTime.new(i, 0), SimpleTime.new(i+1, 0)) if real_array[i] }
     self.save
   end
 
   # Get array of n tuples, each containing [time, boolean], where the time values are equally spaced in the range [0, 24) and the boolean indicates whether the time is in this time range.
   def get_discrete(n)
-    (SimpleTime(0, 0)..SimpleTime(24, 0)).step((24.0*60.0/(n+1)).ceil).map { |time| [time, self.include_time?(time)] }[0..-2]
+    (SimpleTime.new(0, 0)..SimpleTime.new(24, 0)).step((24.0*60.0/(n+1)).ceil).map { |time| [time, self.include_time?(time)] }[0..-2]
   end
 
   # Returns true if time_set is empty or time is in time_set.
