@@ -6,6 +6,7 @@ $(function(){
 		$("#new-task-modal").modal('show');
 	});
 
+
 	var dayTruthList = [false, false, false, false, false, false, false]
 
 	$("#sun").click(function(){
@@ -202,4 +203,54 @@ $(function(){
 	});
 
 
-});
+	// var coords = [];
+
+	// function getLocation() {
+	// 	if (navigator.geolocation) {
+	// 		function showLocation(position) {
+	// 		  var latitude = position.coords.latitude;
+	// 		  var longitude = position.coords.longitude;
+	// 		  coords.push(latitude)
+	// 		  coords.push(longitude)
+	// 		}
+
+	// 		function errorMessage() {
+	// 			alert("Location can't be found");
+	// 		}
+
+	// 		navigator.geolocation.getCurrentPosition(showLocation, errorMessage, {maximumAge:600000, timeout:5000, enableHighAccuracy: false});
+	// 	} else {
+	// 		console.log('sorry');
+	// 	}
+	// }
+
+
+
+	// console.log('made it here!');
+	// console.log(coords[0], coords[1]);
+
+	// $.ajax({
+	// 	url: "/tasks/update_session",
+	// 	data: "lat=" + getLocation()[0]},
+	// 	success: function() {
+	// 		console.log("success!");
+	// 	}
+
+	// });
+	
+	function getGeoLocation() {
+	  navigator.geolocation.getCurrentPosition(setGeoCookie, errorMsg, {enableHighAccuracy: true});
+	}
+
+	function errorMsg() {
+		console.log("couldn't get location");
+	}
+
+	function setGeoCookie(position) {
+	  var cookie_val = position.coords.latitude + "|" + position.coords.longitude;
+	  document.cookie = "lat_lng=" + escape(cookie_val);
+	}
+
+	getGeoLocation();
+
+})
