@@ -63,7 +63,7 @@ class DayRange < ActiveRecord::Base
   # 'array' should be an array of boolean values of length 7. 
   def update_from_array(array)
     self.clear
-    array.each_index do { |i| self.add_day(SimpleDay(i)) if array[i] }
+    array.each_index { |i| self.add_day(SimpleDay(i)) if array[i] }
     self.save
   end
 
