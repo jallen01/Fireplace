@@ -24,7 +24,7 @@ class Task < ActiveRecord::Base
   # Create hidden tag for storing task metadata
   after_initialize do
     if self.hidden_tag.blank?
-      self.hidden_tag = Tag.new(parent_task_id: self)
+      self.hidden_tag = Tag.new(parent_task: self)
     end
   end
 

@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20131116025050) do
 
   create_table "tags", force: true do |t|
     t.integer  "user_id"
-    t.integer  "task_id"
+    t.integer  "parent_task_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
