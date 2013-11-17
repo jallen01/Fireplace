@@ -43,54 +43,61 @@ class User < ActiveRecord::Base
   # Methods
   # -------
 
-  def add_location(name, address_hash)
-    self.locations.create(name: name, address_hash: address_hash)
+  def add_time_range(name)
+    TagTimeRange.create(user: self, name: name)
   end
 
-  def include_location?(location)
-    self.locations.exists?(location)
+  def add_day_range(name)
+    TagDayRange.create(user: self, name: name)
+  end
+
+  def add_tag(name)
+    Tag.create(user: self, name: name)
+  end
+
+  def add_location(name, address_hash)
+    Location.create(user: self, name: name, address_hash: address_hash)
   end
 
   def add_task(title, content)
-    self.tasks.create(title: title, content: content)
+    Task.create(user: self, title: title, content: content)
   end
 
-  def include_task?(task)
-    self.tasks.exists?(task)
-  end
-
-  def get_tasks(time_frame, policy, location)
-    time = nil
-    day = nil
+  def get_tasks(time_frame, policies, location)
+    time = SimpleTime.new(Time.now.hour, Time.now.min)
+    day = SimpleDay.new(Time.now.wday)
+    date = Date.today
 
     case time_frame
-    when :now
-      time = SimpleTime.new(Time.now.hour, Time.now.min)
-      day = SimpleDay.new(Time.now.wday)
     when :today
-      day = SimpleDay.new(Time.now.wday).succ
+      time = nil
+      day = day.succ
       location = nil
     when :tomorrow
-      day = SimpleDay.new(Time.now.wday).succ.succ
+      time = nil
+      day = day.succ.succ
       location = nil
+      date += 1
+    when :week
+      time = nil
+      date += 7
+      location = nil
+    else
+      # :now or nil
+      time = SimpleTime.new(Time.now.hour, Time.now.min)
+      day = SimpleDay.new(Time.now.wday)
     end
 
     relevant_tasks = self.tasks
     
-    if policies[:show_only_important]
-      relevant_tasks = relevant_tasks.where(important: true)
+    if policies
+      relevant_tasks = relevant_tasks.where(important: true) if policies[:show_only_important]
+      relevant_tasks = relevant_tasks.where(long_lasting: [false, nil]) unless policies[:show_long_lasting]
     end
 
-    unless polcies[:show_long_lasting]
-      relevant_tasks = relevant_tasks.where(long_lasting: [false, nil])
-    end
-
-    relevant_tasks.to_a.select { |task| task.relevant?(time, day, location) }
+    relevant_tasks.to_a.select { |task| task.relevant?(date, time, day, location) }
   end
 
-  def get_current_location
-    
-  end
 
   # Authentication
   # --------------
@@ -106,6 +113,6 @@ class User < ActiveRecord::Base
   private
 
     def create_remember_token
-          self.remember_token = User.encrypt(User.new_remember_token)
-      end
+      self.remember_token = User.encrypt(User.new_remember_token)
+    end
 end

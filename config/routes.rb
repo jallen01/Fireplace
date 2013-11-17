@@ -23,7 +23,7 @@ TscizzleMichelleojKrosnickJallen01Final::Application.routes.draw do
 
   resources :locations
 
-  # Route root to group index
+  # Route root to user's tasks page
   root :to => "tasks#index"
 
 end

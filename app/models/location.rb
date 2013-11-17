@@ -1,4 +1,6 @@
 # Primary Author: Jonathan Allen (jallen01)
+
+# Model to store a location address. Automatically generates latitude and longitude attributes from address.
 class Location < ActiveRecord::Base
 
   # Constants

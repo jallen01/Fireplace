@@ -51,10 +51,7 @@ gem 'rails_12factor', group: :production
 # Bootstrap
 gem "twitter-bootstrap-rails"
 
-# Flat UI
-gem 'flatui-rails'
-
-# Pretify the DB in Rails Console
+# Prettify the DB in Rails Console
 gem "hirb", "~> 0.7.1"
 
 # Use ActiveModel has_secure_password

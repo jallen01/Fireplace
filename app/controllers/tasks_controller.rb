@@ -8,7 +8,6 @@ class TasksController < ApplicationController
   end
 
   def new
-    @new_task = Task.new(user: current_user)
   end
 
   def create
@@ -28,11 +27,9 @@ class TasksController < ApplicationController
   end
 
   def show
-
   end
 
   def edit
-
   end
 
   def update
@@ -46,7 +43,6 @@ class TasksController < ApplicationController
   end
 
   def destroy
-
   end
 
   # Stores filter policies in session.

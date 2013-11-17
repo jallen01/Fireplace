@@ -8,16 +8,17 @@ class SimpleDay
 
   # str should be a valid day name. String case is ignored.
   def initialize(day_int)
+    throw RangeError, "Invalid day_int" unless (day_int >=0 && day_int < 7)
     @day_int = day_int
   end
 
-  def self.from_s(str)
-    day_int = SimpleDay::DAY_NAMES.index(str.capitalize)
-
-    day_int ? SimpleDay(day_int) : nil
+  # 'day_name' must be in DAY_NAMES (case ignored).
+  def self.from_s(day_name)
+    day_int = SimpleDay::DAY_NAMES.index(day_name.capitalize)
+    SimpleDay(day_int)
   end
 
-  # Get next day.
+  # Get next day. Wraps around, so next day after Saturday is Sunday.
   def succ
     SimpleDay(@day_int + 1)
   end

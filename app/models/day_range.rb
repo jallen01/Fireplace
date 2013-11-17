@@ -1,4 +1,6 @@
 # Primary Author: Jonathan Allen (jallen01)
+
+# Model to store a set of days. Must have a name unless a parent_tag is assigned.
 class DayRange < ActiveRecord::Base
 
   # Constants
@@ -40,7 +42,7 @@ class DayRange < ActiveRecord::Base
   # Methods
   # -------
 
-  # Returns true if this is a hidden day range associated with a tag.
+  # Returns true if this has a parent tag.
   def hidden?
     !self.parent_tag.blank?
   end
@@ -60,7 +62,11 @@ class DayRange < ActiveRecord::Base
     self.save
   end
 
-  # 'array' should be an array of boolean values of length 7. 
+  def to_a
+    return self.day_set.to_a
+  end
+
+  # 'array' should be an array of boolean values of length 7.
   def update_from_array(array)
     self.clear
     array.each_index { |i| self.add_day(SimpleDay(i)) if array[i] }
@@ -69,11 +75,6 @@ class DayRange < ActiveRecord::Base
 
   # Returns true if day_set is blank or day is in day_set.
   def include_day?(day)
-    if self.day_set.blank?
-      return true
-    else
-      self.day_set
-      return self.day_set.include?(day)
-    end
+    return self.day_set.include?(day) || self.day_set.blank?
   end
 end

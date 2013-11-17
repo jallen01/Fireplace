@@ -37,7 +37,7 @@ class TimeRange < ActiveRecord::Base
   # Methods
   # -------
 
-  # Returns true if this is a hidden day range associated with a tag.
+  # Returns true if this has a parent tag.
   def hidden?
     !self.parent_tag.blank?
   end
@@ -65,17 +65,13 @@ class TimeRange < ActiveRecord::Base
     self.save
   end
 
-  # Get 
+  # Get array of n tuples, each containing [time, boolean], where the time values are equally spaced in the range [0, 24) and the boolean indicates whether the time is in this time range.
   def get_discrete(n)
-    
+    (SimpleTime(0, 0)..SimpleTime(24, 0)).step((24.0*60.0/(n+1)).ceil).map { |time| [time, self.include_time?(time)] }[0..-2]
   end
 
   # Returns true if time_set is empty or time is in time_set.
   def include_time?(time)
-    if self.time_set.blank?
-      return true
-    else
-      return self.time_set.include?(time)
-    end
+    self.time_set.include?(time) || self.time_set.blank?
   end
 end

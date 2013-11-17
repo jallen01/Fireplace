@@ -1,40 +1,43 @@
 <% provide(:title, "Tasks") %>
-<h1>Fireplace</h1>
 
-<br>
-
-<div>
-	Current location: <%=current_user.get_current_location%>
-</div>
+<h1><%= current_user.first_name %>'s Fireplace</h1><br>
 
 <div>
-	<span> Is this correct? </span>
+	Current location: <%= "current_user.get_current_location" %>
+</div><br>
+
+<div>
+	<!-- <span> Is this correct? </span><br> -->
 	<span>
 		<select class="form-control">
 			<option>Select</option>
 			<% current_user.locations do |loc| %>
-				<option>loc.name</option>
+				<option value="%{loc.id}">loc.name</option>
 			<% end %>
 		</select>
 	</span>
 	<span>
 		<select class="form-control">
-			<option>Now</option>
-			<option>Today</option>
-			<option>Tomorrow</option>
-			<option>This Week</option>
+			<option value="now">Now</option>
+			<option value="today">Today</option>
+			<option value="tomorrow">Tomorrow</option>
+			<option value="this_week">This Week</option>
+      		<option value="all_time">All Time</option>
 		</select>
-	</span>
-	<span>
-		<label class="checkbox-inline">
-			<input type="checkbox" id="importantCheckbox"> Important?
-		</label>
-	</span>
-	<span>
-		<label class="checkbox-inline">
-			<input type="checkbox" id="importantCheckbox"> Long term?
-		</label>
-	</span>
+	</span><br><br>
+	<div>
+		Show:
+		<span>
+			<label class="checkbox-inline">
+				<input type="checkbox" id="importantCheckbox"> Important Tasks
+			</label>
+		</span>
+		<span>
+			<label class="checkbox-inline">
+				<input type="checkbox" id="longtermCheckbox"> Long Term Tasks
+			</label>
+		</span>
+	</div><br>
 </div>
 
 <div class="task-list">
