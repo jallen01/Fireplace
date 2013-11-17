@@ -11,9 +11,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    @new_task = current_user.add_task(params[:title], params[:content])
+    @new_task = current_user.add_task(task_params[:title], task_params[:content])
     unless @new_task.errors.any?
-      @new_task = Task.new(user: current_user)
+      #@new_task = Task.new(user: current_user)
       #@new_task.update_metadata(nil, params[:metadata])
       @new_task.update_metadata(params[:tags], params[:day_ranges], params[:form_day_range], params[:time_ranges], params[:form_time_range], params[:locations])
 
