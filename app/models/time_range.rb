@@ -62,7 +62,8 @@ class TimeRange < ActiveRecord::Base
     n = array.length
     self.clear
     real_array = array.split(",")
-    real_array.each_index { |i| self.add_time(SimpleTime.new(i), SimpleTime.new(i+1)) if real_array[i] }
+    times = (SimpleTime(0, 0)..SimpleTime(24, 0)).step((24.0*60.0/(n+1)).ceil).to_a[0..-2]
+    real_array.each_index { |i| self.add_time(times[i]) if real_array[i] }
     self.save
   end
 
