@@ -2,9 +2,7 @@
   <tbody>
 	<% tags.each do |tag| %>
 	  <tr>
-		<td>
-	      <%= tag.name %>
-		</td>
+		<td><%= tag.name %></td>
 	  </tr>
 	  <%= render "layouts/modal_form", modal_id: "edit-tag-modal", modal_title: "Edit Tag", modal_data: {form: "temporary"}, modal_content: "tags/edit_form" %>
 	<%end%>
