@@ -62,25 +62,19 @@ class DayRange < ActiveRecord::Base
     self.save
   end
 
-  def to_a
-    return self.day_set.to_a
+  def get_array
+    (SimpleDay.new(0)..SimpleDay.new(6)).to_a.map { |day| [day, self.day_set.include?(day)] }
   end
 
   # 'array' should be an array of boolean values of length 7.
   def update_from_array(array)
     self.clear
-    #real_array = array.split(",")
-    #real_array.each_index { |i| self.add_day(SimpleDay.new(i)) if real_array[i] }
-    logger.debug "update_from_array array"
-    logger.debug array
     array.each_index { |i| self.add_day(SimpleDay.new(i)) if array[i] }
-    logger.debug "array-update_from_array"
-    logger.debug self.day_set.size
     self.save
   end
 
   # Returns true if day_set is blank or day is in day_set.
   def include_day?(day)
-    return self.day_set.include?(day) || self.day_set.blank?
+    self.day_set.include?(day) || self.day_set.blank?
   end
 end

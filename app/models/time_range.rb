@@ -70,8 +70,8 @@ class TimeRange < ActiveRecord::Base
   end
 
   # Get array of n tuples, each containing [time, boolean], where the time values are equally spaced in the range [0, 24) and the boolean indicates whether the time is in this time range.
-  def get_discrete(n)
-    SimpleTime.linspace(SimpleTime.new(0, 0), SimpleTime.new(24, 0), n).map { |time| [time, self.include_time?(time)] }
+  def get_array(n)
+    SimpleTime.linspace(SimpleTime.new(0, 0), SimpleTime.new(24, 0), n).map { |time| [time, self.time_set.include?(time)] }
   end
 
   # Returns true if time_set is empty or time is in time_set.

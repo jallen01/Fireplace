@@ -33,30 +33,14 @@
 				</div>
 			</div>
 
-			<div class="btn-group" data-toggle="buttons" id="days">
+			<div class="btn-group" data-toggle="buttons" id="day-input">
+				<% days = task.hidden_tag.hidden_day_range.get_array %>
 
+				<% days.each_index do |i| %>
+					<%= content_tag :button, days[i][0].to_s, class: "btn btn-default #{"active" if days[i][1]}".html_safe, id: "day-#{i}", type: "button" %>
+				<% end %>
 
-			  <label class="btn btn-default">
-			  	<%=check_box_tag "daychecks[]", "Sunday", false %> Sunday
-			  </label>
-			  <label class="btn btn-default">
-			  	<%=check_box_tag "daychecks[]", "Monday", false %> Monday
-			  </label>
-			  <label class="btn btn-default">
-			  	<%=check_box_tag "daychecks[]", "Tuesday", false %> Tuesday
-			  </label>
-			  <label class="btn btn-default">
-			  	<%=check_box_tag "daychecks[]", "Wednesday", false %> Wednesday
-			  </label>
-			  <label class="btn btn-default">
-			  	<%=check_box_tag "daychecks[]", "Thursday", false %> Thursday
-			  </label>
-			  <label class="btn btn-default">
-			  	<%=check_box_tag "daychecks[]", "Friday", false %> Friday
-			  </label>
-			  <label class="btn btn-default">
-			  	<%=check_box_tag "daychecks[]", "Saturday", false %> Saturday
-			  </label>
+				<%= hidden_field_tag 'form_day_range', "#{raw days.map { |day, checked| checked }.as_json}" %>
 			</div>
 		</div>
 
@@ -73,13 +57,14 @@
 				</div>
 			</div>
 
-			<div id="time-input" class="btn-group">
-				<% times = task.hidden_tag.hidden_time_range.get_discrete(24) %>
-					<% times.each_index do |i| %>
-						<%= content_tag :button, times[i][0].hour, class: "btn btn-default", id: "time-#{i}", type: "button" %>
+			<div id="time-input" class="btn-group" data-toggle="buttons">
+				<% times = task.hidden_tag.hidden_time_range.get_array(24) %>
+
+				<% times.each_index do |i| %>
+					<%= content_tag :button, times[i][0].hour, class: "btn btn-default #{"active" if times[i][1]}".html_safe, id: "time-#{i}", type: "button" %>
 				<% end %>
 
-				<%= hidden_field_tag 'form_time_range', "#{raw times.map { |time, checked| [checked, time.hour, time.minute] }.as_json}" %>
+				<%= hidden_field_tag 'form_time_range', "#{raw times.map { |time, checked| checked }.as_json}" %>
 			</div>
 		</div>
 

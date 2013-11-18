@@ -102,23 +102,33 @@ $(function(){
 		}
 	});
 
+	// Handle time selector
 	$(document).on("click", "#time-input button", function (event) {
 		var button = $(event.target);
 		var index = parseInt(button.attr("id").split("-")[1]);
 		var form_time_range = JSON.parse($("#form_time_range").val());
 
-		if (button.hasClass("btn-default")) {
-			// Select button
-			button.removeClass("btn-default");
-			button.addClass("btn-info");
-			form_time_range[index][0] = true;
+		if (button.hasClass("active")) {
+			form_time_range[index] = false;
 		} else {
-			// Unselect button
-			button.removeClass("btn-info");
-			button.addClass("btn-default");
-			form_time_range[index][0] = false;
+			form_time_range[index] = true;
 		}
 		$("#form_time_range").val(JSON.stringify(form_time_range));
+	});
+
+	// Handle day selector
+	$(document).on("click", "#day-input button", function (event) {
+		var button = $(event.target);
+		var index = parseInt(button.attr("id").split("-")[1]);
+		var form_day_range = JSON.parse($("#form_day_range").val());
+
+		console.log(form_day_range);
+		if (button.hasClass("active")) {
+			form_day_range[index] = false;
+		} else {
+			form_day_range[index] = true;
+		}
+		$("#form_day_range").val(JSON.stringify(form_day_range));
 	});
 
 	$(document).on("submit", "form.new_task", function(){
@@ -128,7 +138,7 @@ $(function(){
 		//$("#form_day_range").val(dayTruthList)
 		//console.log($("#form_day_range").val())
 		$("#time_ranges").val(timeIDList)
-		//$("#form_time_range").val(timeTruthList)
+		$("#form_time_range").val(timeTruthList)
 		$("#locations").val(locationIDList)
 	});
 
