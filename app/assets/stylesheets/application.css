@@ -74,3 +74,14 @@ html {
 .table-striped tbody > tr:nth-child(2n) > td {
 	background-color: #dddddd;
 }
+
+/* ------ Locations ------- */
+
+#locationsHeaderRow {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.table-striped tbody > tr:nth-child(2n) > td {
+	background-color: #dddddd;
+}
