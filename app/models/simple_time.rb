@@ -11,6 +11,13 @@ class SimpleTime
     fix_minute
   end
 
+  def self.linspace(start_t, end_t, n)
+    diff_t = end_t - start_t
+    step = ((diff_t.hour*60+diff_t.minute+1).to_f / n.to_f).floor
+
+    (start_t..end_t).step(step).to_a[0..(n-1)]
+  end
+
   # Compare times with assumption that 1 hour = 60 min.
   def <=>(other)
     (@hour*60 + @minute) <=> (other.hour*60 + other.minute)
