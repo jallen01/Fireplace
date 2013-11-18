@@ -51,6 +51,12 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    logger.debug "destroy-action"
+    @task.destroy
+    respond_to do |format|
+      format.html { redirect_to tasks_path }
+      format.json { head :no_content }
+    end
   end
 
   # Stores filter policies in session.

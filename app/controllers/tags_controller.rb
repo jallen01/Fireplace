@@ -8,6 +8,7 @@ class TagsController < ApplicationController
   end
 
   def new
+    @new_tag = Tag.new(user: current_user)
   end
 
   def create

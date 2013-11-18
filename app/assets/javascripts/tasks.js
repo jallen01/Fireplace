@@ -6,6 +6,11 @@ $(function(){
 		$("#new-task-modal").modal('show');
 	});
 
+	$('#form-control').change(function() {
+	    var val = $("#form-control option:selected").text();
+	    alert(val);
+	});
+
 
 	var dayTruthList = [false, false, false, false, false, false, false]
 
