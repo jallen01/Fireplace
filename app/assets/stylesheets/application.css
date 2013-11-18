@@ -54,6 +54,7 @@ html {
 #tasksRightPane {
 	padding-left: 30px;
 	text-align: right;
+	height: 100%;
 }
 
 /* ------ Tags ------- */
