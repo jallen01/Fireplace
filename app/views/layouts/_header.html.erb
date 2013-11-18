@@ -1,8 +1,8 @@
-<div class="navbar navbar-static-top navbar-inverse">
+<div class="navbar navbar-static-top">
   <div class="navbar-inner">
     <div class="container">
-      <ul class="nav">
-        <%= link_to "Fireplace", root_path, :class => 'brand' %>
+      <ul class="nav nav-fireplace">
+        <%= link_to (image_tag('favicon.ico', class: "logo")+" Fireplace").html_safe, root_path, :class => 'brand' %>
       </ul>
       <ul class="nav pull-right">
         <li class="dropdown">

@@ -40,6 +40,13 @@ html {
 	min-height: 100%;
 }
 
+.nav-fireplace {
+}
+
+.logo {
+	height: 20px;
+}
+
 /* ------ Tasks ------- */
 
 #tasksHeaderRow {
