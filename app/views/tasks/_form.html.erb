@@ -34,6 +34,8 @@
 			</div>
 
 			<div class="btn-group" data-toggle="buttons" id="days">
+
+
 			  <label class="btn btn-default">
 			  	<%=check_box_tag "daychecks[]", "Sunday", false %> Sunday
 			  </label>
@@ -71,11 +73,13 @@
 				</div>
 			</div>
 
-			<div id="times" class="btn-group">
+			<div id="time-input" class="btn-group">
 				<% times = task.hidden_tag.hidden_time_range.get_discrete(24) %>
-				<% times.each_index do |i| %>
-					<%= content_tag :button, times[i][0].hour, class: "btn btn-default", id: "time-i" %>
+					<% times.each_index do |i| %>
+						<%= content_tag :button, times[i][0].hour, class: "btn btn-default", id: "time-#{i}", type: "button" %>
 				<% end %>
+
+				<%= hidden_field_tag 'form_time_range', "#{raw times.map { |time, checked| [checked, time.hour, time.minute] }.as_json}" %>
 			</div>
 		</div>
 
@@ -92,7 +96,6 @@
 
 		<%= hidden_field_tag 'form_day_range', '' %>
 		<%= hidden_field_tag 'time_ranges' %>
-		<%= hidden_field_tag 'form_time_range', '' %>
 		<%= hidden_field_tag 'locations', '' %>
 
 		<%= f.submit 'Create', :class => 'btn btn-primary' %>
