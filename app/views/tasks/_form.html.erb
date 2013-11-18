@@ -1,11 +1,7 @@
 <h1>Create Task</h1>
 
-<ul class="nav nav-tabs">
-  <li class="active"><a href="#tags">Tags</a></li>
-  <li><a href="#custom">Custom</a></li>
-</ul>
 
-<div id="form_custom">
+<div>
 	<%= form_for @task do |f| %>
 		<%= f.label :title %>
 		<%= f.text_field :title %><br>
@@ -13,6 +9,19 @@
 		<%= f.text_area :content %><br>
 
 		<div>
+
+			<% if current_user.tags != nil && current_user.tags.size > 0 %>
+				
+			<% end %>
+			<div>
+				Choose tags
+			</div>
+			<% current_user.tags.each do |tag| %>
+				<button type="button" class="btn btn-default tag" id=<%=tag.id%> >tag.name</button>
+			<% end %>
+
+			<%= hidden_field_tag 'tags' %>
+
 			<div>
 				Days:
 			</div>
