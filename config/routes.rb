@@ -27,5 +27,4 @@ TscizzleMichelleojKrosnickJallen01Final::Application.routes.draw do
   # Route root to user's tasks page
   root :to => "tasks#index"
 
-
 end

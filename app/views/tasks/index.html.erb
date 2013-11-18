@@ -1,50 +1,64 @@
 <% provide(:title, "Tasks") %>
 
-
 <div class="row">
   <div id="tasksHeaderRow" class="span12">
     <h1><%= current_user.first_name %>'s Fireplace</h1><br>
   </div>
 </div>
 
-
 <div class="row">
 
   <div id="tasksLeftPane" class="span4 offset1">
-	<h2>Tasks</h2>
-	<div class="task-list">
-	  	<%= render partial: "task_list", locals: {tasks: @tasks} %>
-	</div>
-	<button type="button" class="btn btn-primary" id="create_task_btn">New Task</button>
+        <div class="task-list">
+          <h2>Tasks</h2>
+          <table class="table table-striped table-bordered">
+              <tbody>
+                  <%= render partial: "tasks/list", locals: {tasks: @tasks} %>
+              </tbody>
+          </table>
+
+          <button type="button" class="btn btn-primary" id="create_task_btn">New Task</button>
+
+        </div>
   </div>
 
   <div id="tasksRightPane" class="span6 vertical_line">
-	<br><br>
-	<span>
-		<b>Time Frame:</b>
-		<select class="form-control">
-			<option value="now">Now</option>
-			<option value="today">Today</option>
-			<option value="tomorrow">Tomorrow</option>
-			<option value="this_week">This Week</option>
-      		<option value="all_time">All Time</option>
-		</select>
-	</span><br><br>
-	<div>
-		<b>Only Show:</b>
-		<span>
-			<label class="checkbox-inline">
-				<input type="checkbox" id="importantCheckbox"> Important Tasks
-			</label>
-		</span>
-		<span>
-			<label class="checkbox-inline">
-				<input type="checkbox" id="longtermCheckbox"> Long Term Tasks
-			</label>
-		</span>
-	</div>
+        <span><b>Current location:</b> <%= @address %></span>
+        <br><br>
+        <span>
+            <b>Location:</b>
+            <select class="form-control">
+                <option value="no_location">Select Location</option>
+                <% current_user.locations do |loc| %>
+                    <option value="%{loc.id}">loc.name</option>
+                <% end %>
+            </select>
+        </span><br>
+    <span>
+        <b>Time Frame:</b>
+        <select class="form-control">
+            <option value="now">Now</option>
+            <option value="today">Today</option>
+            <option value="tomorrow">Tomorrow</option>
+            <option value="this_week">This Week</option>
+              <option value="all_time">All Time</option>
+        </select>
+    </span><br><br>
+    <div>
+        <b>Only Show:</b>
+        <span>
+            <label class="checkbox-inline">
+                <input type="checkbox" id="importantCheckbox"> Important Tasks
+            </label>
+        </span>
+        <span>
+            <label class="checkbox-inline">
+                <input type="checkbox" id="longtermCheckbox"> Long Term Tasks
+            </label>
+        </span>
+    </div>
   </div>
 
 </div>
 
-<%= render "layouts/modal_form", modal_id: "new-task-modal", modal_title: "New Task", modal_data: { form: "temporary" }, modal_content: "tasks/form" %>
+<%= render "layouts/modal_form", modal_id: "new-task-modal", modal_title: "New Task", modal_data: { form: "temporary" }, modal_content: "tasks/new_form" %>
