@@ -1,8 +1,7 @@
 <h1>Create Task</h1>
 
-
-<div>
-	<%= form_for @task do |f| %>
+<div id="form_custom">
+	<%= form_for task do |f| %>
 		<%= f.label :title %>
 		<%= f.text_field :title %><br>
 		<%= f.label :content %>
@@ -33,6 +32,7 @@
 					<button type="button" class="btn btn-default" id="custom_days"%> > Custom </button>
 				</div>
 			</div>
+
 			<div class="btn-group" data-toggle="buttons" id="days">
 			  <label class="btn btn-default">
 			  	<%=check_box_tag "daychecks[]", "Sunday", false %> Sunday
@@ -70,85 +70,12 @@
 					<button type="button" class="btn btn-default" id="custom_days"%> > Custom </button>
 				</div>
 			</div>
-			<div id="times">
-				<div id="am_times">
-					<div> AM </div>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_12am"> 12
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_1am"> 1
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_2am"> 2
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_3am"> 3
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_4am"> 4
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_5am"> 5
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_6am"> 6
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_7am"> 7
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_8am"> 8
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_9am"> 9
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_10am"> 10
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_11am"> 11
-					</label>
-				</div>
-				<div id="pm_times">
-					<div> PM </div>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_12pm"> 12
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_1pm"> 1
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_2pm"> 2
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_3pm"> 3
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_4pm"> 4
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_5pm"> 5
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_6pm"> 6
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_7pm"> 7
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_8pm"> 8
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_9pm"> 9
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" id="time_10pm"> 10
-					</label>
-					<label class="btn btn-default">
-					  <input type="checkbox" name ="timechecks[]" value= "11pm" id="time_11pm"> 11
-					</label>
-				</div>
+
+			<div id="times" class="btn-group">
+				<% times = task.hidden_tag.hidden_time_range.get_discrete(24) %>
+				<% times.each_index do |i| %>
+					<%= content_tag :button, times[i][0].hour, class: "btn btn-default", id: "time-i" %>
+				<% end %>
 			</div>
 		</div>
 

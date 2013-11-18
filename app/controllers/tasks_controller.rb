@@ -3,26 +3,22 @@ class TasksController < ApplicationController
   before_action :set_task, except: [:index, :new, :create]
 
   def index
-    @task = Task.new(user: current_user)
+    @new_task = Task.new(user: current_user)
     @tasks = current_user.get_tasks(session[:time_frame], session[:policies], session[:location])
-
-    # save user's current location to db
-   
-    # @lat_lng = cookies[:lat_lng].split("|")
-    # @address = Geocoder.search("#{@lat_lng[0]}, #{@lat_lng[1]}")[0].address(format = :full)
-    
-    # @current_location = Location.new
-    # @current_location.save_current_location(current_user, @lat_lng[0], @lat_lng[1])
   end
 
 
   def new
-     @task = Task.new(user: current_user)
+     @new_task = Task.new(user: current_user)
   end
 
   def create
-    @task = current_user.add_task(task_params[:title], task_params[:content])
-    unless @task.errors.any?
+    @new_task = current_user.add_task(task_params[:title], task_params[:content])
+    
+    unless @new_task.errors.any?
+      @task = @new_task
+      @new_task = Task.new(user: current_user)
+
       day_check_array = nil
       if params[:daychecks] != nil
         day_check_array = Util.process_days(params[:daychecks])
@@ -33,6 +29,7 @@ class TasksController < ApplicationController
       end
       @task.update_metadata(params[:tags], params[:day_ranges], day_check_array, params[:time_ranges], time_check_array, params[:locations])
     end
+
     respond_to do |format|
       format.html { redirect_to tasks_path }
       format.js

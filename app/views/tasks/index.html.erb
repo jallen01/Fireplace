@@ -1,38 +1,39 @@
 <% provide(:title, "Tasks") %>
 
-
 <div class="row">
   <div id="tasksHeaderRow" class="span12">
     <h1><%= current_user.first_name %>'s Fireplace</h1><br>
   </div>
 </div>
 
-
 <div class="row">
 
   <div id="tasksLeftPane" class="span4 offset1">
-	<div class="task-list">
-	  <h2>Tasks</h2>
+		<div class="task-list">
+		  <h2>Tasks</h2>
+		  <table class="table table-striped table-bordered">
+		  	<tbody>
+		  		<%= render partial: "tasks/list", locals: {tasks: @tasks} %>
+		  	</tbody>
+		  </table>
 
-	  <%= render partial: "task_list", locals: {tasks: @tasks} %>
+		  <button type="button" class="btn btn-primary" id="create_task_btn">New Task</button>
 
-	  <button type="button" class="btn btn-primary" id="create_task_btn">New Task</button>
-
-	</div>
+		</div>
   </div>
 
   <div id="tasksRightPane" class="span6 vertical_line">
-	<span><b>Current location:</b> <%= @address %></span>
-	<br><br>
-	<span>
-		<b>Location:</b>
-		<select class="form-control">
-			<option value="no_location">Select Location</option>
-			<% current_user.locations do |loc| %>
-				<option value="%{loc.id}">loc.name</option>
-			<% end %>
-		</select>
-	</span><br>
+		<span><b>Current location:</b> <%= @address %></span>
+		<br><br>
+		<span>
+			<b>Location:</b>
+			<select class="form-control">
+				<option value="no_location">Select Location</option>
+				<% current_user.locations do |loc| %>
+					<option value="%{loc.id}">loc.name</option>
+				<% end %>
+			</select>
+		</span><br>
 	<span>
 		<b>Time Frame:</b>
 		<select class="form-control">
@@ -60,4 +61,4 @@
 
 </div>
 
-<%= render "layouts/modal_form", modal_id: "new-task-modal", modal_title: "New Task", modal_data: { form: "temporary" }, modal_content: "tasks/form" %>
+<%= render "layouts/modal_form", modal_id: "new-task-modal", modal_title: "New Task", modal_data: { form: "temporary" }, modal_content: "tasks/new_form" %>
