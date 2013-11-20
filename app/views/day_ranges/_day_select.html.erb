@@ -1,0 +1,28 @@
+<!-- Predefined day ranges -->
+
+<div class="btn-group" data-toggle="buttons">
+  <button type="button" class="btn btn-default" id="day-input-toggle">Custom</button>
+
+  <!-- Predefined day ranges -->
+  <div id="day-ranges-">
+    <% current_user.day_ranges.each do |day_range| %>
+      <%= content_tag :label, class: "btn btn-default btn-buffer #{"active" if tag.day_ranges.include?(day_range)}".html_safe do %>
+        <%= check_box_tag "day_ranges[]", day_range.id, tag.day_ranges.include?(day_range) %>
+         <%= day_range.name %>
+      <% end %> 
+    <% end %>
+  </div>
+</div>
+
+<!-- Custom day input -->
+<div class="btn-group" data-toggle="buttons" id="day-input">
+  <% day_range = tag.hidden_day_range %>
+
+  <% SimpleDay.week_days.each do |day| %>
+    <%= content_tag :label, class: "btn btn-default btn-buffer #{"active" if day_range.include_day?(day)}".html_safe do %>
+      <%= check_box_tag "hidden_day_range[]", day.day_int, day_range.include_day?(day) %>
+       <%= day.to_s_abbrev %>
+    <% end %> 
+  <% end %>
+
+</div>

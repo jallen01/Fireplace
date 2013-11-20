@@ -1,31 +1,31 @@
-<div class="btn-group" data-toggle="custom_buttons">
-  <button type="button" class="btn btn-default" id="custom-time-btn" %>Custom </button>
-  <div id="time-ranges">
+<div class="btn-group" data-toggle="buttons">
+  <button type="button" class="btn btn-default" id="time-input-toggle">Custom</button>
+
+  <!-- Predefined time ranges -->
+  <div id="time-ranges-">
     <% current_user.time_ranges.each do |time_range| %>
-      <label class="btn btn-default">
-        <%= content_tag :input, time_range.name, type: "checkbox", name: :time_ranges, id: time_range.id %>
-      </label>
+      <%= content_tag :label, class: "btn btn-default btn-buffer #{"active" if tag.time_ranges.include?(time_range)}".html_safe do %>
+        <%= check_box_tag "time_ranges[]", time_range.id, tag.time_ranges.include?(time_range) %>
+         <%= time_range.name %>
+      <% end %> 
     <% end %>
   </div>
 </div>
 
-<% times = task.hidden_tag.hidden_time_range.get_array(24) %>
-
+<!-- Custom time input -->
 <div class="btn-group" data-toggle="buttons" id="time-input">
-  <% times.each_index do |i| %>
-    <%= content_tag :label, class: "btn btn-default btn-buffer #{"active" if times[i][1]}".html_safe do %>
-      <%= check_box_tag i, i, name: "custom_time_range[]" do %>
-        <% if (i+1)%4 == 0 %>
-          <%= content_tag :h6, times[i][0].add(SimpleTime.new(1, 0)).to_time.strftime("%l%P"), class: "time-tick" %>
+  <% time_range = tag.hidden_time_range %>
+
+  <% SimpleTime.day_hours.each do |time| %>
+    <%= content_tag :label, class: "btn btn-default btn-buffer #{"active" if time_range.include_time?(time)}".html_safe do %>
+      <%= check_box_tag "hidden_day_range[]", time.hour, time_range.include_time?(time) do %>
+        <% if (time.hour+1)%4 == 0 %>
+          <%= content_tag :h6, time.add(SimpleTime.new(1, 0)).to_time.strftime("%l%P"), class: "time-tick" %>
         <% end %>
       <% end %>    
     <% end %>   
   <% end %>
 </div>
 
-<%= check_box_tag 'model_a[model_b_ids][]', item.id,
-          form.object.model_bs.include?(item), 
-          { :id => "model_a_model_b_ids_#{item.id}" } %>
 
 
-<%= check_box_tag "custom_time_range[]", "#{intr.id}", interest(intr) -%> # interest is a helper method

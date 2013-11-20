@@ -18,6 +18,10 @@ class SimpleDay
     SimpleDay(day_int)
   end
 
+  def self.week_days
+    (0...7).map { |i| SimpleDay.new(i) }
+  end
+
   # Get next day. Wraps around, so next day after Saturday is Sunday.
   def succ
     SimpleDay.new(@day_int + 1)

@@ -23,36 +23,16 @@
 		<% current_user.tags.each do |tag| %>
 			<% content_tag :button, tag.name, type: "button", class: "btn btn-default", id: tag.id %>
 		<% end %>
-
-		<%= hidden_field_tag :tags %>
 	</div>
 
 	<div class="form-group">
 		<label>Days</label>
-		<div class="btn-group" data-toggle="custom_buttons" id="day-ranges">
-			<% current_user.day_ranges.each do |day_range| %>
-				<%= content_tag :button, day_range.name, type: "button", class: "btn btn-default #{"active" if days[i][1]}".html_safe %>
-			<% end %>
-			<div>
-				<button type="button" class="btn btn-default">Custom</button>
-			</div>
-		</div>
-
-		<!-- Day Selector -->
-		<div class="btn-group" data-toggle="custom_buttons" id="day-input">
-			<% days = task.hidden_tag.hidden_day_range.get_array %>
-
-			<% days.each_index do |i| %>
-				<%= content_tag :button, days[i][0].to_s_abbrev, class: "btn btn-default #{"active" if days[i][1]}".html_safe, id: "day-#{i}", type: "button" %>
-			<% end %>
-
-			<%= hidden_field_tag :day_input_data, "#{raw days.map { |day, checked| checked }.as_json}" %>
-		</div>
+			<%= render "day_ranges/day_select.html.erb", tag: task.hidden_tag %>
 	</div>
 	
 	<div class="form-group">
 	  <label>Times</label>
-		<%= render "time_ranges/time_select.html.erb", task: task %>
+		<%= render "time_ranges/time_select.html.erb", tag: task.hidden_tag %>
 	</div>
 
 	<div class="form-group">
@@ -62,9 +42,6 @@
 				<%= content_tag :button, location.name, type: "button", class: "btn btn-default", id: "#{location.id}" %>
 			<% end %>
 		</div>
-
-		<%= hidden_field_tag 'locations', '' %>
-
 	</div>
 
 <% end %>

@@ -1,7 +1,5 @@
 # Primary Author: Jonathan Allen (jallen01)
 
-require 'simple_time'
-
 class TimeRange < ActiveRecord::Base
 
   # Constants
@@ -52,22 +50,19 @@ class TimeRange < ActiveRecord::Base
   end
 
   # 'array' should be an array of boolean values of length 7. 
-  def update_from_array(array)
-    self.clear
-    times = SimpleTime.linspace(SimpleTime.new(0, 0), SimpleTime.new(24, 0), array.length)
-    interval = times[1] - times[0]
-    array.each_index { |i| self.time_set.merge(times[i], times[i] + interval) if array[i] }
+  def update_times(times)
+    self.time_set.clear
+    self.time_set.merge(time)
 
     self.save
   end
 
-  # Get array of n tuples, each containing [time, boolean], where the time values are equally spaced in the range [0, 24) and the boolean indicates whether the time is in this time range.
-  def get_array(n)
-    SimpleTime.linspace(SimpleTime.new(0, 0), SimpleTime.new(24, 0), n).map { |time| [time, self.time_set.include?(time)] }
-  end
-
   # Returns true if time_set is empty or time is in time_set.
   def include_time?(time)
-    self.time_set.include?(time) || self.time_set.blank?
+    self.time_set.include?(SimpleTime.new(time.hour, 0))
+  end
+
+  def include_time_or_empty?(time)
+    self.include_time?(time) || self.time_set.blank?
   end
 end
