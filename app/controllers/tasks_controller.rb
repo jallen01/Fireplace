@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_task, except: [:index, :new, :create]
+  before_action :parse_form, only: [:create, :update]
 
   def index
     @new_task = Task.new(user: current_user)
@@ -13,25 +14,16 @@ class TasksController < ApplicationController
   end
 
   def create
-    @new_task = current_user.add_task(task_params[:title], task_params[:content])
+    @new_task = current_user.add_task(params[:title], params[:content])
     
     unless @new_task.errors.any?
       @task = @new_task
       @new_task = Task.new(user: current_user)
 
-      day_check_array = nil
-      if params[:daychecks] != nil
-        day_check_array = Util.process_days(params[:daychecks])
-      end
-      time_check_array = nil
-      if params[:timechecks] != nil
-        time_check_array = Util.process_times(params[:timechecks])
-      end
-      @task.update_metadata(params[:tags], params[:day_ranges], day_check_array, params[:time_ranges], time_check_array, params[:locations])
+      @task.update_metadata(@form_data)
     end
 
     respond_to do |format|
-      format.html { redirect_to tasks_path }
       format.js
     end
   end
@@ -44,15 +36,14 @@ class TasksController < ApplicationController
 
   def update
     @task.update(task_params)
-    @task.update_metadata(nil, params[:metadata])
+    @task.update_metadata(@form_data)
   end
 
   def destroy
-    logger.debug "destroy-action"
     @task.destroy
+
     respond_to do |format|
-      format.html { redirect_to tasks_path }
-      format.json { head :no_content }
+      format.js
     end
   end
 
@@ -89,5 +80,19 @@ class TasksController < ApplicationController
     # Sanitize params.
     def task_params
       params.require(:task).permit(:title, :content, :important, :long_lasting)
+    end
+
+    def parse_form
+      @form_data = {}
+      
+      puts(params[:tags])
+
+      @form_data[:tags] = ActiveSupport::JSON.decode(params[:tags]).map { |id| Tag.find_by(id: id) }.compact
+
+      @form_data[:custom_time_range] = ActiveSupport::JSON.decode(params[:time_input_data])
+      params[:custom_day_range] = ActiveSupport::JSON.decode(params[:day_input_data])
+
+      @form_data[:time_ranges] = ActiveSupport::JSON.decode(params[:time_ranges]).map { |id| TimeRange.find_by(id: id) }.compact
+      @form_data[:day_ranges] = ActiveSupport::JSON.decode(params[:day_ranges]).map { |id| DayRange.find_by(id: id) }.compact
     end
 end

@@ -33,19 +33,31 @@ class SimpleTime
 
   # Get time a minute later. Used for Range.
   def succ
-    return SimpleTime.new(@hour, @minute+1)
+    SimpleTime.new(@hour, @minute+1)
+  end
+
+  def add(time)
+    SimpleTime.new(@hour + time.hour, @minute + time.minute)
   end
 
   def +(time)
-    return SimpleTime.new(@hour + time.hour, @minute + time.minute)
+    add(time)
+  end
+
+  def subtract(time)
+    SimpleTime.new(@hour - time.hour, @minute - time.minute)
   end
 
   def -(time)
-    return SimpleTime.new(@hour - time.hour, @minute - time.minute)
+    subtract(time)
   end
 
   def to_s
     "#{hour}:#{minute}"
+  end
+
+  def to_time
+    Time.parse(to_s)
   end
 
   def inspect

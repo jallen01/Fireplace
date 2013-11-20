@@ -44,28 +44,20 @@ class TimeRange < ActiveRecord::Base
   def hidden?
     !self.parent_tag.blank?
   end
-  
-  def add_time(start_t, end_t)
-    self.time_set.merge(start_t..end_t)
-    self.save
-  end
-
-  def remove_time(start_t, end_t)
-    self.time_set.subtract(start_t..end_t)
-    self.save
-  end
 
   def clear
     self.time_set.clear
+    
     self.save
   end
 
   # 'array' should be an array of boolean values of length 7. 
   def update_from_array(array)
-    n = array.length
     self.clear
-    times = SimpleTime.linspace(0, SimpleTime.new(0, 0), SimpleTime.new(24, 0))
-    array.each_index { |i| self.add_time(times[i]) if array[i] }
+    times = SimpleTime.linspace(SimpleTime.new(0, 0), SimpleTime.new(24, 0), array.length)
+    interval = times[1] - times[0]
+    array.each_index { |i| self.time_set.merge(times[i], times[i] + interval) if array[i] }
+
     self.save
   end
 

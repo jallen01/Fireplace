@@ -43,52 +43,16 @@ class Task < ActiveRecord::Base
   # Methods
   # -----------
 
-  def add_tag(tag)
-    TaskTag.create(task: self, tag: tag)
-  end
-
-  # Remove all attached tags and clear hidden tag.
-  def clear_metadata
+  def update_tags(tags)
     self.task_tags.destroy_all
-    self.hidden_tag.clear
+    tags.each { |tag| TaskTag.create(task: self, tag: tag) }
     self.save
   end
 
-  # Update metadata and tags. Tags should have keys :form_day_range, :form_time_range, :locations (ids), :tags (ids).
-  def update_metadata(tags, day_ranges, form_day_range, time_range, form_time_range, locations)
-    #self.clear_metadata
-
-    # If no attached tags, update hidden tag metadata.
-    logger.debug "task update_metadata params"
-    logger.debug tags
-    logger.debug day_ranges
-    logger.debug form_day_range
-    logger.debug time_range
-    logger.debug form_time_range
-    logger.debug locations
-    if tags == nil || tags.size == 0
-      self.hidden_tag.update_metadata(day_ranges, form_day_range, time_range, form_time_range, locations)
-    # Else, update tags list
-    else
-      tags.each(&self.add_tag)
-    end
-
-    self.save
+  def update_metadata(metadata)
+    self.update_tags(metadata[:tags])
+    self.hidden_tag.update_metadata(metadata)
   end
-
-  #def update_metadata(tags, metadata)
-  #  self.clear_metadata
-
-    # If no attached tags, update hidden tag metadata.
-  #  if tags == nil
-  #    self.hidden_tag.update_metadata(metadata)
-    # Else, update tags list
-  #  else
-  #    tags.each(&self.add_tag)
-  #  end
-
-  #  self.save
-  #end
 
   # Returns true if task is relevant for specified date, time, day, and location. Any nil arguments are ignored.
   def relevant?(date, time, day, location)

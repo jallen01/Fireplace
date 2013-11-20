@@ -8,7 +8,7 @@ class SimpleDay
 
   # str should be a valid day name. String case is ignored.
   def initialize(day_int)
-    throw RangeError, "Invalid day_int" unless (day_int >=0 && day_int < 7)
+    throw RangeError, "Invalid day" unless (day_int >=0 && day_int < 7)
     @day_int = day_int
   end
 
@@ -36,8 +36,16 @@ class SimpleDay
     @day_int.hash
   end
 
+  def to_date
+    Date.parse(to_s)
+  end
+
   def to_s
     SimpleDay::DAY_NAMES[@day_int]
+  end
+
+  def to_s_abbrev
+    to_date.strftime("%a")
   end
 
   def inspect

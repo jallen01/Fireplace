@@ -1,6 +1,7 @@
 class TagsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_tag, except: [:index, :new, :create]
+  before_action :parse_form, only: [:create, :update]
 
   def index
     @new_tag = Tag.new(user: current_user)
@@ -13,14 +14,12 @@ class TagsController < ApplicationController
 
   def create
     @new_tag = current_user.add_tag(params[:name])
+
     unless @new_tag.errors.any?
       @new_tag = Tag.new(user: current_user)
-      @new_tag.update_metadata(params[:metadata])
-
-      # metadata[:day_range] = [false, true, true, false, false,...]
-      # metadata[:time_range] = [false, true, true, ...]
-      # metadata[:locations] = [id1, id2, ...]
+      @new_tag.update_metadata(@form_data)
     end
+
     respond_to do |format|
       format.js
     end
@@ -34,7 +33,7 @@ class TagsController < ApplicationController
 
   def update
     @task.update(task_params)
-    @task.update_metadata(params[:metadata])
+    @task.update_metadata(@form_data)
   end
 
   def destroy
@@ -65,5 +64,15 @@ class TagsController < ApplicationController
     # Sanitize params.
     def tag_params
       params.require(:tag).permit(:name)
+    end
+
+    def parse_form
+      @form_data = {}
+
+      @form_data[:custom_time_range] = ActiveSupport::JSON.decode(params[:time_input_data])
+      params[:custom_day_range] = ActiveSupport::JSON.decode(params[:day_input_data])
+
+      @form_data[:time_ranges] = ActiveSupport::JSON.decode(params[:time_ranges]).map { |id| TimeRange.find_by(id: id) }.compact
+      @form_data[:day_ranges] = ActiveSupport::JSON.decode(params[:day_ranges]).map { |id| DayRange.find_by(id: id) }.compact
     end
 end

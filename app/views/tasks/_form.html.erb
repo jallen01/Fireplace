@@ -1,89 +1,95 @@
-<h1>Create Task</h1>
+<!-- Primary Author: Jonathan Allen (jallen01) -->
+<%= form_for task, remote: true, html: { class: "modal-form" } do |f| %>
+	
+	<%= render "layouts/form_errors", errors: task.errors %>
 
-<div id="form_custom">
-	<%= form_for task do |f| %>
-		<%= f.label :title %>
-		<%= f.text_field :title %><br>
-		<%= f.label :content %>
-		<%= f.text_area :content %><br>
+	<div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control", placeholder: "Task Title" %>
+  </div>
 
-		<div>
+  <div class="form-group">
+    <%= f.label :content %>
+    <%= f.text_area :content, class: "form-control" %>
+  </div>
 
-			<% if current_user.tags != nil && current_user.tags.size > 0 %>
-				
+
+	<% if current_user.tags != nil && current_user.tags.size > 0 %>
+		
+	<% end %>
+
+	<div class="form-group">
+		<label>Tags</label>
+		<% current_user.tags.each do |tag| %>
+			<% content_tag :button, tag.name, type: "button", class: "btn btn-default", id: tag.id %>
+		<% end %>
+
+		<%= hidden_field_tag :tags %>
+	</div>
+
+	<div class="form-group">
+		<label>Days</label>
+		<div class="btn-group" data-toggle="custom_buttons" id="day-ranges">
+			<% current_user.day_ranges.each do |day_range| %>
+				<%= content_tag :button, day_range.name, type: "button", class: "btn btn-default #{"active" if days[i][1]}".html_safe %>
 			<% end %>
 			<div>
-				Choose tags
+				<button type="button" class="btn btn-default">Custom</button>
 			</div>
-			<% current_user.tags.each do |tag| %>
-				<button type="button" class="btn btn-default tag" id=<%=tag.id%> >tag.name</button>
+		</div>
+
+		<!-- Day Selector -->
+		<div class="btn-group" data-toggle="custom_buttons" id="day-input">
+			<% days = task.hidden_tag.hidden_day_range.get_array %>
+
+			<% days.each_index do |i| %>
+				<%= content_tag :button, days[i][0].to_s_abbrev, class: "btn btn-default #{"active" if days[i][1]}".html_safe, id: "day-#{i}", type: "button" %>
 			<% end %>
 
-			<%= hidden_field_tag 'tags' %>
+			<%= hidden_field_tag :day_input_data, "#{raw days.map { |day, checked| checked }.as_json}" %>
+		</div>
+	</div>
+		
 
+	<div class="form-group">
+		<label>Times</label>
+		<div class="btn-group" data-toggle="custom_buttons" id="time-ranges">
+			<% current_user.time_ranges.each do |time_range| %>
+				<button type="button" class="btn btn-default range_times" id=<%=time_range.id%> >time_range.name</button>
+			<% end %>
 			<div>
-				Days:
-			</div>
-			<div>
-				<% current_user.day_ranges.each do |day_range| %>
-					<button type="button" class="btn btn-default range_days" >day_range.name</button>
-				<% end %>
-				<div>
-					<button type="button" class="btn btn-default" id="custom_days"%> > Custom </button>
-				</div>
-			</div>
-
-			<div class="btn-group" data-toggle="buttons" id="day-input">
-				<% days = task.hidden_tag.hidden_day_range.get_array %>
-
-				<% days.each_index do |i| %>
-					<%= content_tag :button, days[i][0].to_s, class: "btn btn-default #{"active" if days[i][1]}".html_safe, id: "day-#{i}", type: "button" %>
-				<% end %>
-
-				<%= hidden_field_tag 'form_day_range', "#{raw days.map { |day, checked| checked }.as_json}" %>
+				<button type="button" class="btn btn-default" id="custom_days"%>Custom </button>
 			</div>
 		</div>
 
-		<div>
-			<div>
-				Times:
-			</div>
-			<div>
-				<% current_user.time_ranges.each do |time_range| %>
-					<button type="button" class="btn btn-default range_times" id=<%=time_range.id%> >time_range.name</button>
-				<% end %>
-				<div>
-					<button type="button" class="btn btn-default" id="custom_days"%> > Custom </button>
-				</div>
-			</div>
-
-			<div id="time-input" class="btn-group" data-toggle="buttons">
-				<% times = task.hidden_tag.hidden_time_range.get_array(24) %>
-
-				<% times.each_index do |i| %>
-					<%= content_tag :button, times[i][0].hour, class: "btn btn-default #{"active" if times[i][1]}".html_safe, id: "time-#{i}", type: "button" %>
-				<% end %>
-
-				<%= hidden_field_tag 'form_time_range', "#{raw times.map { |time, checked| checked }.as_json}" %>
-			</div>
-		</div>
-
-		<div>
-			<div>
-				Locations:
-			</div>
-			<div>
-				<% current_user.locations.each do |location| %>
-					<button type="button" class="btn btn-default loc" id=''+<%=location.id%> >location.name</button>
-				<% end %>
-			</div>
-		</div>
-
-		<%= hidden_field_tag 'form_day_range', '' %>
 		<%= hidden_field_tag 'time_ranges' %>
+
+		<% times = task.hidden_tag.hidden_time_range.get_array(24) %>
+
+		<div class="btn-group" data-toggle="custom_buttons" id="time-input">
+
+			<% times.each_index do |i| %>
+				<%= content_tag :button, "", class: "btn btn-default btn-buffer #{"active" if times[i][1]}".html_safe, id: "time-#{i}", type: "button" do %>
+					<% if (i+1)%4 == 0 %>
+						<%= content_tag :h6, times[i][0].add(SimpleTime.new(1, 0)).to_time.strftime("%l%P"), class: "time-tick" %>
+					<% end %>
+				<% end %>				
+			<% end %>
+
+			<%= hidden_field_tag :time_input_data, "#{raw times.map { |time, checked| checked }.as_json}" %>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label>Locations</label>
+		<div class="btn-group" data-toggle="custom-buttons" id="time-ranges">
+			<% current_user.locations.each do |location| %>
+				<%= content_tag :button, location.name, type: "button", class: "btn btn-default", id: "#{location.id}" %>
+			<% end %>
+		</div>
+
 		<%= hidden_field_tag 'locations', '' %>
 
-		<%= f.submit 'Create', :class => 'btn btn-primary' %>
+	</div>
 
-	<% end %>
-</div>
+<% end %>

@@ -51,7 +51,8 @@ gem 'devise'
 gem 'rails_12factor', group: :production
 
 # Bootstrap
-gem "twitter-bootstrap-rails"
+gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
+                              :github => 'anjlab/bootstrap-rails'
 
 # Prettify the DB in Rails Console
 gem "hirb", "~> 0.7.1"

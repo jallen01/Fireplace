@@ -1,0 +1,14 @@
+<!-- Primary Author: Jonathan Allen -->
+<!-- List form errors -->
+<!-- Partial parameters: errors -->
+
+<% if errors.any? %>
+  <ul class="validation-errors unstyled">
+    <% errors.full_messages.each do |msg| %>
+      <li class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= msg %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

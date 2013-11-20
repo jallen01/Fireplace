@@ -55,8 +55,11 @@ class Tag < ActiveRecord::Base
     !self.parent_task.blank?
   end
 
-  def add_day_range(day_range)
-    TagDayRange.create(tag: self, day_range: day_range)
+  def update_day_ranges(day_ranges)
+    self.tag_day_ranges.destroy_all
+    day_ranges.each { |day_range| TagDayRange.create(tag: self, day_range: day_range) }
+
+    self.save
   end
 
   def include_day?(day)
@@ -67,8 +70,11 @@ class Tag < ActiveRecord::Base
     end
   end
 
-  def add_time_range(time_range)
-    TagTimeRange.create(tag: self, time_range: time_range)
+  def update_time_ranges(time_ranges)
+    self.tag_time_ranges.destroy_all
+    time_ranges.each { |time_range| TagTimeRange.create(tag: self, time_range: time_range) }
+
+    self.save
   end
 
   def include_time?(time)
@@ -79,74 +85,28 @@ class Tag < ActiveRecord::Base
     end
   end
 
-  def add_location(location)
-    TagLocation.create(tag: self, location: location)
+  def update_locations(locations)
+    self.locations = []
+    locations.each { |locatoin| TagLocation.create(tag: self, location: location) }
+
+    self.save
   end
 
   def include_location?(location)
     self.locations.blank? || self.locations.exists?(location)
   end
 
-  def clear
-    self.hidden_day_range.clear
-    self.tag_day_ranges.destroy_all
-    self.hidden_time_range.clear
-    self.tag_time_ranges.destroy_all
-    self.locations = []
-    self.save
+  def update_metadata(metadata)
+    self.update_day_ranges(metadata[:day_ranges])
+    self.update_time_ranges(metadata[:time_ranges])
+
+    self.hidden_day_range.update_from_array(metadata[:custom_day_range])
+    self.hidden_time_range.update_from_array(metadata[:custom_time_range])
+
+    # if locations != nil && locations.size > 0
+    #   locations.each(&self.add_location)
+    # end
   end
-
-  # TODO
-  def update_metadata(day_ranges, form_day_range, time_range, form_time_range, locations)
-    
-    logger.debug "tag update_metadata params"
-    logger.debug day_ranges
-    logger.debug form_day_range
-    logger.debug time_range
-    logger.debug form_time_range
-    logger.debug locations
-
-    if day_ranges != nil && day_ranges.size > 0
-      day_ranges.each(&self.add_day_range)
-    else
-      if form_day_range
-        self.hidden_day_range.update_from_array(form_day_range)
-        logger.debug "see-day-range"
-        logger.debug self.hidden_day_range.id
-      end
-    end
-
-    if time_ranges != nil && time_ranges.size > 0
-      time_ranges.each(&self.add_time_range)
-    else
-      if form_time_range
-        self.hidden_time_range.update_from_array(form_time_range)
-        logger.debug "see-time-range"
-        logger.debug self.hidden_time_range.id
-      end
-    end
-    if locations != nil && locations.size > 0
-      locations.each(&self.add_location)
-    end
-    self.save
-  end
-
-  #def update_metadata(metadata)
-  #  if metadata[:day_ranges]
-  #    metadata[:day_ranges].each(&self.add_day_range)
-  #  else
-  #    self.hidden_day_range.update_from_array(metadata[:form_day_range])
-  #  end
-
-  # if metadata[:time_ranges] 
-  #    metadata[:time_ranges].each(&self.add_time_range)
-  #  else
-  #    self.hidden_time_range.update_from_array(metadata[:form_time_range])
-  #  end
-
-  #  metadata[:locations].each(&self.add_location)
-  #  self.save
-  #end
 
   def relevant?(time, day, location)
     result = true

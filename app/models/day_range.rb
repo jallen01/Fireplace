@@ -47,18 +47,9 @@ class DayRange < ActiveRecord::Base
     !self.parent_tag.blank?
   end
 
-  def add_day(day)
-    self.day_set.add(day)
-    self.save
-  end
-
-  def remove_day(day)
-    self.day_set.delete(day)
-    self.save
-  end
-
   def clear
     self.day_set.clear()
+
     self.save
   end
 
@@ -69,7 +60,8 @@ class DayRange < ActiveRecord::Base
   # 'array' should be an array of boolean values of length 7.
   def update_from_array(array)
     self.clear
-    array.each_index { |i| self.add_day(SimpleDay.new(i)) if array[i] }
+    array.each_index { |i| self.day_set.add(SimpleDay.new(i)) if array[i] }
+
     self.save
   end
 
