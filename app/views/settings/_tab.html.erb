@@ -1,0 +1,9 @@
+<%= content_tag :div, class, "list-group", id: "#{camel_to_dash(type.name}-list" do %>
+  <%= render "#{camel_to_underscore(type.name)}/list", objects: objects %>
+<% end %>
+
+<hr>
+
+<%= content_tag :button, "New #{camel_to_space(type.name)}", type: "button" class="btn btn-primary", data: { toggle: "modal", target: "#new-#{camel_to_dash(type.name)}-modal" } %>
+
+<%= render "layouts/modal_form", modal_id: "new-#{camel_to_dash(type.name)}-modal", modal_title: "New #{camel_to_space(type.name)}", modal_data: { form: "temporary" }, modal_content: "#{camel_to_underscore(type.name)}/new_form" %>

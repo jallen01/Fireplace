@@ -1,5 +1,9 @@
-<div class="list-group">
-  <%= render "time_ranges/list" %>
+<div class="list-group" id="tags-list">
+  <%= render "tags/list" %>
 </div>
 
-<%= render "layouts/modal_form", modal_id: "new-tag-modal", modal_title: "New Tag", modal_data: { form: "temporary" }, modal_content: "tags/new_form" %>
+<hr>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-day-range-modal">New Day Range</button>
+
+<%= render "layouts/modal_form", modal_id: "new-location-modal", modal_title: "New Location", modal_data: { form: "temporary" }, modal_content: "tags/new_form" %>
