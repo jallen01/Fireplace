@@ -1,5 +1,12 @@
 // Primary Author: Jonathan Allen (jallen01)
 
+var main = function () {
+    $('.btn-group').button();
+}
+
+$(document).ready(main);
+
+
 // Miscellaneous Methods
 // =====================
 
@@ -57,14 +64,6 @@ $(document).on('click', '.modal-form-submit', function (event) {
 });
 
 
-// Buttons
-// =======
-
-$(document).on('click', 'div[data-toggle=custom_buttons] .btn', function (event) {
-    $(event.target).toggleClass("btn-info");
-});
-
-
 // Forms
 // =====
 
@@ -74,7 +73,7 @@ $(document).on("submit", "form", function (event) {
         var time_input_data = JSON.parse($(time_input).find("#time_input_data").val());
         $(time_input).find(".btn").each(function (i, button) {
             var index = parseInt($(button).attr("id").split("-")[1]);
-            if ($(button).hasClass("btn-info")) {
+            if ($(button).hasClass("active")) {
                 time_input_data[index] = true;
             } else {
                 time_input_data[index] = false;
@@ -87,7 +86,7 @@ $(document).on("submit", "form", function (event) {
         var day_input_data = JSON.parse($(day_input).find("#day_input_data").val());
         $(day_input).find(".btn").each(function (i, button) {
             var index = parseInt($(button).attr("id").split("-")[1]);
-            if ($(button).hasClass("btn-info")) {
+            if ($(button).hasClass("active")) {
                 day_input_data[index] = true;
             } else {
                 day_input_data[index] = false;

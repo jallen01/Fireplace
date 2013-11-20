@@ -1,0 +1,5 @@
+<div class="list-group">
+  <%= render "time_ranges/list" %>
+</div>
+
+<%= render "layouts/modal_form", modal_id: "new-tag-modal", modal_title: "New Tag", modal_data: { form: "temporary" }, modal_content: "tags/new_form" %>

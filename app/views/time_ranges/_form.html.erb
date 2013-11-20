@@ -1,0 +1,15 @@
+<%= form_for time_range, remote: true, html: { class: "modal-form" } do |f| %>
+  
+  <%= render "layouts/form_errors", errors: time_range.errors %>
+
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Times</label>
+    <%= render "time_ranges/time_select.html.erb" %>
+  </div>
+
+<% end %>

@@ -1,0 +1,3 @@
+<% @day_ranges.each do |day_range| %>
+  <%= link_to day_range.name, edit_day_range_url(day_range), class: "list-group-item" %>
+<% end %>

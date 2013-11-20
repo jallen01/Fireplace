@@ -1,0 +1,31 @@
+<div class="btn-group" data-toggle="custom_buttons">
+  <button type="button" class="btn btn-default" id="custom-time-btn" %>Custom </button>
+  <div id="time-ranges">
+    <% current_user.time_ranges.each do |time_range| %>
+      <label class="btn btn-default">
+        <%= content_tag :input, time_range.name, type: "checkbox", name: :time_ranges, id: time_range.id %>
+      </label>
+    <% end %>
+  </div>
+</div>
+
+<% times = task.hidden_tag.hidden_time_range.get_array(24) %>
+
+<div class="btn-group" data-toggle="buttons" id="time-input">
+  <% times.each_index do |i| %>
+    <%= content_tag :label, class: "btn btn-default btn-buffer #{"active" if times[i][1]}".html_safe do %>
+      <%= check_box_tag i, i, name: "custom_time_range[]" do %>
+        <% if (i+1)%4 == 0 %>
+          <%= content_tag :h6, times[i][0].add(SimpleTime.new(1, 0)).to_time.strftime("%l%P"), class: "time-tick" %>
+        <% end %>
+      <% end %>    
+    <% end %>   
+  <% end %>
+</div>
+
+<%= check_box_tag 'model_a[model_b_ids][]', item.id,
+          form.object.model_bs.include?(item), 
+          { :id => "model_a_model_b_ids_#{item.id}" } %>
+
+
+<%= check_box_tag "custom_time_range[]", "#{intr.id}", interest(intr) -%> # interest is a helper method

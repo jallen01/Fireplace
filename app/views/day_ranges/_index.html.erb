@@ -1,0 +1,9 @@
+<div class="list-group" id="day-ranges-list">
+  <%= render "day_ranges/list" %>
+</div>
+
+<hr>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-day-range-modal">New Day Range</button>
+
+<%= render "layouts/modal_form", modal_id: "new-day-range-modal", modal_title: "New Day Range", modal_data: { form: "temporary" }, modal_content: "day_ranges/new_form" %>

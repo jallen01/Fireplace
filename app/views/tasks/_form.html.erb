@@ -5,7 +5,7 @@
 
 	<div class="form-group">
     <%= f.label :title %>
-    <%= f.text_field :title, class: "form-control", placeholder: "Task Title" %>
+    <%= f.text_field :title, class: "form-control" %>
   </div>
 
   <div class="form-group">
@@ -49,35 +49,10 @@
 			<%= hidden_field_tag :day_input_data, "#{raw days.map { |day, checked| checked }.as_json}" %>
 		</div>
 	</div>
-		
-
+	
 	<div class="form-group">
-		<label>Times</label>
-		<div class="btn-group" data-toggle="custom_buttons" id="time-ranges">
-			<% current_user.time_ranges.each do |time_range| %>
-				<button type="button" class="btn btn-default range_times" id=<%=time_range.id%> >time_range.name</button>
-			<% end %>
-			<div>
-				<button type="button" class="btn btn-default" id="custom_days"%>Custom </button>
-			</div>
-		</div>
-
-		<%= hidden_field_tag 'time_ranges' %>
-
-		<% times = task.hidden_tag.hidden_time_range.get_array(24) %>
-
-		<div class="btn-group" data-toggle="custom_buttons" id="time-input">
-
-			<% times.each_index do |i| %>
-				<%= content_tag :button, "", class: "btn btn-default btn-buffer #{"active" if times[i][1]}".html_safe, id: "time-#{i}", type: "button" do %>
-					<% if (i+1)%4 == 0 %>
-						<%= content_tag :h6, times[i][0].add(SimpleTime.new(1, 0)).to_time.strftime("%l%P"), class: "time-tick" %>
-					<% end %>
-				<% end %>				
-			<% end %>
-
-			<%= hidden_field_tag :time_input_data, "#{raw times.map { |time, checked| checked }.as_json}" %>
-		</div>
+	  <label>Times</label>
+		<%= render "time_ranges/time_select.html.erb", task: task %>
 	</div>
 
 	<div class="form-group">

@@ -1,0 +1,2 @@
+class DayRangesController < ApplicationController
+end
