@@ -41,4 +41,4 @@
   </div>
 </div>
 
-<%= render "layouts/modal_form", modal_id: "new-task-modal", modal_title: "New Task", modal_data: { form: "temporary" }, modal_content: "tasks/new_form" %>
+<%= render "layouts/modal_form", object: @new_task, modal_id: "new-task-modal", modal_title: "New Task", modal_data: { form: "temporary" }, modal_content: render("tasks/new_form", task: @new_task) %>

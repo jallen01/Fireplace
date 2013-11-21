@@ -24,3 +24,9 @@ body {
 .btn.active {
 	@extend .btn-info;
 }
+
+.modal .modal-body {
+	width: 600px;
+    max-height: 420px;
+    overflow-y: auto;
+}

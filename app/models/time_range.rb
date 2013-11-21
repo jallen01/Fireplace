@@ -1,5 +1,7 @@
 # Primary Author: Jonathan Allen (jallen01)
 
+require 'simple_time'
+
 class TimeRange < ActiveRecord::Base
 
   # Constants
@@ -30,9 +32,9 @@ class TimeRange < ActiveRecord::Base
   # Validations
   # -----------
 
-  # validates :user, presence: true
+  validates :user, presence: true
 
-  # validates :name, presence: true, length: { maximum: TimeRange::NAME_MAX_LENGTH }, uniqueness: { scope: :user }, unless: :hidden?
+  validates :name, presence: true, length: { maximum: TimeRange::NAME_MAX_LENGTH }, uniqueness: { scope: :user }, unless: :hidden?
 
 
   # Methods
@@ -52,7 +54,7 @@ class TimeRange < ActiveRecord::Base
   # 'array' should be an array of boolean values of length 7. 
   def update_times(times)
     self.time_set.clear
-    self.time_set.merge(time)
+    self.time_set.merge(times)
 
     self.save
   end

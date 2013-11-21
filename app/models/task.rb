@@ -45,8 +45,9 @@ class Task < ActiveRecord::Base
 
   def update_tags(tags)
     self.task_tags.destroy_all
-    tags.each { |tag| TaskTag.create(task: self, tag: tag) }
     self.save
+
+    tags.each { |tag| TaskTag.create(task: self, tag: tag) }
   end
 
   def update_metadata(metadata)
@@ -57,16 +58,15 @@ class Task < ActiveRecord::Base
   # Returns true if task is relevant for specified date, time, day, and location. Any nil arguments are ignored.
   def relevant?(date, time, day, location)
     result = true
+
     # if a deadline has been set is the deadline soon enough to show the task?
     result &&= (self.deadline.blank? || ((date - self.deadline) < self.days_notice))
 
-    intermediate = false
 
-    if self.tags && self.tags.size > 0
-      self.tags.each { |tag| intermediate ||= tag.relevant?(time, day, location) }
-      result &&= intermediate
-    else
+    if self.tags.blank?
       result &&= self.hidden_tag.relevant?(time, day, location)
+    else
+      result &&= self.tags.any? { |tag| tag.relevant?(time, day, location) }
     end
     
     result

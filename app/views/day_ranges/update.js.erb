@@ -1,0 +1,6 @@
+<% unless @day_range.errors.any? %>
+    $("#day-ranges-list").html('<%= j render "day_ranges/list" %>');
+    $('#edit-day-range-#{@day_range.id}-modal').modal('hide');
+<% end %>
+
+$('#edit-day-range-#{@day_range.id}-modal .modal-body').html('<%= j render "day_ranges/form", day_range: @day_range %>');

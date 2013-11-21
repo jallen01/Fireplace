@@ -43,23 +43,23 @@ class User < ActiveRecord::Base
   # Methods
   # -------
 
-  def add_time_range(name)
-    TagTimeRange.create(user: self, name: name)
+  def create_time_range(name)
+    TimeRange.create(user: self, name: name)
   end
 
-  def add_day_range(name)
-    TagDayRange.create(user: self, name: name)
+  def create_day_range(name)
+    DayRange.create(user: self, name: name)
   end
 
-  def add_tag(name)
+  def create_tag(name)
     Tag.create(user: self, name: name)
   end
 
-  def add_location(name, address_hash)
+  def create_location(name)
     Location.create(user: self, name: name, address_hash: address_hash)
   end
 
-  def add_task(title, content)
+  def create_task(title, content)
     Task.create(user: self, title: title, content: content)
   end
 
@@ -95,12 +95,6 @@ class User < ActiveRecord::Base
       relevant_tasks = relevant_tasks.where(long_lasting: [false, nil]) unless policies[:show_long_lasting]
     end
 
-    real_rel_tasks = relevant_tasks.to_a.select { |task| task.relevant?(date, time, day, location) }
-
-    logger.debug "real-rel-tasks"
-    logger.debug real_rel_tasks.size
-
-    real_rel_tasks
-
+    relevant_tasks.to_a.select { |task| task.relevant?(date, time, day, location) }
   end
 end

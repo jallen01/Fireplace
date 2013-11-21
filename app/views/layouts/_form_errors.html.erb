@@ -3,12 +3,12 @@
 <!-- Partial parameters: errors -->
 
 <% if errors.any? %>
-  <ul class="validation-errors unstyled">
+  <div class="validation-errors">
     <% errors.full_messages.each do |msg| %>
-      <li class="alert alert-danger alert-dismissable">
+      <div class="alert alert-danger alert-dismissable">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <%= msg %>
-      </li>
+      </div>
     <% end %>
-  </ul>
+  </div>
 <% end %>

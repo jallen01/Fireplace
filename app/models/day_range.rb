@@ -1,6 +1,9 @@
 # Primary Author: Jonathan Allen (jallen01)
 
 # Model to store a set of days. Must have a name unless a parent_tag is assigned.
+
+require 'simple_day'
+
 class DayRange < ActiveRecord::Base
 
   # Constants
@@ -34,9 +37,9 @@ class DayRange < ActiveRecord::Base
   # Validations
   # -----------
 
-  # validates :user, presence: true
+  validates :user, presence: true
 
-  # validates :name, presence: true, length: { maximum: DayRange::NAME_MAX_LENGTH }, uniqueness: { scope: :user }, unless: :hidden?
+  validates :name, presence: true, length: { maximum: DayRange::NAME_MAX_LENGTH }, uniqueness: { scope: :user }, unless: :hidden?
 
 
   # Methods
@@ -47,15 +50,9 @@ class DayRange < ActiveRecord::Base
     !self.parent_tag.blank?
   end
 
-  def clear
-    self.day_set.clear()
-
-    self.save
-  end
-
   # 'array' should be an array of boolean values of length 7.
   def update_days(days)
-    self.day_set.clear
+    self.day_set.clear()
     self.day_set.merge(days)
 
     self.save

@@ -1,3 +1,7 @@
 <% @time_ranges.each do |time_range| %>
-  <%= link_to task.name, edit_time_range_url(time_range), class: "list-group-item" %>
+  <%= link_to time_range.name, "#edit-time-range-#{time_range.id}-modal", data: { toggle: "modal" }, class: "list-group-item" %>
+
+  <!-- Edit time range modal -->
+  <%= render "layouts/modal_form", object: time_range, modal_id: "edit-time-range-#{time_range.id}-modal", modal_title: "Edit Time Range", modal_content: render("time_ranges/form", time_range: time_range) %>
+
 <% end %>

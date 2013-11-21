@@ -1,27 +1,11 @@
-<div class="btn-group" data-toggle="buttons">
-  <button type="button" class="btn btn-default" id="time-input-toggle">Custom</button>
-
-  <!-- Predefined time ranges -->
-  <div id="time-ranges-">
-    <% current_user.time_ranges.each do |time_range| %>
-      <%= content_tag :label, class: "btn btn-default btn-buffer #{"active" if tag.time_ranges.include?(time_range)}".html_safe do %>
-        <%= check_box_tag "time_ranges[]", time_range.id, tag.time_ranges.include?(time_range) %>
-         <%= time_range.name %>
-      <% end %> 
-    <% end %>
-  </div>
-</div>
-
 <!-- Custom time input -->
-<div class="btn-group" data-toggle="buttons" id="time-input">
-  <% time_range = tag.hidden_time_range %>
+<div class="btn-group" data-toggle="buttons" id="time-range-select">
 
   <% SimpleTime.day_hours.each do |time| %>
-    <%= content_tag :label, class: "btn btn-default btn-buffer #{"active" if time_range.include_time?(time)}".html_safe do %>
-      <%= check_box_tag "hidden_day_range[]", time.hour, time_range.include_time?(time) do %>
-        <% if (time.hour+1)%4 == 0 %>
-          <%= content_tag :h6, time.add(SimpleTime.new(1, 0)).to_time.strftime("%l%P"), class: "time-tick" %>
-        <% end %>
+    <%= content_tag :label, class: "btn btn-default btn-sm btn-buffer #{"active" if time_range.include_time?(time)}".html_safe do %>
+      <%= check_box_tag "time_range_select[]", time.hour, time_range.include_time?(time) %>
+      <% if (time.hour+1)%4 == 0 %>
+        <%= content_tag :h6, time.add(SimpleTime.new(1, 0)).to_time.strftime("%l%P"), class: "time-tick" %>
       <% end %>    
     <% end %>   
   <% end %>

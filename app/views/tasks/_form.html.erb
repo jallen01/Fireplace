@@ -19,29 +19,25 @@
 	<% end %>
 
 	<div class="form-group">
-		<label>Tags</label>
-		<% current_user.tags.each do |tag| %>
-			<% content_tag :button, tag.name, type: "button", class: "btn btn-default", id: tag.id %>
-		<% end %>
-	</div>
+	  <h4>Tags</h4>
 
-	<div class="form-group">
-		<label>Days</label>
-			<%= render "day_ranges/day_select.html.erb", tag: task.hidden_tag %>
-	</div>
-	
-	<div class="form-group">
-	  <label>Times</label>
-		<%= render "time_ranges/time_select.html.erb", tag: task.hidden_tag %>
-	</div>
+	  <div class="btn-group" data-toggle="buttons">
+	  	<!-- Toggle tag input -->
+		  <button type="button" class="btn btn-default" id="tag-input-toggle">Custom Tag</button>
 
-	<div class="form-group">
-		<label>Locations</label>
-		<div class="btn-group" data-toggle="custom-buttons" id="time-ranges">
-			<% current_user.locations.each do |location| %>
-				<%= content_tag :button, location.name, type: "button", class: "btn btn-default", id: "#{location.id}" %>
-			<% end %>
+		  <!-- Predefined tags -->
+		  <div id="tags">
+			  <% current_user.tags.each do |tag| %>
+		      <%= content_tag :label, class: "btn btn-default btn-buffer #{"active" if task.tags.include?(tag)}".html_safe do %>
+		        <%= check_box_tag "tags[]", tag.id, task.tags.include?(tag) %>
+		         <%= tag.title %>
+		      <% end %> 
+		    <% end %>
+		  </div>
 		</div>
-	</div>
 
+    <hr>
+
+		<%= render "tags/form", tag: task.hidden_tag %>
+	</div>
 <% end %>

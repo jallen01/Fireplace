@@ -64,9 +64,9 @@ class Tag < ActiveRecord::Base
 
   def include_day?(day)
     if self.day_ranges.blank?
-      return self.hidden_day_range.include_day?(day)
+      return self.hidden_day_range.include_day_or_empty?(day)
     else
-      return self.day_ranges.any? { |day_range| day_range.include_day?(day) }
+      return self.day_ranges.any? { |day_range| day_range.include_day_or_empty?(day) }
     end
   end
 
@@ -79,15 +79,15 @@ class Tag < ActiveRecord::Base
 
   def include_time?(time)
     if self.time_ranges.blank?
-      return self.hidden_time_range.include_time?(time)
+      return self.hidden_time_range.include_time_or_blank?(time)
     else
-      return self.time_ranges.any? { |time_range| time_range.include_time?(time) }
+      return self.time_ranges.any? { |time_range| time_range.include_time_or_blank?(time) }
     end
   end
 
   def update_locations(locations)
     self.locations = []
-    locations.each { |locatoin| TagLocation.create(tag: self, location: location) }
+    locations.each { |location| TagLocation.create(tag: self, location: location) }
 
     self.save
   end
@@ -100,12 +100,8 @@ class Tag < ActiveRecord::Base
     self.update_day_ranges(metadata[:day_ranges])
     self.update_time_ranges(metadata[:time_ranges])
 
-    self.hidden_day_range.update_from_array(metadata[:custom_day_range])
-    self.hidden_time_range.update_from_array(metadata[:custom_time_range])
-
-    # if locations != nil && locations.size > 0
-    #   locations.each(&self.add_location)
-    # end
+    self.hidden_day_range.update_from_array(metadata[:hidden_day_range])
+    self.hidden_time_range.update_from_array(metadata[:hidden_time_range])
   end
 
   def relevant?(time, day, location)

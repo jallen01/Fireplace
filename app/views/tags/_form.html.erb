@@ -1,156 +1,63 @@
-<div>
-  <%= form_for @new_tag do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %><br>
+<!-- Days -->
+<div class="form-group">
+  <h4>Days</h4>
 
-    <div>
-      <div>
-        Days:
-      </div>
-      <div>
-        <% current_user.day_ranges.each do |day_range| %>
-          <button type="button" class="btn btn-default range_days" >day_range.name</button>
-        <% end %>
-        <div>
-          <button type="button" class="btn btn-default" id="custom_days"%> > Custom </button>
-        </div>
-      </div>
-      <div class="btn-group" data-toggle="buttons" id="days">
-        <label class="btn btn-default">
-          <%=check_box_tag "daychecks[]", "Sunday", false %> Sunday
-        </label>
-        <label class="btn btn-default">
-          <%=check_box_tag "daychecks[]", "Monday", false %> Monday
-        </label>
-        <label class="btn btn-default">
-          <%=check_box_tag "daychecks[]", "Tuesday", false %> Tuesday
-        </label>
-        <label class="btn btn-default">
-          <%=check_box_tag "daychecks[]", "Wednesday", false %> Wednesday
-        </label>
-        <label class="btn btn-default">
-          <%=check_box_tag "daychecks[]", "Thursday", false %> Thursday
-        </label>
-        <label class="btn btn-default">
-          <%=check_box_tag "daychecks[]", "Friday", false %> Friday
-        </label>
-        <label class="btn btn-default">
-          <%=check_box_tag "daychecks[]", "Saturday", false %> Saturday
-        </label>
-      </div>
-    </div>
+  <!-- Toggle day range input -->
+  <div class="btn-group">
+    <%= content_tag :button, "Custom Days", type: "button", class: "btn btn-default #{(tag.day_ranges.empty? ? 'active' : 'disabled')}", id: "day-range-select-toggle" %>
+  </div>
 
-    <div>
-      <div>
-        Times:
-      </div>
-      <div>
-        <% current_user.time_ranges.each do |time_range| %>
-          <button type="button" class="btn btn-default range_times" id=<%=time_range.id%> >time_range.name</button>
-        <% end %>
-        <div>
-          <button type="button" class="btn btn-default" id="custom_days"%> > Custom </button>
-        </div>
-      </div>
-      <div id="times">
-        <div id="am_times">
-          <div> AM </div>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_12am"> 12
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_1am"> 1
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_2am"> 2
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_3am"> 3
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_4am"> 4
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_5am"> 5
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_6am"> 6
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_7am"> 7
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_8am"> 8
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_9am"> 9
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_10am"> 10
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_11am"> 11
-          </label>
-        </div>
-        <div id="pm_times">
-          <div> PM </div>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_12pm"> 12
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_1pm"> 1
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_2pm"> 2
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_3pm"> 3
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_4pm"> 4
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_5pm"> 5
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_6pm"> 6
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_7pm"> 7
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_8pm"> 8
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_9pm"> 9
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" id="time_10pm"> 10
-          </label>
-          <label class="btn btn-default">
-            <input type="checkbox" name ="timechecks[]" value= "11pm" id="time_11pm"> 11
-          </label>
-        </div>
-      </div>
-    </div>
+  <!-- Predefined day ranges -->
+  <div id="day-ranges" class="btn-group" data-toggle="buttons">
+    <% current_user.day_ranges.each do |day_range| %>
+      <%= content_tag :label, class: "btn btn-default btn-buffer #{(tag.day_ranges.include?(day_range) ? 'active' : '')}" do %>
+        <%= check_box_tag "day_ranges[]", day_range.id, tag.day_ranges.include?(day_range) %>
+        <%= day_range.name %>
+      <% end %> 
+    <% end %>
+  </div>
 
-    <div>
-      <div>
-        Locations:
-      </div>
-      <div>
-        <% current_user.locations.each do |location| %>
-          <button type="button" class="btn btn-default loc" id=''+<%=location.id%> >location.name</button>
-        <% end %>
-      </div>
-    </div>
+  <!-- Day range input -->
+  <%= render "day_ranges/select", day_range: tag.hidden_day_range %>
+</div>
 
-    <%= hidden_field_tag 'form_day_range', '' %>
-    <%= hidden_field_tag 'time_ranges' %>
-    <%= hidden_field_tag 'form_time_range', '' %>
-    <%= hidden_field_tag 'locations', '' %>
+<hr>
 
-    <%= f.submit 'Create', :class => 'btn btn-primary' %>
+<!-- Times -->
+<div class="form-group">
+  <h4>Times</h4>
 
-  <% end %>
+  <!-- Toggle time range input -->
+  <div class="btn-group">
+    <%= content_tag :button, "Custom Times", type: "button", class: "btn btn-default #{(tag.time_ranges.empty? ? 'active' : 'disabled')}", id: "time-select-toggle" %>
+  </div>
+
+  <!-- Predefined time ranges -->
+  <div id="time-ranges" class="btn-group" data-toggle="buttons">
+    <% current_user.time_ranges.each do |time_range| %>
+      <%= content_tag :label, class: "btn btn-default btn-buffer #{(tag.time_ranges.include?(time_range) ? 'active' : '')} #{(tag.time_ranges.empty? ? 'disabled' : '')}" do %>
+        <%= check_box_tag "time_ranges[]", time_range.id, tag.time_ranges.include?(time_range) %>
+         <%= time_range.name %>
+      <% end %> 
+    <% end %>
+  </div>
+
+  <!-- Time range input -->
+  <%= render "time_ranges/select", time_range: tag.hidden_time_range %>
+</div>
+
+<hr>
+
+<!-- Locations -->
+<div class="form-group">
+  <h4>Locations</h4>
+
+  <div id="locations-">
+    <% current_user.locations.each do |location| %>
+      <%= content_tag :label, class: "btn btn-default btn-buffer #{tag.locations.includes?(location) ? "active" : ""}" do %>
+        <%= check_box_tag "locations[]", location.id, tag.locations.include?(location) %>
+         <%= location.name %>
+      <% end %> 
+    <% end %>
+  </div>
 </div>
