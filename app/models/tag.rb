@@ -29,10 +29,10 @@ class Tag < ActiveRecord::Base
 
   after_initialize do
     if self.hidden_time_range.blank?
-      self.hidden_time_range = TimeRange.new(parent_tag_id: self)
+      self.hidden_time_range = TimeRange.new(user: self.user, parent_tag: self)
     end
     if self.hidden_day_range.blank?
-      self.hidden_day_range = DayRange.new(parent_tag_id: self)
+      self.hidden_day_range = DayRange.new(user: self.user, parent_tag: self)
     end
   end
 
@@ -40,11 +40,9 @@ class Tag < ActiveRecord::Base
   # Validations
   # -----------
 
-  # validates :user, presence: true
-  # validates :hidden_time_range, presence: true
-  # validates :hidden_day_range, presence: true
+  validates :user, presence: true
 
-  # validates :name, presence: true, length: { maximum: Tag::NAME_MAX_LENGTH }, uniqueness: { scope: :user }, unless: :hidden?
+  validates :name, presence: true, length: { maximum: Tag::NAME_MAX_LENGTH }, uniqueness: { scope: :user }, unless: :hidden?
 
 
   # Methods
@@ -52,7 +50,7 @@ class Tag < ActiveRecord::Base
 
   # Returns true if this has a parent task.
   def hidden?
-    !self.parent_task.blank?
+    self.parent_task.present?
   end
 
   def update_day_ranges(day_ranges)
@@ -63,10 +61,10 @@ class Tag < ActiveRecord::Base
   end
 
   def include_day?(day)
-    if self.day_ranges.blank?
-      return self.hidden_day_range.include_day_or_empty?(day)
-    else
+    if self.day_ranges.present?
       return self.day_ranges.any? { |day_range| day_range.include_day_or_empty?(day) }
+    else
+      return self.hidden_day_range.include_day_or_empty?(day)
     end
   end
 
@@ -78,10 +76,10 @@ class Tag < ActiveRecord::Base
   end
 
   def include_time?(time)
-    if self.time_ranges.blank?
-      return self.hidden_time_range.include_time_or_blank?(time)
-    else
+    if self.time_ranges.present?
       return self.time_ranges.any? { |time_range| time_range.include_time_or_blank?(time) }
+    else
+      return self.hidden_time_range.include_time_or_blank?(time)
     end
   end
 

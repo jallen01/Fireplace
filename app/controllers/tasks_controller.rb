@@ -1,7 +1,6 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_task, except: [:index, :new, :create]
-  before_action :parse_form, only: [:create, :update]
 
   def index
     @new_task = Task.new(user: current_user)
@@ -14,13 +13,13 @@ class TasksController < ApplicationController
   end
 
   def create
-    @new_task = current_user.add_task(params[:title], params[:content])
+    @new_task = current_user.create_task(params[:title], params[:content])
     
     unless @new_task.errors.any?
       @task = @new_task
       @new_task = Task.new(user: current_user)
 
-      @task.update_metadata(@form_data)
+      @task.update_metadata(@metadata)
     end
 
     respond_to do |format|
@@ -36,7 +35,7 @@ class TasksController < ApplicationController
 
   def update
     @task.update(task_params)
-    @task.update_metadata(@form_data)
+    @task.update_metadata(@metadata)
   end
 
   def destroy
@@ -72,27 +71,21 @@ class TasksController < ApplicationController
       unless @task
         respond_to do |format|
           flash.alert = "Task not found."
-          format.js { render js: "window.location.href = '#{home_url}" }
+          format.js { render js: "window.location.href = '#{root_url}" }
         end
       end 
+
+      # Check permissions.
+      unless @task.user == current_user
+        respond_to do |format|
+          flash.alert = "Forbidden to access Task."
+          format.js { render js: "window.location.href = '#{root_url}'" }
+        end
+      end
     end
 
     # Sanitize params.
     def task_params
       params.require(:task).permit(:title, :content, :important, :long_lasting)
-    end
-
-    def parse_form
-      @form_data = {}
-      
-      puts(params[:tags])
-
-      @form_data[:tags] = ActiveSupport::JSON.decode(params[:tags]).map { |id| Tag.find_by(id: id) }.compact
-
-      @form_data[:custom_time_range] = ActiveSupport::JSON.decode(params[:time_input_data])
-      params[:custom_day_range] = ActiveSupport::JSON.decode(params[:day_input_data])
-
-      @form_data[:time_ranges] = ActiveSupport::JSON.decode(params[:time_ranges]).map { |id| TimeRange.find_by(id: id) }.compact
-      @form_data[:day_ranges] = ActiveSupport::JSON.decode(params[:day_ranges]).map { |id| DayRange.find_by(id: id) }.compact
     end
 end

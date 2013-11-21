@@ -14,12 +14,10 @@ $(document).on('click', '#day-ranges .btn', function () {
 // Time range select
 
 $(document).on('click', '#time-range-select-toggle', function () {
-    $("#time-range-select .btn").removeClass("disabled");
     $("#time-range-select-toggle").addClass("active");
     $("#time-ranges .btn").removeClass("active");
 });
 
 $(document).on('click', '#time-ranges .btn', function () {
-    $("#time-range-select .btn").addClass("disabled");
     $("#time-range-select-toggle").removeClass("active");
 });

@@ -42,13 +42,7 @@ class TimeRange < ActiveRecord::Base
 
   # Returns true if this has a parent tag.
   def hidden?
-    !self.parent_tag.blank?
-  end
-
-  def clear
-    self.time_set.clear
-    
-    self.save
+    self.parent_tag.present?
   end
 
   # 'array' should be an array of boolean values of length 7. 

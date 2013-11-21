@@ -27,17 +27,16 @@ class Task < ActiveRecord::Base
   # Create hidden tag
   after_initialize do
     if self.hidden_tag.blank?
-      self.hidden_tag = Tag.new(parent_task: self)
+      self.hidden_tag = Tag.new(user: self.user, parent_task: self)
     end
   end
 
   # Validations
   # -----------
 
-  # validates :user, presence: true
-  # validates :hidden_tag, presence: true
+  validates :user, presence: true
   
-  # validates :name, presence: true, length: { maximum: Task::TITLE_MAX_LENGTH }, uniqueness: { scope: :user }
+  validates :title, presence: true, length: { maximum: Task::TITLE_MAX_LENGTH }, uniqueness: { scope: :user }
 
 
   # Methods

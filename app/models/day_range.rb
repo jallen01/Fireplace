@@ -47,7 +47,7 @@ class DayRange < ActiveRecord::Base
 
   # Returns true if this has a parent tag.
   def hidden?
-    !self.parent_tag.blank?
+    self.parent_tag.present?
   end
 
   # 'array' should be an array of boolean values of length 7.
