@@ -48,7 +48,7 @@ class TagsController < ApplicationController
       end 
 
       # Check permissions.
-      if (@tag.hidden? || @tag.user !== current_user)
+      if (@tag.hidden? || @tag.user != current_user)
         respond_to do |format|
           flash.alert = "Forbidden to access Tag."
           format.js { render js: "window.location.href = '#{root_url}'" }

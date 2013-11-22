@@ -48,7 +48,7 @@ class DayRangesController < ApplicationController
       end 
 
       # Check permissions.
-      if (@day_range.hidden? || @day_rage !== current_user)
+      if (@day_range.hidden? || @day_range.user != current_user)
         respond_to do |format|
           flash.alert = "Forbidden to access DayRange."
           format.js { render js: "window.location.href = '#{root_url}" }

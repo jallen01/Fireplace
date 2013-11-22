@@ -46,7 +46,7 @@ class TimeRangesController < ApplicationController
       end 
 
       # Check permissions.
-      if (@time_range.hidden? || @time_range.user !== current_user)
+      if (@time_range.hidden? || @time_range.user != current_user)
         respond_to do |format|
           flash.alert = "Forbidden to access TimeRange."
           format.js { render js: "window.location.href = '#{root_url}" }

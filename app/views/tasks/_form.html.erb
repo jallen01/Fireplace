@@ -18,23 +18,18 @@
 		
 	<% end %>
 
-	<div class="form-group">
+	<div class="form-group center-block">
 	  <h4>Tags</h4>
 
-	  <div class="btn-group" data-toggle="buttons">
-	  	<!-- Toggle tag input -->
-		  <button type="button" class="btn btn-default" id="tag-input-toggle">Custom Tag</button>
-
-		  <!-- Predefined tags -->
-		  <div id="tags">
-			  <% current_user.tags.each do |tag| %>
-		      <%= content_tag :label, class: "btn btn-default btn-buffer #{"active" if task.tags.include?(tag)}".html_safe do %>
-		        <%= check_box_tag "tags[]", tag.id, task.tags.include?(tag) %>
-		         <%= tag.title %>
-		      <% end %> 
-		    <% end %>
-		  </div>
-		</div>
+	  <!-- Predefined tags -->
+	  <div id="tags" class="btn-group" data-toggle="buttons">
+		  <% current_user.tags.each do |tag| %>
+	      <%= content_tag :label, class: "btn btn-default btn-buffer #{"active" if task.tags.include?(tag)}".html_safe do %>
+	        <%= check_box_tag "tags[]", tag.id, task.tags.include?(tag) %>
+	        <%= tag.name %>
+	      <% end %> 
+	    <% end %>
+	  </div>
 
     <hr>
 
