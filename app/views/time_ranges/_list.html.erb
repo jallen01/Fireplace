@@ -1,4 +1,5 @@
-<% @time_ranges.each do |time_range| %>
+<% current_user.get_time_ranges.each do |time_range| %>
+  <!-- Time range list -->
   <%= link_to time_range.name, "#edit-time-range-#{time_range.id}-modal", data: { toggle: "modal" }, class: "list-group-item" %>
 
   <!-- Edit time range modal -->

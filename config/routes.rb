@@ -8,7 +8,7 @@ TscizzleMichelleojKrosnickJallen01Final::Application.routes.draw do
 
   resources :settings, only: [:index]
 
-  resources :tasks
+  resources :tasks, only: [:index, :create, :update, :destroy]
 
   resources :tags, only: [:create, :update, :destroy], defaults: { format: 'js' }
   resources :locations, only: [:create, :update, :destroy], defaults: { format: 'js' }

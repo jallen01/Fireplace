@@ -77,9 +77,9 @@ class Tag < ActiveRecord::Base
 
   def include_time?(time)
     if self.time_ranges.present?
-      return self.time_ranges.any? { |time_range| time_range.include_time_or_blank?(time) }
+      return self.time_ranges.any? { |time_range| time_range.include_time_or_empty?(time) }
     else
-      return self.hidden_time_range.include_time_or_blank?(time)
+      return self.hidden_time_range.include_time_or_empty?(time)
     end
   end
 

@@ -8,7 +8,6 @@ class TimeRangesController < ApplicationController
     unless @new_time_range.errors.any?
       @time_range = @new_time_range
       @new_time_range = TimeRange.new(user: current_user)
-      @time_ranges = current_user.get_time_ranges
 
       @time_range.update_times(@metadata[:time_range_select])
     end
@@ -20,12 +19,10 @@ class TimeRangesController < ApplicationController
 
   def update
     @time_range.update_times(@metadata[:time_range_select])
-    @time_ranges = current_user.get_time_ranges
   end
 
   def destroy
     @time_range.destroy
-    @time_ranges = current_user.get_time_ranges
 
     respond_to do |format|
       format.js
@@ -40,16 +37,14 @@ class TimeRangesController < ApplicationController
       # Check that time_range exists.
       unless @time_range
         respond_to do |format|
-          flash.alert = "TimeRange not found."
-          format.js { render js: "window.location.href = '#{root_url}" }
+          format.js { render status: 404 }
         end
       end 
 
       # Check permissions.
       if (@time_range.hidden? || @time_range.user != current_user)
         respond_to do |format|
-          flash.alert = "Forbidden to access TimeRange."
-          format.js { render js: "window.location.href = '#{root_url}" }
+          format.js { render status: 403 }
         end
       end 
     end

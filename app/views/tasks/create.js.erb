@@ -1,9 +1,10 @@
 // if the new task was made, update the tasks list and hide the new task modal
 // the new task modal gets reset at the end
-
 <% unless @new_task.errors.any? %>
-	$(".task-list").html("<%= render 'tasks/task_list' %>");
+	$(".task-list").html("<%= j render 'tasks/list' %>");
 	$("#new-task-modal").modal('hide');
 <% end %>
 
-$("#new-task-modal modal-body").html("<%= render 'tasks/new_form' %>");
+$("#new-task-modal modal-body").html("<%= j render 'tasks/form', task: @new_task %>");
+
+

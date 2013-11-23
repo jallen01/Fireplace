@@ -8,9 +8,8 @@ class TagsController < ApplicationController
     unless @new_tag.errors.any?
       @tag = @new_tag
       @new_tag = Tag.new(user: current_user)
-      @tags = current_user.get_tags
 
-      @new_tag.update_metadata(@metadata)
+      @tag.update_metadata(@metadata)
     end
 
     respond_to do |format|
@@ -21,13 +20,10 @@ class TagsController < ApplicationController
   def update
     @tag.update(task_params)
     @tag.update_metadata(@metadata)
-
-    @tags = current_user.get_tags
   end
 
   def destroy
     @tag.destroy
-    @tags = current_user.get_tags
 
     respond_to do |format|
       format.js
@@ -42,16 +38,14 @@ class TagsController < ApplicationController
       # Check that tag exists.
       unless @tag
         respond_to do |format|
-          flash.alert = "Tag not found."
-          format.js { render js: "window.location.href = '#{root_url}" }
+          format.js { render status: 404 }
         end
       end 
 
       # Check permissions.
       if (@tag.hidden? || @tag.user != current_user)
         respond_to do |format|
-          flash.alert = "Forbidden to access Tag."
-          format.js { render js: "window.location.href = '#{root_url}'" }
+          format.js { render status: 403 }
         end
       end
     end

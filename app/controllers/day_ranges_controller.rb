@@ -8,8 +8,7 @@ class DayRangesController < ApplicationController
     unless @new_day_range.errors.any?
       @day_range = @new_day_range
       @new_day_range = DayRange.new(user: current_user)
-      @day_ranges = current_user.get_day_ranges
-
+      
       @day_range.update_days(@metadata[:day_range_select])
     end
 
@@ -21,13 +20,10 @@ class DayRangesController < ApplicationController
   def update
     @day_range.update(day_range_params)
     @day_range.update_days(@metadata[:day_range_select])
-
-    @day_ranges = current_user.get_day_ranges
   end
 
   def destroy
     @day_range.destroy
-    @day_ranges = current_user.get_day_ranges
 
     respond_to do |format|
       format.js
@@ -42,16 +38,14 @@ class DayRangesController < ApplicationController
       # Check that day_range exists.
       unless @day_range
         respond_to do |format|
-          flash.alert = "DayRange not found."
-          format.js { render js: "window.location.href = '#{root_url}" }
+          format.js { render status: 404 }
         end
       end 
 
       # Check permissions.
       if (@day_range.hidden? || @day_range.user != current_user)
         respond_to do |format|
-          flash.alert = "Forbidden to access DayRange."
-          format.js { render js: "window.location.href = '#{root_url}" }
+          format.js { render status: 403 }
         end
       end 
     end

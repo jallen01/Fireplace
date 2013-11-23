@@ -59,6 +59,6 @@ class TimeRange < ActiveRecord::Base
   end
 
   def include_time_or_empty?(time)
-    self.include_time?(time) || self.time_set.blank?
+    self.include_time?(time) || self.time_set.empty?
   end
 end
