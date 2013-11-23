@@ -58,15 +58,16 @@ All team members will participate in all areas of the project, but to ensure tha
 
 ### Risks
 
+> **Risk:** Difficulty integrating with Google Geocoding
 
-1. 
-> **Risk:* Difficulty integrating with Google Geocoding
-> **Mitigation:* Start working with the API early so that if we have issues we can get help or consider switching to a different address-to-geographic-coordinates API.
-2.
+> **Mitigation:** Start working with the API early so that if we have issues we can get help or consider switching to a different address-to-geographic-coordinates API.
+
 > **Risk:** HTML5 Geolocation not providing accurate enough information about the user’s current location
+
 > **Mitigation:** Start working with the API early so that if we have issues we can consider switching to a different location-tracking API.
-3.
+
 > **Risk:** Difficulty developing features in parallel
+
 > **Mitigation:** Use development branches in GitHub and only merge a branch with the master branch when the feature is fully functional
         
 ### Minimum Viable Product

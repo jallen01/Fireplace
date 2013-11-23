@@ -33,9 +33,7 @@ app, but for any given state of the user (time, day, location) only tasks releva
 
 ### Context Diagram:
 
-
-![Context Diagram](./figures/context_diagram.png)
-
+Refer to 'figures/context_diagram.png'
 
 Concepts
 --------
@@ -54,7 +52,7 @@ Concepts
 ### Data Model
 
 
-![Data Model](./figures/data_model.png)
+Refer to 'figures/data_model.png'
 
 
 

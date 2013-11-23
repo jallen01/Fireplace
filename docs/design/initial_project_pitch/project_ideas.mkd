@@ -1,0 +1,8 @@
+Project Ideas
+=============
+
++ **Event Timeline:** Michelle
++ **PDF organizer:** Jon
++ **“reuse” webapp:** Rebecca
++ **Simplified To-Do List:** Jon
+
