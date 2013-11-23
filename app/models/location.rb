@@ -1,4 +1,4 @@
-# Primary Author: Jonathan Allen (jallen01)
+# Primary Author: Michelle Johnson (mchlljy)
 
 # Model to store a location address. Automatically generates latitude and longitude attributes from address.
 class Location < ActiveRecord::Base
@@ -60,11 +60,19 @@ class Location < ActiveRecord::Base
 
 	# after_validation :geocode, if: :address_changed?
 
-  def get_location(name)
-    loc = Location.find_by(:user_id => current_user.id, :name => name)
+  def self.new_location(params)
+    params = location_params(params)
+    query_str = "#{params[:street]} #{params[:city]} #{params[:state]} #{params[:zip]}"
+    coords = Geocoder.search(query_str)[0].coordinates #array [lat, lng]
+    location = Location.new({:name => params[:name], :latitude => coords[0], :longitude => coords[1]}) 
+    return location
+  end
+
+  def get_location_from_db(current_user_id, name)
+    loc = Location.find_by(:user_id => current_user_id, :name => name)
     lat = loc.latitude
-    long = loc.longitude
-    return [lat, long]
+    lng = loc.longitude
+    return [lat, lng]
   end
 
   def calc_distance(point1, point2) #point1 and point2 are arrays [lat, long]
@@ -72,7 +80,7 @@ class Location < ActiveRecord::Base
     return distance
   end
 
-  def within_distance(clat, clong, lat, long, distance) #current_location is a Location object, radius is in miles
+  def within_distance?(clat, clong, lat, long, distance) #current_location is a Location object, radius is in miles
     calc_dist = calc_distance([clat, clong], [lat, long])
     if calc_dist < distance
       return true
@@ -81,17 +89,23 @@ class Location < ActiveRecord::Base
     end
   end
   
-  def save_current_location(current_user, lat, long)
-    if Location.find_by(:user_id => current_user.id, :name => "Current") == nil
-      location = Location.new(:user_id => current_user.id, :name => "Current", :latitude => lat, :longitude => long)
+  def self.save_current_location(current_user_id, lat, lng)
+    if Location.find_by(:user_id => current_user_id, :name => "Current") == nil
+      location = Location.new(:user_id => current_user_id, :name => "Current", :latitude => lat, :longitude => lng)
       location.save
     else
       location = Location.find_by(:name => "Current")
       location.latitude = lat
-      location.longitude = long
+      location.longitude = lng
       location.save
 
     end
 
   end
+
+  private
+
+    def self.location_params(params) #only allow these params (white list)
+        params.permit(:name, :street, :city, :state, :zip)
+    end
 end

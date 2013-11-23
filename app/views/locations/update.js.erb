@@ -1,0 +1,23 @@
+//<!--  Primary Author: Michelle Johnson (mchlljy) -->
+<% if @location.errors.any? %>
+     console.log('Error');
+     $(".a-unique-class").html('<%= j render "location_form" %>');
+
+<% else %>
+     console.log('Changes Saved');
+
+     $('#my-modal').modal('hide');
+
+     if ($('#location<%= @location.id %>')) {
+     	$('#location<%= @location.id %>').replaceWith("<%= escape_javascript(render(partial: @location, locals: { :current => false })) %>");
+     } else {
+     	$("<%= escape_javascript(render(partial: @location, locals: { :current => false })) %>")
+         .appendTo("#locations")
+         .hide()
+         .fadeIn();
+     }
+     
+     
+
+     
+<% end %>
