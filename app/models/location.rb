@@ -90,6 +90,21 @@ class Location < ActiveRecord::Base
   def include_location?(location)
     self.address_hash.include?(location)
   end
+  
+  # def self.save_current_location(current_user_id, lat, lng)
+  #   if Location.find_by(:user_id => current_user_id, :name => "Current") == nil
+  #     location = Location.new(:user_id => current_user_id, :name => "Current", :latitude => lat, :longitude => lng)
+  #     location.save
+  #   else
+  #     location = Location.find_by(:name => "Current")
+  #     location.latitude = lat
+  #     location.longitude = lng
+  #     location.save
+
+  #   end
+
+  # end
+>>>>>>> location now saves hash
 
   def include_location_or_empty?(location)
     self.include_location?(location) || self.address_hash.empty?

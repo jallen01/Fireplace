@@ -13,12 +13,13 @@ class LocationsController < ApplicationController
       @location = @new_location
       @new_location = Location.new(user: current_user)
       @location.update_locations(@metadata[:location_select])
+      @locations = current_user.get_locations
+
     end
 
     respond_to do |format|
       format.js
     end
-  end
 
   def update
     pars = edit_location_params
