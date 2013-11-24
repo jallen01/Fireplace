@@ -1,6 +1,7 @@
 <% unless @task.errors.any? %>
-	$(".task-list").html("<%= j render 'tasks/list' %>");
-	$("#eidt-task-#{@task.id}-modal").modal('hide');
+    $("#tasks-list .list-group").html("<%= j render "tasks/list" %>");
+    $("<%= j "#edit-task-#{@task.id}-modal" %>").modal("hide");
 <% end %>
 
-$("#new-task-modal modal-body").html("<%= j render 'tasks/form', task: @task %>");
+$("<%= j "#edit-task-#{@task.id}-modal .modal-body" %>").html("<%= j render "tasks/form", task: @task %>");
+

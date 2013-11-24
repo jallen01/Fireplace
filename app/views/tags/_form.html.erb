@@ -1,57 +1,13 @@
-<!-- Days -->
-<div class="form-group center-block">
-  <h4>Days</h4>
+<%= form_for tag, remote: true, html: { class: "modal-form" } do |f| %>
+  <%= render "layouts/form_errors", errors: tag.errors %>
 
-  <!-- Predefined day ranges -->
-  <div id="day-ranges" class="btn-group" data-toggle="buttons">
-    <% current_user.day_ranges.each do |day_range| %>
-      <%= content_tag :label, class: "btn btn-default btn-buffer #{(tag.day_ranges.include?(day_range) ? 'active' : '')}" do %>
-        <%= check_box_tag "day_ranges[]", day_range.id, tag.day_ranges.include?(day_range) %>
-        <%= day_range.name %>
-      <% end %> 
-    <% end %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
 
-  <br>
+  <hr>
 
-  <!-- Day range input -->
-  <%= render "day_ranges/select", day_range: tag.hidden_day_range %>
-</div>
+  <%= render "tags/metadata_form", tag: tag %>
 
-<hr>
-
-<!-- Times -->
-<div class="form-group center-block">
-  <h4>Times</h4>
-
-  <!-- Predefined time ranges -->
-  <div id="time-ranges" class="btn-group" data-toggle="buttons">
-    <% current_user.time_ranges.each do |time_range| %>
-      <%= content_tag :label, class: "btn btn-default btn-buffer #{(tag.time_ranges.include?(time_range) ? 'active' : '')}" do %>
-        <%= check_box_tag "time_ranges[]", time_range.id, tag.time_ranges.include?(time_range) %>
-         <%= time_range.name %>
-      <% end %> 
-    <% end %>
-  </div>
-
-  <br>
-
-  <!-- Time range input -->
-  <%= render "time_ranges/select", time_range: tag.hidden_time_range %>
-</div>
-
-<hr>
-
-<!-- Locations -->
-<div class="form-group center-block">
-  <h4>Locations</h4>
-
-  <div id="locations-">
-    <% current_user.locations.each do |location| %>
-      <%= content_tag :label, class: "btn btn-default btn-buffer #{tag.locations.includes?(location) ? "active" : ""}" do %>
-        <%= check_box_tag "locations[]", location.id, tag.locations.include?(location) %>
-         <%= location.name %>
-      <% end %> 
-    <% end %>
-  </div>
-</div>
+<% end %>

@@ -23,7 +23,7 @@
 
 	  <!-- Predefined tags -->
 	  <div id="tags" class="btn-group" data-toggle="buttons">
-		  <% current_user.tags.each do |tag| %>
+		  <% current_user.get_tags.each do |tag| %>
 	      <%= content_tag :label, class: "btn btn-default btn-buffer #{"active" if task.tags.include?(tag)}".html_safe do %>
 	        <%= check_box_tag "tags[]", tag.id, task.tags.include?(tag) %>
 	        <%= tag.name %>
@@ -33,6 +33,6 @@
 
     <hr>
 
-		<%= render "tags/form", tag: task.hidden_tag %>
+		<%= render "tags/metadata_form", tag: task.hidden_tag %>
 	</div>
 <% end %>

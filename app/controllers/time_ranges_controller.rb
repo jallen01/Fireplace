@@ -18,6 +18,7 @@ class TimeRangesController < ApplicationController
   end
 
   def update
+    @time_range.update(time_range_params)
     @time_range.update_times(@metadata[:time_range_select])
   end
 

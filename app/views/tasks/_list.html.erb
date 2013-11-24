@@ -1,7 +1,6 @@
-<% current_user.get_tasks.each do |task| %>
-  <!-- Task list -->
-  <%= link_to task.title, "#edit-task-#{task.id}-modal", data: { toggle: "modal" }, class: "list-group-item" %></td>
-
-  <!-- Edit task modal -->
-  <%= render "layouts/modal_form", object: task, modal_id: "edit-task-#{task.id}-modal", modal_title: "Edit Task", modal_content: render("tasks/form", task: task) %>
-<% end %>
+<!-- Tasks list -->
+<div class="list-group">
+  <% @tasks.each do |task| %>
+    <%= link_to task.title, "#edit-task-#{task.id}-modal", data: { toggle: "modal" }, class: "list-group-item" %></td>
+  <% end %>
+</div>

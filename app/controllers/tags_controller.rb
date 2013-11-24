@@ -3,7 +3,7 @@ class TagsController < ApplicationController
   before_action :set_tag, except: [:index, :new, :create]
 
   def create
-    @new_tag = current_user.create_tag(params[:name])
+    @new_tag = current_user.create_tag(tag_params[:name])
 
     unless @new_tag.errors.any?
       @tag = @new_tag
@@ -18,7 +18,7 @@ class TagsController < ApplicationController
   end
 
   def update
-    @tag.update(task_params)
+    @tag.update(tag_params)
     @tag.update_metadata(@metadata)
   end
 

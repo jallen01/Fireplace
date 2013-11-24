@@ -6,21 +6,6 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_action :parse_metadata, only: [:create, :update]
 
-  def camel_to_underscore(str)
-    str.gsub(/[a-zA-Z](?=[A-Z])/, '\0_').downcase
-  end
-  helper_method :camel_to_underscore
-
-  def camel_to_dash(str)
-    str.gsub(/[a-zA-Z](?=[A-Z])/, '\0-').downcase
-  end
-  helper_method :camel_to_dash
-
-  def camel_to_space
-    str.gsub(/[a-zA-Z](?=[A-Z])/, '\0 ')
-  end
-  helper_method :camel_to_space
-
   protected
 
   # Add user name to Devise

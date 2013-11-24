@@ -10,7 +10,7 @@
 <!-- Filter policies -->
 
 
-<div class="list-group" id="task-list">
+<div id="tasks-list">
   <%= render partial: "tasks/list" %>
 </div>
 
@@ -33,3 +33,8 @@
 </div>
 
 <%= render "layouts/modal_form", object: @new_task, modal_id: "new-task-modal", modal_title: "New Task", modal_data: { form: "temporary" }, modal_content: render("tasks/form", task: @new_task) %>
+
+<!-- Edit task modals -->
+<% @tasks.each do |task| %>
+    <%= render "layouts/modal_form", object: task, modal_id: "edit-task-#{task.id}-modal", modal_title: "Edit Task", modal_content: render("tasks/form", task: task) %>
+<% end %>

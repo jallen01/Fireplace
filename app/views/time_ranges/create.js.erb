@@ -1,6 +1,8 @@
 <% unless @new_time_range.errors.any? %>
-    $("#time-ranges-list").html('<%= j render "time_ranges/list" %>');
-    $('#new-time-range-modal').modal('hide');
+	$("#time-ranges-list .list-group").html("<%= j render "time_ranges/list" %>");
+	$("#new-time-range-modal").modal('hide');
 <% end %>
 
-$('#new-time-range-modal .modal-body').html('<%= j render "time_ranges/form", time_range: @new_time_range %>');
+$("#new-time-range-modal modal-body").html("<%= j render 'time_ranges/form', time_range: @new_time_range %>");
+
+
