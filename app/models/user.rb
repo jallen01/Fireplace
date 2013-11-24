@@ -85,8 +85,8 @@ class User < ActiveRecord::Base
     self.tags.select { |tag| !tag.hidden? }
   end
 
-  def create_location(name)
-    Location.create(user: self, name: name, address_hash: address_hash)
+  def create_location(params)
+    Location.create(user: self, name: params[:name], address_hash: params[:address_hash])
   end
 
   def get_locations

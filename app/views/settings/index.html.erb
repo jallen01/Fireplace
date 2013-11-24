@@ -8,12 +8,14 @@
       <li class="active"><%= link_to "Tags", "#tag-tab", data: {toggle: "tab"} %></li>
       <li><%= link_to "Time Ranges", "#time-range-tab", data: {toggle: "tab"} %></li>
       <li><%= link_to "Day Ranges", "#day-range-tab", data: {toggle: "tab"} %></li>
+      <li><%= link_to "Locations", "#location-tab", data: {toggle: "tab"} %></li>
     </ul>
   </div>
 
   <div class="col-md-8 col-md-offset-1 tab-content">
     <div class="tab-pane" id="time-range-tab"><%= render "time_ranges/index" %></div>
     <div class="tab-pane" id="day-range-tab"><%= render "day_ranges/index" %></div>
+    <div class="tab-pane" id="location-tab"><%= render "locations/index" %></div>
   </div>
 </div>
 

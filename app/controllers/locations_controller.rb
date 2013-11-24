@@ -2,37 +2,30 @@
 
 class LocationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_location, except: [:index, :new, :create]
+  before_action :set_location, except: [:create]
 
-  def index
-    @locations = Location.where("user_id = ? AND name != ?", current_user.id, "Current")
-    @curr_location = Location.where(:name => "Current")
-    
-  end
-
-  def new
-    @location = current_user.locations.build #sets up new location to be saved
-
-  end
 
   def create
-    @location = Location.new_location(location_params)
-    @location.user_id = current_user.id
+    puts "the params: #{location_params[:name]}, #{location_params[:address_hash]}"
+    @new_location = current_user.create_location(location_params)
+    
+    unless @new_location.errors.any?
+      @location = @new_location
+      @new_location = Location.new(user: current_user)
+      @locations = current_user.get_locations
+
+    end
 
     respond_to do |format|
-      if @location.save
-        format.js
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @location.errors, status: :unprocessable_entity }
-      end
+      format.js
     end
-  end
 
-  def show
-  end
+    # @location = Location.new_location(location_params)
+    # @location.user_id = current_user.id
 
-  def edit
+    # respond_to do |format|
+    #     format.js
+    # end
   end
 
   def update
@@ -59,16 +52,16 @@ class LocationsController < ApplicationController
   end
 
   private 
-    def edit_location_params
-      params.require(:location)
-        .permit(:id, :user_id, :name)
-        .merge(street: params[:street], city: params[:city], zip: params[:zip], state: params[:state])
-    end
+    # def edit_location_params
+    #   params.require(:location)
+    #     .permit(:id, :user_id, :name)
+    #     .merge(street: params[:street], city: params[:city], zip: params[:zip], state: params[:state])
+    # end
 
     def location_params
       params.require(:location)
-            .permit(:user_id, :name)
-            .merge(street: params[:street], city: params[:city], zip: params[:zip], state: params[:state])
+            .permit(:name).merge(address_hash: params[:address_hash])
+            # .merge(street: params[:street], city: params[:city], zip: params[:zip], state: params[:state])
       # merge in street, city, zip, and state since they are passed in through a tag, and thus is not nested under location
     end
 
