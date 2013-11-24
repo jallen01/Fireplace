@@ -2,8 +2,8 @@
 // the new tag modal gets reset at the end
 
 <% unless @new_tag.errors.any? %>
-	$(".tag-list").html("<%= render 'tags/tag_list' %>");
-	$("#new-tag-modal").modal('hide');
+	$("#tags-list .list-group").html("<%= j render "tags/list" %>");
+	$("#new-tag-modal").modal("hide");
 <% end %>
 
-$("#new-tag-modal modal-body").html("<%= render 'tags/new_form' %>");
+$("#new-tag-modal modal-body").html("<%= j render "tags/form", tag: @new_tag %>");

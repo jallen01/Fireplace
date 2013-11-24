@@ -1,3 +1,6 @@
-<% @tags.each do |tag| %>
-  <%= link_to tag.title, edit_tag_url(tag), class: "list-group-item", remote: true %>
-<% end %>
+<!-- Tags list -->
+<div class="list-group">
+  <% current_user.get_tags.each do |tag| %>
+    <%= link_to tag.name, "#edit-tag-#{tag.id}-modal", class: "list-group-item", data: { toggle: "modal" } %>
+  <% end %>
+</div>

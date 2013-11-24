@@ -1,4 +1,4 @@
-<div class="list-group" id="time-ranges-list">
+<div id="time-ranges-list">
   <%= render "time_ranges/list" %>
 </div>
 
@@ -7,3 +7,8 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-time-range-modal">New Time Range</button>
 
 <%= render "layouts/modal_form", object: @new_time_range, modal_id: "new-time-range-modal", modal_title: "New Time Range", modal_data: { form: "temporary" }, modal_content: render("time_ranges/form", time_range: @new_time_range) %>
+
+<!-- Edit time range modals -->
+<% current_user.get_time_ranges.each do |time_range| %>
+  <%= render "layouts/modal_form", object: time_range, modal_id: "edit-time-range-#{time_range.id}-modal", modal_title: "Edit Task", modal_content: render("time_ranges/form", time_range: time_range) %>
+<% end %>

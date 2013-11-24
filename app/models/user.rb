@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
   # Constants
   # ---------
 
-  FIRST_NAME_MAX_LENGTH = 10
-  LAST_NAME_MAX_LENGTH = 10
+  FIRST_NAME_MAX_LENGTH = 20
+  LAST_NAME_MAX_LENGTH = 20
 
   MORNING_HOURS = (6...12).map { |hour| SimpleTime.new(hour, 0) }
   AFTERNOON_HOURS = (12...16).map { |hour| SimpleTime.new(hour, 0) }

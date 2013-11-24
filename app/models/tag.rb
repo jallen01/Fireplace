@@ -77,9 +77,9 @@ class Tag < ActiveRecord::Base
 
   def include_time?(time)
     if self.time_ranges.present?
-      return self.time_ranges.any? { |time_range| time_range.include_time_or_blank?(time) }
+      return self.time_ranges.any? { |time_range| time_range.include_time_or_empty?(time) }
     else
-      return self.hidden_time_range.include_time_or_blank?(time)
+      return self.hidden_time_range.include_time_or_empty?(time)
     end
   end
 
@@ -98,8 +98,8 @@ class Tag < ActiveRecord::Base
     self.update_day_ranges(metadata[:day_ranges])
     self.update_time_ranges(metadata[:time_ranges])
 
-    self.hidden_day_range.update_from_array(metadata[:hidden_day_range])
-    self.hidden_time_range.update_from_array(metadata[:hidden_time_range])
+    self.hidden_day_range.update_days(metadata[:day_range_select])
+    self.hidden_time_range.update_times(metadata[:time_range_select])
   end
 
   def relevant?(time, day, location)

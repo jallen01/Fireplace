@@ -1,4 +1,4 @@
-<div class="list-group" id="day-ranges-list">
+<div id="day-ranges-list">
   <%= render "day_ranges/list" %>
 </div>
 
@@ -7,3 +7,7 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-day-range-modal">New Day Range</button>
 
 <%= render "layouts/modal_form", object: @new_day_range, modal_id: "new-day-range-modal", modal_title: "New Day Range", modal_data: { form: "temporary" }, modal_content: render("day_ranges/form", day_range: @new_day_range) %>
+
+<% current_user.get_day_ranges.each do |day_range| %>
+  <%= render "layouts/modal_form", object: day_range, modal_id: "edit-day-range-#{day_range.id}-modal", modal_title: "Edit Day Range", modal_content: render("day_ranges/form", day_range: day_range) %>
+<% end %>

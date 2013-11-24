@@ -1,0 +1,6 @@
+<% unless @tag.errors.any? %>
+    $("#tags-list .list-group").html("<%= j render "tags/list" %>");
+    $("<%= j "#edit-tag-#{@tag.id}-modal" %>").modal("hide");
+<% end %>
+
+$("<%= j "#edit-tag-#{@tag.id}-modal .modal-body" %>").html("<%= j render "tags/form", tag: @tag %>");

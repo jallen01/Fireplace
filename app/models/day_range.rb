@@ -64,6 +64,6 @@ class DayRange < ActiveRecord::Base
   end
 
   def include_day_or_empty?(day)
-    self.include_day?(day) || self.day_set.blank?
+    self.include_day?(day) || self.day_set.empty?
   end
 end
