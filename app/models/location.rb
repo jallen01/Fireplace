@@ -104,7 +104,6 @@ class Location < ActiveRecord::Base
   #   end
 
   # end
->>>>>>> location now saves hash
 
   def include_location_or_empty?(location)
     self.include_location?(location) || self.address_hash.empty?
