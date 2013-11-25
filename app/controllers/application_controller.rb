@@ -26,5 +26,6 @@ class ApplicationController < ActionController::Base
 
     @metadata[:time_ranges] = (params[:time_ranges] || []).map { |id| TimeRange.find_by(id: id) }.compact
     @metadata[:day_ranges] = (params[:day_ranges] || []).map { |id| DayRange.find_by(id: id) }.compact
+    @metadata[:locations] = (params[:locations] || []).map { |id| Location.find_by(id: id) }.compact
   end
 end

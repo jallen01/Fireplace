@@ -12,35 +12,20 @@ class LocationsController < ApplicationController
     unless @new_location.errors.any?
       @location = @new_location
       @new_location = Location.new(user: current_user)
-      @locations = current_user.get_locations
-
+      @location.update_locations(@metadata[:location_select])
     end
 
     respond_to do |format|
       format.js
     end
-
-    # @location = Location.new_location(location_params)
-    # @location.user_id = current_user.id
-
-    # respond_to do |format|
-    #     format.js
-    # end
   end
 
   def update
     pars = edit_location_params
     coords = Geocoder.search("#{pars[:street]} #{pars[:city]} #{pars[:zip]} #{pars[:state]}")[0].coordinates
     @location.update(:name => pars[:name], :latitude => coords[0], :longitude => coords[1])
-    
-    respond_to do |format|
-      if @location.save
-        format.js
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @location.errors, status: :unprocessable_entity }
-      end
-    end
+    puts @metadata[:location_select]
+    @location.update_locations(@metadata[:location_select])
   end
 
   def destroy

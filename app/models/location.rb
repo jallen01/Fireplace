@@ -60,20 +60,9 @@ class Location < ActiveRecord::Base
 
 	after_validation :geocode
 
-  # def self.new_location(params)
-  #   params = location_params(params)
-  #   query_str = "#{params[:street]} #{params[:city]} #{params[:state]} #{params[:zip]}"
-  #   coords = Geocoder.search(query_str)[0].coordinates #array [lat, lng]
-  #   location = Location.new({:name => params[:name], :latitude => coords[0], :longitude => coords[1]}) 
-  #   return location
-  # end
 
-  # def get_location_from_db(current_user_id, name)
-  #   loc = Location.find_by(:user_id => current_user_id, :name => name)
-  #   lat = loc.latitude
-  #   lng = loc.longitude
-  #   return [lat, lng]
-  # end
+  # Methods
+  # -----------
 
   def calc_distance(point1, point2) #point1 and point2 are arrays [lat, long]
     distance = Geocoder::Calculations.bearing_between(point1[0], point1[1], point2[0], point2[1]) #distance in miles
@@ -88,20 +77,24 @@ class Location < ActiveRecord::Base
       return false
     end
   end
-  
-  # def self.save_current_location(current_user_id, lat, lng)
-  #   if Location.find_by(:user_id => current_user_id, :name => "Current") == nil
-  #     location = Location.new(:user_id => current_user_id, :name => "Current", :latitude => lat, :longitude => lng)
-  #     location.save
-  #   else
-  #     location = Location.find_by(:name => "Current")
-  #     location.latitude = lat
-  #     location.longitude = lng
-  #     location.save
 
-  #   end
+  # 
+  def update_locations(locations)
+    self.address_hash.clear()
+    self.address_hash.merge(locations)
 
-  # end
+    self.save
+  end
+
+  # Returns true if day_set is blank or day is in day_set.
+  def include_location?(location)
+    self.address_hash.include?(location)
+  end
+
+  def include_location_or_empty?(location)
+    self.include_location?(location) || self.address_hash.empty?
+  end
+
 
   private
 
