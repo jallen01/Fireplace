@@ -3,20 +3,35 @@
 	
 	<%= render "layouts/form_errors", errors: task.errors %>
 
-	<div class="form-group">
-    <%= f.label :title %>
-    <%= f.text_field :title, class: "form-control" %>
+  <div class="row">
+  	<div class="form-group col-md-8">
+      <%= f.label :title %>
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
   </div>
 
   <div class="form-group">
     <%= f.label :content %>
-    <%= f.text_area :content, class: "form-control" %>
+    <%= f.text_area :content, class: "form-control", rows: "5",  %>
   </div>
 
+  <div class="checkbox">
+    <%= label_tag do %>
+      <%= f.check_box :important %>
+      Important
+    <% end %>
+  </div>
 
-	<% if current_user.tags != nil && current_user.tags.size > 0 %>
-		
-	<% end %>
+  <label>Deadline</label>
+  <div class="row form-group">
+    <div class="col-md-4">
+      <%= f.text_field :deadline, class: "form-control", data: { provide: "datepicker" }, placeholder: "Date" %>
+    </div>
+
+    <div class="col-md-4">
+      <%= f.text_field :days_notice, class: "form-control", placeholder: "Days Notice" %>
+    </div>
+  </div>
 
 	<div class="form-group center-block">
 	  <h4>Tags</h4>
