@@ -31,6 +31,8 @@ class Task < ActiveRecord::Base
     end
   end
 
+  scope :ordered, -> { order(:important) }
+
   # Validations
   # -----------
 
