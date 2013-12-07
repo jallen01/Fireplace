@@ -36,18 +36,23 @@
 	<div class="form-group center-block">
 	  <h4>Tags</h4>
 
-	  <!-- Predefined tags -->
 	  <div id="tags" class="btn-group" data-toggle="buttons">
-		  <% current_user.get_tags.each do |tag| %>
-	      <%= content_tag :label, class: "btn btn-default btn-buffer #{"active" if task.tags.include?(tag)}".html_safe do %>
+		  <!-- Predefined tags -->
+      <% current_user.get_tags.each do |tag| %>
+	      <%= content_tag :label, class: "btn btn-default btn-buffer tag-button-bar #{"active" if task.tags.include?(tag)}".html_safe do %>
 	        <%= check_box_tag "tags[]", tag.id, task.tags.include?(tag) %>
 	        <%= tag.name %>
 	      <% end %> 
 	    <% end %>
+      <%= content_tag :label, class: "btn btn-default btn-buffer custom-tag" do %>
+        <%= check_box_tag "tags[]", "custom" %>
+        Custom
+      <% end %> 
 	  </div>
 
     <hr>
-
-		<%= render "tags/metadata_form", tag: task.hidden_tag %>
+    <div id="custom-form">
+		  <%= render "tags/metadata_form", tag: task.hidden_tag %>
+    </div>
 	</div>
 <% end %>
