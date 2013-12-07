@@ -5,6 +5,8 @@ class TasksController < ApplicationController
 
   def index
     @new_task = Task.new(user: current_user)
+
+    @tasks = current_user.get_tasks
   end
 
   def create

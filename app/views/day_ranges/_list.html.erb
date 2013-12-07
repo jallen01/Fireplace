@@ -1,5 +1,4 @@
-<div class="list-group">
-  <% current_user.get_day_ranges.each do |day_range| %>
-    <%= link_to day_range.name, "#edit-day-range-#{day_range.id}-modal", data: { toggle: "modal" }, class: "list-group-item" %>
-  <% end %>
-</div>
+<% current_user.get_day_ranges.each do |day_range| %>
+
+    <%= link_to day_range.name, "#edit-day_range-#{day_range.id}-modal", data: { toggle: "modal" }, class: "list-group-item" %>
+<% end %>

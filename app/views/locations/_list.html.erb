@@ -1,7 +1,5 @@
-<% current_user.get_locations.each do |location| %>
+
   <!-- Open day range link -->
-  <%= link_to location.name, "#edit-location-#{location.id}-modal", data: { toggle: "modal" }, class: "list-group-item" %>
-    
-  <!-- Edit day range modal -->
-  <%= render "layouts/modal_form", object: location, modal_id: "edit-location-#{location.id}-modal", modal_title: "Edit Location", modal_content: render("locations/form", location: location) %>
-<% end %>
+  <%= link_to location.name, "#edit-location-#{location.id}-modal", data: { toggle: "modal" }, class: "list-group-item", id: "location#{location.id}" %>
+
+

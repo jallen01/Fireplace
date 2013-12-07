@@ -12,7 +12,7 @@ class Location < ActiveRecord::Base
   # Address fields shown in address string
   ADDRESS_FIELDS_SHOW = [:street, :city, :zip, :state]
 
-  NAME_MAX_LENGTH = 10
+  NAME_MAX_LENGTH = 30
 
 
   # Attributes
@@ -22,6 +22,7 @@ class Location < ActiveRecord::Base
 
 	has_many :tag_locations
 	has_many :tags, through: :tag_locations
+
 
   serialize :address_hash, Hash
 
@@ -33,6 +34,7 @@ class Location < ActiveRecord::Base
   end
 
 	geocoded_by :address
+  after_validation :geocode
 
  #  Returns string representation of address_data. Includes all fields with keys in ADDRESS_FIELDS_SHOW that aren't nil.
   def address
@@ -80,10 +82,14 @@ class Location < ActiveRecord::Base
 
   # 
   def update_locations(locations)
-    self.address_hash.clear()
-    self.address_hash.merge(locations)
+    puts "hey i'm the locations: #{locations}"
 
-    self.save
+    if locations != nil
+      self.address_hash.clear()
+      self.address_hash.merge(locations)
+
+      self.save
+    end
   end
 
   # Returns true if day_set is blank or day is in day_set.

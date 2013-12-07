@@ -1,3 +1,5 @@
+
+
 <div class="row">
   <div class="col-md-4 page-header">
     <h1><%= current_user.first_name %>'s Fireplace</h1>
@@ -10,6 +12,19 @@
 </div>
 
 <!-- Filter policies -->
+
+
+
+<div id="tasks-list">
+  <div class="list-group">
+    <% @tasks.each do |task| %>
+      <%= render "tasks/list", task: task %>
+    <% end %>
+  </div>
+</div>
+
+<hr>
+
 <div class="btn-toolbar">
   <!-- Toggle buttons -->
   <div class="btn-group">
@@ -31,12 +46,19 @@
 
 <hr>
 
-<div id="tasks-list">
-  <%= render partial: "tasks/list" %>
-</div>
+
 
 <!-- New task modal -->
 <%= render "layouts/modal_form", object: @new_task, modal_id: "new-task-modal", modal_title: "New Task", modal_data: { form: "temporary" }, modal_content: render("tasks/form", task: @new_task) %>
 
 <!-- Filter policies modal -->
 <%= render "layouts/modal_display", modal_id: "user-context-modal", modal_title: "User Context", modal_content: render("users/context_form") %>
+
+<!-- Edit task modals -->
+<div id="hidden_modals">
+<% @tasks.each do |task| %>
+    <%= render "layouts/modal_form", object: task, modal_id: "edit-task-#{task.id}-modal", modal_title: "Edit Task", modal_content: render("tasks/form", task: task) %>
+<% end %>
+</div>
+
+<%= javascript_include_tag "index.js" %> 

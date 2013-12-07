@@ -1,7 +1,8 @@
 //<!--  Primary Author: Michelle Johnson (mchlljy) -->
 <% unless @new_location.errors.any? %>
-    $("#location-list").html('<%= j render "locations/list" %>');
+    $("#locations-list").append('<%= j render "locations/list", location: @location %>');
     $('#new-location-modal').modal('hide');
+    $('#hidden_modals').append("<%= j render 'layouts/modal_form', object: @location, modal_id: "edit-location-#{@location.id}-modal", modal_title: "Edit Location", modal_content: render('locations/form', location: @location) %>");
 <% end %>
 
 $('#new-location-modal .modal-body').html('<%= j render "locations/form", location: @new_location %>');
