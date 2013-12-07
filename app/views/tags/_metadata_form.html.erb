@@ -2,20 +2,26 @@
 <div class="form-group center-block">
   <h4>Days</h4>
 
-  <!-- Predefined day ranges -->
   <div id="day-ranges" class="btn-group" data-toggle="buttons">
+    <!-- Predefined day ranges -->
     <% current_user.get_day_ranges.each do |day_range| %>
-      <%= content_tag :label, class: "btn btn-default btn-buffer #{(tag.day_ranges.include?(day_range) ? 'active' : '')}" do %>
+      <%= content_tag :label, class: "btn btn-default btn-buffer day-button-bar #{(tag.day_ranges.include?(day_range) ? 'active' : '')}" do %>
         <%= check_box_tag "day_ranges[]", day_range.id, tag.day_ranges.include?(day_range) %>
         <%= day_range.name %>
       <% end %> 
     <% end %>
+    <%= content_tag :label, class: "btn btn-default btn-buffer custom-day-range" do %>
+      <%= check_box_tag "day_ranges[]", "custom" %>
+      Custom
+    <% end %> 
   </div>
 
   <br>
 
   <!-- Day range input -->
-  <%= render "day_ranges/select", day_range: tag.hidden_day_range %>
+  <div id="day-ranges-custom">
+    <%= render "day_ranges/select", day_range: tag.hidden_day_range %>
+  </div>
 </div>
 
 <hr>
@@ -24,20 +30,26 @@
 <div class="form-group center-block">
   <h4>Times</h4>
 
-  <!-- Predefined time ranges -->
   <div id="time-ranges" class="btn-group" data-toggle="buttons">
+    <!-- Predefined time ranges -->
     <% current_user.get_time_ranges.each do |time_range| %>
-      <%= content_tag :label, class: "btn btn-default btn-buffer #{(tag.time_ranges.include?(time_range) ? 'active' : '')}" do %>
+      <%= content_tag :label, class: "btn btn-default btn-buffer time-button-bar #{(tag.time_ranges.include?(time_range) ? 'active' : '')}" do %>
         <%= check_box_tag "time_ranges[]", time_range.id, tag.time_ranges.include?(time_range) %>
         <%= time_range.name %>
       <% end %> 
     <% end %>
+    <%= content_tag :label, class: "btn btn-default btn-buffer custom-time-range" do %>
+      <%= check_box_tag "time_ranges[]", "custom" %>
+      Custom
+    <% end %> 
   </div>
 
   <br>
 
   <!-- Time range input -->
-  <%= render "time_ranges/select", time_range: tag.hidden_time_range %>
+  <div id="time-ranges-custom">
+    <%= render "time_ranges/select", time_range: tag.hidden_time_range %>
+  </div>
 </div>
 
 <hr>
