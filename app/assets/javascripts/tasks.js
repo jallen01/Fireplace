@@ -13,13 +13,19 @@ $(document).on("change", ".filter-policy-toggle", function(event) {
 });
 
 $(function(){
-    //$(".custom-form").hide()
-    /*$("#new-task-modal").on("close", function(){
-        console.log("show modal");
-    });*/
     $("#new-task-modal .custom-form").hide()
     $("#new-task-modal .day-ranges-custom").hide()
     $("#new-task-modal .time-ranges-custom").hide()
+    
+    $(document).on("show.bs.modal", ".modal", function (event) {
+        modal_id = event.target.id
+        this_modal = $(modal_id)
+        if(event.target.id.indexOf("edit-task-") != -1){ // if an edit-task modal has been opened
+            //custom_tag_classes = this_modal.find(".custom-tag")
+            //if($("#"+modal_id + " " + ))
+        }
+    });
+
     $(document).on("hidden.bs.modal", ".modal", function (event) {
         if(event.target.id === "new-task-modal"){
             $("#new-task-modal .custom-form").hide()
@@ -51,5 +57,17 @@ $(function(){
             $(".custom-form").hide()
         }   
     });
+
+
+    $(".modal-form-cancel").click(function(){
+        modal_id = $(this).parents(".modal").attr("id")
+        this_modal = $(modal_id)
+        console.log("cancel button pressed")
+    });
+
+    $(".modal-form-submit").click(function(){
+        console.log("save button pressed")
+    });
+
 });
 
