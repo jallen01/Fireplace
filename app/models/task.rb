@@ -20,7 +20,7 @@ class Task < ActiveRecord::Base
 
   # Create hidden tag
   after_initialize do
-    if self.hidden_tag.blank?
+    if self.hidden_tag.nil?
       self.hidden_tag = Tag.new(user: self.user, parent_task: self)
     end
   end

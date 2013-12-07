@@ -28,10 +28,10 @@ class Tag < ActiveRecord::Base
 
 
   after_initialize do
-    if self.hidden_time_range.blank?
+    if self.hidden_time_range.nil?
       self.hidden_time_range = TimeRange.new(user: self.user, parent_tag: self)
     end
-    if self.hidden_day_range.blank?
+    if self.hidden_day_range.nil?
       self.hidden_day_range = DayRange.new(user: self.user, parent_tag: self)
     end
   end
@@ -47,6 +47,18 @@ class Tag < ActiveRecord::Base
 
   # Methods
   # -------
+
+  def empty?
+    result = true
+
+    result &&= self.day_ranges.empty?
+    result &&= self.hidden_day_range.empty?
+    result &&= self.time_ranges.empty?
+    result &&= self.hidden_time_range.empty?
+    result &&= self.locations.empty?
+
+    result
+  end
 
   # Returns true if this has a parent task.
   def hidden?

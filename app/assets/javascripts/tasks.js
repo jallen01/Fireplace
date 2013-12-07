@@ -1,3 +1,14 @@
+var main = function () {
+}
+
+$(document).ready(main);
+$(document).on("ajaxComplete", main);
+
+$(document).on("mouseover", "#tasks-list .list-group-item", function (event) {
+    $(event.target).popover("show");
+    console.log("hi");
+});
+
 $(document).on("change", ".filter-policy-toggle", function(event) {
     var checkbox = $(event.target);
     var filter = checkbox.data("filter");
