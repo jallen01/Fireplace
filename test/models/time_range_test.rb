@@ -66,7 +66,7 @@ class TimeRangeTest < ActiveSupport::TestCase
   end
 
   # unit test for TimeRange.include_time_or_empty? method
-  test "include time or empty" do
+  test "include time or empty?" do
     u = users(:user1)
     n = "FaveTimes"
     tr1 = TimeRange.new(user: u, name: n)
