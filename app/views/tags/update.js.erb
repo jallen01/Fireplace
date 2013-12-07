@@ -1,6 +1,9 @@
 <% unless @tag.errors.any? %>
-    $("#tags-list .list-group").html("<%= j render "tags/list" %>");
-    $("<%= j "#edit-tag-#{@tag.id}-modal" %>").modal("hide");
+    $("<%= j "#edit-tag-#{@tag.id}-modal" %>").modal("hide").on("hidden.bs.modal", ".modal", function () {
+    	$("#tags-list .list-group").html("<%= j render "tags/list" %>");
+    });
 <% end %>
 
 $("<%= j "#edit-tag-#{@tag.id}-modal .modal-body" %>").html("<%= j render "tags/form", tag: @tag %>");
+
+$(document).trigger("pageUpdate");

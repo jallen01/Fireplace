@@ -40,6 +40,10 @@ class TimeRange < ActiveRecord::Base
   # Methods
   # -------
 
+  def empty?
+    self.time_set.empty?
+  end
+
   # Returns true if this has a parent tag.
   def hidden?
     self.parent_tag.present?

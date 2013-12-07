@@ -48,6 +48,18 @@ class Tag < ActiveRecord::Base
   # Methods
   # -------
 
+  def empty?
+    result = true
+
+    result &&= self.day_ranges.empty?
+    result &&= self.hidden_day_range.empty?
+    result &&= self.time_ranges.empty?
+    result &&= self.hidden_time_range.empty?
+    result &&= self.locations.empty?
+
+    result
+  end
+
   # Returns true if this has a parent task.
   def hidden?
     self.parent_task.present?
