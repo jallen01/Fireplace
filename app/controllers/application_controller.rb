@@ -21,11 +21,26 @@ class ApplicationController < ActionController::Base
 
     @metadata[:tags] = (params[:tags] || []).map { |id| Tag.find_by(id: id) }.compact
 
-    @metadata[:time_range_select] = (params["time_range_select"] || []).map { |hour| SimpleTime.new(Integer(hour), 0) }
-    @metadata[:day_range_select] = (params["day_range_select"] || []).map { |day| SimpleDay.new(Integer(day)) }
+    if @metadata[:tags].empty?
+      @metadata[:time_ranges] = (params[:time_ranges] || []).map { |id| TimeRange.find_by(id: id) }.compact
+      if @metadata[:time_ranges].empty?
+        @metadata[:time_range_select] = (params["time_range_select"] || []).map { |hour| SimpleTime.new(Integer(hour), 0) }
+      else
+        @metadata[:time_range_select] = []
+      end
 
-    @metadata[:time_ranges] = (params[:time_ranges] || []).map { |id| TimeRange.find_by(id: id) }.compact
-    @metadata[:day_ranges] = (params[:day_ranges] || []).map { |id| DayRange.find_by(id: id) }.compact
-    @metadata[:locations] = (params[:locations] || []).map { |id| Location.find_by(id: id) }.compact
+      @metadata[:day_ranges] = (params[:day_ranges] || []).map { |id| DayRange.find_by(id: id) }.compact
+      if @metadata[:day_ranges].empty?
+        @metadata[:day_range_select] = (params["day_range_select"] || []).map { |day| SimpleDay.new(Integer(day)) }
+      else
+        @metadata[:day_range_select] = []
+      end
+
+      @metadata[:locations] = (params[:locations] || []).map { |id| Location.find_by(id: id) }.compact
+    else
+      [:time_ranges, :time_range_select, :day_ranges, :day_range_select, :locations].each do |key|
+        @metadata[key] = []
+      end
+    end
   end
 end
