@@ -1,6 +1,6 @@
 <!-- Tasks list -->
 <div class="list-group">
-  <% @tasks.each do |task| %>
-    <%= link_to task.title, "#edit-task-#{task.id}-modal", data: { toggle: "modal" }, class: "list-group-item" %></td>
+  <% current_user.get_tasks.each do |task| %>
+    <%= link_to task.title, "#edit-task-#{task.id}-modal", data: { toggle: "modal", relevant: task.relevant?(@user_context), important: !!task.important, quick: !!task.long_lasting }, class: "list-group-item" %></td>
   <% end %>
 </div>

@@ -4,12 +4,6 @@ class Task < ActiveRecord::Base
   # Constants
   # ---------
 
-  # Filter policies
-  POLICIES = [:show_only_important, :show_long_lasting]
-
-  # Filter time frame
-  TIME_FRAMES = [:now, :today, :tomorrow, :week]
-
   TITLE_MAX_LENGTH = 30
 
   
@@ -30,6 +24,8 @@ class Task < ActiveRecord::Base
       self.hidden_tag = Tag.new(user: self.user, parent_task: self)
     end
   end
+
+  scope :ordered, -> { order(:important) }
 
   # Validations
   # -----------
@@ -55,17 +51,16 @@ class Task < ActiveRecord::Base
   end
 
   # Returns true if task is relevant for specified date, time, day, and location. Any nil arguments are ignored.
-  def relevant?(date, time, day, location)
+  def relevant?(user_context)
     result = true
 
     # if a deadline has been set is the deadline soon enough to show the task?
-    result &&= (self.deadline.blank? || ((date - self.deadline) < self.days_notice))
-
+    result &&= (self.deadline.blank? || ((user_context[:date] - self.deadline) <= self.days_notice))
 
     if self.tags.blank?
-      result &&= self.hidden_tag.relevant?(time, day, location)
+      result &&= self.hidden_tag.relevant?(user_context)
     else
-      result &&= self.tags.any? { |tag| tag.relevant?(time, day, location) }
+      result &&= self.tags.any? { |tag| tag.relevant?(user_context) }
     end
     
     result

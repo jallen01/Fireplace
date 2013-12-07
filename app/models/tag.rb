@@ -102,11 +102,11 @@ class Tag < ActiveRecord::Base
     self.hidden_time_range.update_times(metadata[:time_range_select])
   end
 
-  def relevant?(time, day, location)
+  def relevant?(user_context)
     result = true
-    result &&= (location.blank? || self.include_location?(location))
-    result &&= (day.blank? || self.include_day?(day))
-    result &&= (time.blank? || self.include_time?(time))
+    result &&= (user_context[:location].blank? || self.include_location?(user_context[:location]))
+    result &&= (user_context[:day].blank? || self.include_day?(user_context[:day]))
+    result &&= (user_context[:time].blank? || self.include_time?(user_context[:time]))
     
     result
   end
