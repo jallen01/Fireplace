@@ -4,3 +4,8 @@
     <%= link_to task.title, "#edit-task-#{task.id}-modal", data: { toggle: "modal", relevant: task.relevant?(@user_context), important: !!task.important, quick: !!task.long_lasting }, class: "list-group-item" %></td>
   <% end %>
 </div>
+
+<!-- Edit task modals -->
+<% current_user.get_tasks.each do |task| %>
+  <%= render "layouts/modal_form", object: task, modal_id: "edit-task-#{task.id}-modal", modal_title: "Edit Task", modal_data: { form: "reset" }, modal_content: render("tasks/form", task: task) %>
+<% end %>

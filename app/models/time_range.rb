@@ -41,7 +41,7 @@ class TimeRange < ActiveRecord::Base
   # -------
 
   # Returns true if this has a parent tag.
-  def hidden
+  def hidden?
     self.parent_tag.present?
   end
 
