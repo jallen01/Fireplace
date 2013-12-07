@@ -50,7 +50,6 @@ class DayRange < ActiveRecord::Base
     self.parent_tag.present?
   end
 
-  # 'array' should be an array of boolean values of length 7.
   def update_days(days)
     self.day_set.clear()
     self.day_set.merge(days)
@@ -58,11 +57,11 @@ class DayRange < ActiveRecord::Base
     self.save
   end
 
-  # Returns true if day_set is blank or day is in day_set.
   def include_day?(day)
     self.day_set.include?(day)
   end
 
+  # Returns true if day_set is blank or day is in day_set.
   def include_day_or_empty?(day)
     self.include_day?(day) || self.day_set.empty?
   end

@@ -41,11 +41,10 @@ class TimeRange < ActiveRecord::Base
   # -------
 
   # Returns true if this has a parent tag.
-  def hidden
+  def hidden?
     self.parent_tag.present?
   end
-
-  # 'array' should be an array of boolean values of length 7. 
+ 
   def update_times(times)
     self.time_set.clear
     self.time_set.merge(times)
@@ -53,11 +52,11 @@ class TimeRange < ActiveRecord::Base
     self.save
   end
 
-  # Returns true if time_set is empty or time is in time_set.
   def include_time?(time)
     self.time_set.include?(SimpleTime.new(time.hour, 0))
   end
-
+  
+  # Returns true if time_set is empty or time is in time_set.
   def include_time_or_empty?(time)
     self.include_time?(time) || self.time_set.empty?
   end

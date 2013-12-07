@@ -1,0 +1,8 @@
+# seed users
+
+user1:
+  id: 1
+  email: user1email@example.com
+  encrypted_password: <%= User.new.send(:password_digest, "password1") %>
+  first_name: user1firstname
+  last_name: user1lastname
