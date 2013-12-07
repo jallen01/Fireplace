@@ -1,7 +1,9 @@
-<% unless @task.errors.any? %>
-    $("#tasks-list .list-group").html("<%= j render "tasks/list" %>");
-    $("<%= j "#edit-task-#{@task.id}-modal" %>").modal("hide");
+<% if @task.errors.any? %>
+	$("<%= j "#edit-task-#{@task.id}-modal .modal-body" %>").html("<%= j render "tasks/form", task: @task %>");
+	$("<%= j "#edit-task-#{@task.id}-modal .modal-body" %>").trigger("formsCreated");
+<% else %>
+    $("<%= j "#edit-task-#{@task.id}-modal" %>").modal("hide").on("hidden.bs.modal", function () {
+    	$("#tasks-list .list-group").html("<%= j render "tasks/list" %>");
+    	$("#tasks-list .list-group").trigger("formsCreated");
+    });
 <% end %>
-
-$("<%= j "#edit-task-#{@task.id}-modal .modal-body" %>").html("<%= j render "tasks/form", task: @task %>");
-

@@ -3,7 +3,9 @@
 
 <% unless @new_tag.errors.any? %>
 	$("#tags-list .list-group").html("<%= j render "tags/list" %>");
-	$("#new-tag-modal").modal("hide");
+	$("#new-tag-modal").modal("hide").on("hidden.bs.modal", function () {
+		$(document).trigger("pageUpdate");
+	});
 <% end %>
 
 $("#new-tag-modal modal-body").html("<%= j render "tags/form", tag: @new_tag %>");
