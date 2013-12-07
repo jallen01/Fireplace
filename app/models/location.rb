@@ -54,7 +54,7 @@ class Location < ActiveRecord::Base
     self.name = self.name.downcase.split.map(&:capitalize).join(' ') 
 
     # Sanitize address hash
-    self.address_hash.permit(*ADDRESS_FIELDS_ALL)
+    self.address_hash.select { |k,v| ADDRESS_FIELDS_ALL.include?(k) }
     self.address_hash.each do |k, v|
       self.address_hash[k] = String(v)
     end
