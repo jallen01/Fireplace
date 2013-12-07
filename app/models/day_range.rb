@@ -61,11 +61,11 @@ class DayRange < ActiveRecord::Base
     self.save
   end
 
-  # Returns true if day_set is blank or day is in day_set.
   def include_day?(day)
     self.day_set.include?(day)
   end
 
+  # Returns true if day_set is blank or day is in day_set.
   def include_day_or_empty?(day)
     self.include_day?(day) || self.day_set.empty?
   end
