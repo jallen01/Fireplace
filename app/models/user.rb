@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   WEEKDAY_DAYS = (1...6).map { |day| SimpleDay.new(day) }
   WEEKEND_DAYS = [0, 6].map { |day| SimpleDay.new(day) }
 
+  # Filter time frame
+  TIME_FRAMES = [:now, :today, :tomorrow, :week]
+
   # Attributes
   # ----------
 
@@ -66,7 +69,7 @@ class User < ActiveRecord::Base
   end
 
   def get_time_ranges
-    self.time_ranges.select { |time_range| !time_range.hidden? }
+    self.time_ranges.where.not(parent_tag_id: nil)
   end
 
   def create_day_range(name)
@@ -74,7 +77,7 @@ class User < ActiveRecord::Base
   end
 
   def get_day_ranges
-    self.day_ranges.select { |day_range| !day_range.hidden? }
+    self.day_ranges.where.not(parent_tag_id: nil)
   end
 
   def create_tag(name)
@@ -82,7 +85,7 @@ class User < ActiveRecord::Base
   end
 
   def get_tags
-    self.tags.select { |tag| !tag.hidden? }
+    self.tags.where.not(parent_task_id: nil)
   end
 
   def create_location(params)
@@ -97,38 +100,38 @@ class User < ActiveRecord::Base
     Task.create(user: self, title: title, content: content)
   end
 
-  def get_tasks(time_frame, policies, location)
-    time = SimpleTime.new(Time.now.hour, Time.now.min)
-    day = SimpleDay.new(Time.now.wday)
-    date = Date.today
+  def get_context(time_frame, location)
+    context = {}
+
+    context[:date] = Date.today
+    context[:time] = SimpleTime.new(Time.now.hour, Time.now.min)
+    context[:day] = SimpleDay.new(Time.now.wday)
+    context[:location] = location
 
     case time_frame
     when :today
-      time = nil
-      day = day.succ
-      location = nil
+      context[:time] = nil
+      context[:day] = context[:day].succ
+      context[:location] = nil
     when :tomorrow
-      time = nil
-      day = day.succ.succ
-      location = nil
-      date += 1
+      context[:time] = nil
+      context[:day] = context[:day].succ.succ
+      context[:location] = nil
+      context[:date] += 1
     when :week
-      time = nil
-      date += 7
-      location = nil
+      context[:time] = nil
+      context[:date] += 7
+      context[:location] = nil
     else
       # :now or nil
-      time = SimpleTime.new(Time.now.hour, Time.now.min)
-      day = SimpleDay.new(Time.now.wday)
+      context[:time] = SimpleTime.new(Time.now.hour, Time.now.min)
+      context[:day] = SimpleDay.new(Time.now.wday)
     end
 
-    relevant_tasks = self.tasks
+    context
+  end
 
-    if policies
-      relevant_tasks = relevant_tasks.where(important: true) if policies[:show_only_important]
-      relevant_tasks = relevant_tasks.where(long_lasting: [false, nil]) unless policies[:show_long_lasting]
-    end
-
-    relevant_tasks.to_a.select { |task| task.relevant?(date, time, day, location) }
+  def get_tasks
+    self.tasks
   end
 end

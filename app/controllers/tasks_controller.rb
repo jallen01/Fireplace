@@ -1,10 +1,10 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_task, except: [:index, :new, :create]
+  before_action :set_user_context
 
   def index
     @new_task = Task.new(user: current_user)
-    filter_tasks
   end
 
   def create
@@ -17,8 +17,6 @@ class TasksController < ApplicationController
       @task.update_metadata(@metadata)
     end
 
-    filter_tasks
-
     respond_to do |format|
       format.js
     end
@@ -27,48 +25,16 @@ class TasksController < ApplicationController
   def update
     @task.update(task_params)
     @task.update_metadata(@metadata)
-
-    filter_tasks
   end
 
   def destroy
     @task.destroy
 
-    filter_tasks
-
     respond_to do |format|
       format.js
     end
   end
-
-  # Stores filter policies in session.
-  # 'policies' must be a hash. Ignores keys not in 'POLICIES'.
-  def update_policies
-    params[:policies].each do |k, v| 
-      # Ensure that value is boolean with !!
-      session[k] = !!v if Task::POLICIES.include?(k)
-    end
-
-    filter_tasks
-
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  # Stores filter time frame in session.
-  # 'time_frame' must be in 'TIME_FRAMES'.
-  def update_time_frame
-    time_frame = params[:time_frame]
-    session[:time_frame] = time_frame if Task::TIME_FRAMES.include?(time_frame)
-
-    filter_tasks
-
-    respond_to do |format|
-      format.js
-    end
-  end
-
+  
   private
 
     def set_task
@@ -89,8 +55,8 @@ class TasksController < ApplicationController
       end
     end
 
-    def filter_tasks
-      @tasks = current_user.get_tasks(session[:time_frame], session[:policies], session[:location])
+    def set_user_context
+      @user_context = current_user.get_context(session[:time_frame], session[:location])
     end
 
     # Sanitize params.

@@ -1,21 +1,16 @@
 <div class="row">
   <div class="col-md-4 page-header">
-    <h1><%= current_user.first_name %>'s Fireplace</h1>
-    <h4><span class="label label-info">6:55PM | November 19th, 2013</span></h4>
-    <h4><span class="label label-info">Cambridge, MA</span></h4>
-    <h5 data-toggle="modal" data-target="#user_preferences_modal"><%= link_to "Change", "#" %></h5>
+    <h5 data-toggle="modal" data-target="#user_preferences_modal">
+      <h1><%= current_user.first_name %>'s Fireplace</h1>
+      <h4><span class="label label-info">6:55PM | November 19th, 2013</span></h4>
+      <h4><span class="label label-info">Cambridge, MA</span></h4>
+      <%= link_to "Change Context", "#" %>
+      </h5>
+
   </div>
 </div>
 
 <!-- Filter policies -->
-
-
-<div id="tasks-list">
-  <%= render partial: "tasks/list" %>
-</div>
-
-<hr>
-
 <div class="btn-toolbar">
   <!-- Toggle buttons -->
   <div class="btn-group">
@@ -24,21 +19,31 @@
 
   <div class="btn-group" data-toggle="buttons">
     <label class="btn btn-default">
-      <input type="checkbox" data-toggle="quick" class="filter-policy-toggle">Only Quick Tasks
+      <input type="checkbox" data-filter="relevant" class="filter-policy-toggle">All Tasks
     </label>
     <label class="btn btn-default">
-      <input type="checkbox" data-toggle="important" class="filter-policy-toggle">Only Important Tasks
+      <input type="checkbox" data-filter="quick" class="filter-policy-toggle">Only Quick Tasks
+    </label>
+    <label class="btn btn-default">
+      <input type="checkbox" data-filter="important" class="filter-policy-toggle">Only Important Tasks
     </label>
   </div>
 </div>
+
+<hr>
+
+<div id="tasks-list">
+  <%= render partial: "tasks/list" %>
+</div>
+
 
 <!-- New task modal -->
 <%= render "layouts/modal_form", object: @new_task, modal_id: "new-task-modal", modal_title: "New Task", modal_data: { form: "temporary" }, modal_content: render("tasks/form", task: @new_task) %>
 
 <!-- Edit task modals -->
-<% @tasks.each do |task| %>
+<% current_user.get_tasks.each do |task| %>
     <%= render "layouts/modal_form", object: task, modal_id: "edit-task-#{task.id}-modal", modal_title: "Edit Task", modal_content: render("tasks/form", task: task) %>
 <% end %>
 
 <!-- Filter policies modal -->
-<%= render "layouts/modal_display", modal_id: "user-context-modal", modal_title: "User Context", modal_content: render("tasks/user_context_form") %>
+<%= render "layouts/modal_display", modal_id: "user-context-modal", modal_title: "User Context", modal_content: render("users/context_form") %>

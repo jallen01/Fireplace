@@ -33,7 +33,7 @@ class DayRangesController < ApplicationController
   private
 
     def set_day_range
-      @day_range = DayRange.find_by(id: params[:id])
+      @day_range = current_user.get_day_ranges.find_by(id: params[:id])
 
       # Check that day_range exists.
       unless @day_range

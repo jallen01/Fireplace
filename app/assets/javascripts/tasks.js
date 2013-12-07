@@ -1,9 +1,9 @@
 $(document).on("change", ".filter-policy-toggle", function(event) {
     var checkbox = $(event.target);
-    var toggle = checkbox.data("toggle");
+    var filter = checkbox.data("filter");
     if (checkbox.is(":checked")) {
     	$("#tasks-list .list-group-item").each(function (index, elem) {
-    		if ($(elem).data(toggle) === false) {
+    		if ($(elem).data(filter) === false) {
     			$(elem).hide();
     		}
     	});
