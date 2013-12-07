@@ -89,7 +89,6 @@ class Location < ActiveRecord::Base
     end
   end
 
-  # Returns true if day_set is blank or day is in day_set.
   def include_location?(location)
     self.address_hash.include?(location)
   end
