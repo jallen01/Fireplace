@@ -39,7 +39,7 @@ class LocationTest < ActiveSupport::TestCase
   	l1 = Location.new(user: u, name: n)
   	l1.save
   	l2 = Location.new(user: u, name: n)
-  	assert(!dr2.save, "Saved a Location with same name as existing Location")
+  	assert(!l2.save, "Saved a Location with same name as existing Location")
   end
 
   # unit test for Location.calc_distance method
