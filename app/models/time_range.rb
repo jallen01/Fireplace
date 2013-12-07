@@ -44,7 +44,7 @@ class TimeRange < ActiveRecord::Base
   def hidden?
     self.parent_tag.present?
   end
- 
+  
   def update_times(times)
     self.time_set.clear
     self.time_set.merge(times)
