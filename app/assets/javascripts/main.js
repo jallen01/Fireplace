@@ -1,7 +1,10 @@
 // Primary Author: Jonathan Allen (jallen01)
 
 var main = function () {
-    $('.btn-group').button();
+    $(".btn-group").button();
+    $(".modal").each(function (i, modal) {
+        initialize_modal(modal);
+    });
 }
 
 $(document).ready(main);
@@ -29,36 +32,51 @@ var removeHash = function () {
     }
 }
 
-
 // Modal Methods
 // =============
 
+var initialize_modal = function (modal) {
+    console.log($(modal).data("form"));
+    if ($(modal).data("form") === "reset") {
+        $(modal).find("input[type=text], textarea").not("input[type='hidden']").each(function (i, input) {
+            var id = String($(input).attr("id"));
+            var val = $(input).val();
+
+            $(event.target).find("#original_" + id).remove();
+            var hidden = $("<input type='hidden'>").attr("id", "original_" + id).attr("name", "original_" + id);
+
+            $(input).parent().append(hidden);
+            console.log(hidden);
+        });
+    }
+}
+
 // Remove hash on modal close
-$(document).on('hidden', '.modal', function (event) {
+$(document).on("hidden.bs.modal", ".modal", function (event) {
     removeHash();
     $(event.target).find(".validation-errors").remove();
 });
 
 // Reset form fields if data-form="reset"
-$(document).on('hidden', '.modal[data-form="reset"]', function (event) {
-    $(event.target).find("input[type=text], textarea").not("input[type=hidden]").each(function (i, elem) {
-        var id = String($(elem).attr('id'));
+$(document).on("hidden.bs.modal", ".modal[data-form='reset']", function (event) {
+    $(event.target).find("input[type=text], textarea").not("input[type=hidden]").each(function (i, input) {
+        var id = String($(input).attr("id"));
         var value = $(event.target).find("#original_" + id).val();
-        $(elem).val(value);
+        $(input).val(value);
     });
 });
 
 // Reset form if data-form="temporary"
-$(document).on('hidden', '.modal[data-form="temporary"]', function (event) {
+$(document).on("hidden.bs.modal", ".modal[data-form='temporary']", function (event) {
     $(event.target).find("input[type=text], textarea").val("");
 });
 
 // Destroy modal if data-form="destroy"
-$(document).on('hidden', '.modal[data-form="destroy"]', function (event) {
+$(document).on("hidden.bs.modal", ".modal[data-form='destroy']", function (event) {
     $(event.target).remove();
 });
 
 // Register modal submit button. Submits form in modal with class "modal-form".
-$(document).on('click', '.modal-form-submit', function (event) {
-    $(event.target).parents('.modal').find(".modal-form").first().submit();
+$(document).on("click", ".modal-form-submit", function (event) {
+    $(event.target).parents(".modal").find(".modal-form").first().submit();
 });
