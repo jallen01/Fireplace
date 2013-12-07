@@ -35,23 +35,27 @@ var removeHash = function () {
 // Modal Methods
 // =============
 
-var initialize_modal = function (modal) {
+var initialize_modal = function (modal) {    
     if ($(modal).data("form") === "reset") {
-        $(modal).find("input[type=text], textarea").not("input[type='hidden']").each(function (i, input) {
-            var id = String($(input).attr("id"));
+        $(modal).find("[id^=original]").remove();
+
+        $(modal).find("input[type=text], textarea").each(function (i, input) {
+            var id = $(input).attr("id");
             var val = $(input).val();
 
-            $(modal).find("#original_" + id).remove();
-            var hidden = $("<input type='hidden'>");
-            hidden.attr("id", "original_" + id);
-            hidden.attr("name", "original_" + id);
-            hidden.val(val);
-            
-            $('#new-task-modal #' + id).parent().append("sadkfljalkjsfd");
-            console.log($(input));
-            console.log($('#new-task-modal #' + id));
+            var hidden = $("<input type='hidden'>").attr("id", "original_" + id).val(val);
+            $(input).parent().append(hidden);
+        });
+
+        $(modal).find("input[type=checkbox]").each(function (i, checkbox) {
+            var id = $(checkbox).attr("id");
+            var checked = $(checkbox).prop("checked");
+
+            var hidden = $("<input type='hidden'>").attr("id", "original_" + id).val(checked);
+            $(checkbox).parent().append(hidden);
         });
     }
+    
 }
 
 // Remove hash on modal close
@@ -62,10 +66,18 @@ $(document).on("hidden.bs.modal", ".modal", function (event) {
 
 // Reset form fields if data-form="reset"
 $(document).on("hidden.bs.modal", ".modal[data-form='reset']", function (event) {
-    $(event.target).find("input[type=text], textarea").not("input[type=hidden]").each(function (i, input) {
+    $(event.target).find("input[type=text], textarea").each(function (i, input) {
         var id = String($(input).attr("id"));
-        var value = $(event.target).find("#original_" + id).val();
-        $(input).val(value);
+        var val = $(event.target).find("#original_" + id).val();
+
+        $(input).val(val);
+    });
+
+    $(event.target).find("input[type=checkbox]").each(function (i, checkbox) {
+        var id = String($(checkbox).attr("id"));
+        var checked = $(event.target).find("#original_" + id).val();
+
+        $(checkbox).prop("checked", checked === "true");
     });
 });
 

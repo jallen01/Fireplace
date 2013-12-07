@@ -45,7 +45,6 @@ class TimeRange < ActiveRecord::Base
     self.parent_tag.present?
   end
 
-  # 'array' should be an array of boolean values of length 7. 
   def update_times(times)
     self.time_set.clear
     self.time_set.merge(times)
