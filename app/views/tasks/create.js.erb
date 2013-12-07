@@ -1,10 +1,15 @@
 // if the new task was made, update the tasks list and hide the new task modal
 // the new task modal gets reset at the end
 <% unless @new_task.errors.any? %>
-	$("#tasks-list .list-group").html("<%= j render "tasks/list" %>");
+	$("#tasks-list .list-group").append("<%= j render 'tasks/list', task: @task %>");
 	$("#new-task-modal").modal("hide");
+	$('#hidden_modals').append("<%= j render 'layouts/modal_form', object: @task, modal_id: "edit-task-#{@task.id}-modal", modal_title: 'Edit Task', modal_content: render('tasks/form', task: @task) %>");
+	$('.task').each(function() {
+		$(this).popover();
+	});
 <% end %>
 
-$("#new-task-modal modal-body").html("<%= j render "tasks/form", task: @new_task %>");
 
 
+
+console.log('i got here son')

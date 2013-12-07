@@ -1,6 +1,7 @@
 <!-- Tasks list -->
-<div class="list-group">
-  <% @tasks.each do |task| %>
-    <%= link_to task.title, "#edit-task-#{task.id}-modal", data: { toggle: "modal" }, class: "list-group-item" %></td>
-  <% end %>
+
+<div class="list-group-item">
+<%= link_to task.title, "#edit-task-#{task.id}-modal", data: { toggle: "modal", trigger: 'hover', content: task.content, placement: 'right', title: task.title }, class: "task", style: "color: #555555", id: "task#{task.id}", rel: 'popover' %></td>
+
+
 </div>

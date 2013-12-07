@@ -4,7 +4,7 @@ class TasksController < ApplicationController
 
   def index
     @new_task = Task.new(user: current_user)
-    filter_tasks
+    @tasks = filter_tasks
   end
 
   def create

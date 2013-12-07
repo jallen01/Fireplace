@@ -21,6 +21,9 @@ class LocationsController < ApplicationController
       format.js
     end
 
+  end
+
+  
   def update
     pars = edit_location_params
     coords = Geocoder.search("#{pars[:street]} #{pars[:city]} #{pars[:zip]} #{pars[:state]}")[0].coordinates
