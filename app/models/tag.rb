@@ -28,10 +28,10 @@ class Tag < ActiveRecord::Base
 
 
   after_initialize do
-    if self.hidden_time_range.blank?
+    if self.hidden_time_range.nil?
       self.hidden_time_range = TimeRange.new(user: self.user, parent_tag: self)
     end
-    if self.hidden_day_range.blank?
+    if self.hidden_day_range.nil?
       self.hidden_day_range = DayRange.new(user: self.user, parent_tag: self)
     end
   end

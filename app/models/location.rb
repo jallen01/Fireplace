@@ -28,7 +28,7 @@ class Location < ActiveRecord::Base
 
   # Initialize serialized object
   after_initialize do
-    if self.address_hash.blank?
+    if self.address_hash.nil?
       self.address_hash = Hash.new 
     end
   end

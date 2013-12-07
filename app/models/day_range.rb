@@ -28,7 +28,7 @@ class DayRange < ActiveRecord::Base
 
   # Initialize serialized object
   after_initialize do
-    if self.day_set.blank?
+    if self.day_set.nil?
       self.day_set = SortedSet.new
     end
   end
@@ -51,7 +51,7 @@ class DayRange < ActiveRecord::Base
 
   # Returns true if this has a parent tag.
   def hidden?
-    self.parent_tag.present?
+    !self.parent_tag_id.nil?
   end
 
   def update_days(days)

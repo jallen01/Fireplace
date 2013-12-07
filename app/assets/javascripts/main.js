@@ -1,7 +1,6 @@
 // Primary Author: Jonathan Allen (jallen01)
 
 var main = function () {
-    $(".btn-group").button();
     $(".modal form").each(function (i, form) {
         initialize_form(form);
     });

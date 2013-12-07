@@ -23,7 +23,7 @@ class TimeRange < ActiveRecord::Base
 
   # Initialize serialized object
   after_initialize do
-    if self.time_set.blank?
+    if self.time_set.nil?
       self.time_set = SortedSet.new
     end
   end
@@ -46,7 +46,7 @@ class TimeRange < ActiveRecord::Base
 
   # Returns true if this has a parent tag.
   def hidden?
-    self.parent_tag.present?
+    !self.parent_tag_id.nil?
   end
   
   def update_times(times)
