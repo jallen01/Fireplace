@@ -1,12 +1,11 @@
 <div class="row">
   <div class="col-md-4 page-header">
-    <h5 data-toggle="modal" data-target="#user_preferences_modal">
+    <div >
+    <%= link_to "Change Context", "#", data: { "modal" data-target="#user_preferences_modal"} do %>
       <h1><%= current_user.first_name %>'s Fireplace</h1>
       <h4><span class="label label-info">6:55PM | November 19th, 2013</span></h4>
       <h4><span class="label label-info">Cambridge, MA</span></h4>
-      <%= link_to "Change Context", "#" %>
-      </h5>
-
+    <% end %>
   </div>
 </div>
 
