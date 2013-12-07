@@ -36,17 +36,20 @@ var removeHash = function () {
 // =============
 
 var initialize_modal = function (modal) {
-    console.log($(modal).data("form"));
     if ($(modal).data("form") === "reset") {
         $(modal).find("input[type=text], textarea").not("input[type='hidden']").each(function (i, input) {
             var id = String($(input).attr("id"));
             var val = $(input).val();
 
-            $(event.target).find("#original_" + id).remove();
-            var hidden = $("<input type='hidden'>").attr("id", "original_" + id).attr("name", "original_" + id);
-
-            $(input).parent().append(hidden);
-            console.log(hidden);
+            $(modal).find("#original_" + id).remove();
+            var hidden = $("<input type='hidden'>");
+            hidden.attr("id", "original_" + id);
+            hidden.attr("name", "original_" + id);
+            hidden.val(val);
+            
+            $('#new-task-modal #' + id).parent().append("sadkfljalkjsfd");
+            console.log($(input));
+            console.log($('#new-task-modal #' + id));
         });
     }
 }

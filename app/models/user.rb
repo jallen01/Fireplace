@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
   end
 
   def get_time_ranges
-    self.time_ranges.where.not(parent_tag_id: nil)
+    self.time_ranges.where(parent_tag_id: nil)
   end
 
   def create_day_range(name)
@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
   end
 
   def get_day_ranges
-    self.day_ranges.where.not(parent_tag_id: nil)
+    self.day_ranges.where(parent_tag_id: nil)
   end
 
   def create_tag(name)
@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
   end
 
   def get_tags
-    self.tags.where.not(parent_task_id: nil)
+    self.tags.where(parent_task_id: nil)
   end
 
   def create_location(params)
