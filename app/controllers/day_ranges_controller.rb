@@ -23,6 +23,7 @@ class DayRangesController < ApplicationController
   end
 
   def destroy
+    @day_range_id = @day_range.id
     @day_range.destroy
 
     respond_to do |format|

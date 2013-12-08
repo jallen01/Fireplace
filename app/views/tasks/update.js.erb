@@ -1,8 +1,15 @@
+// Primary Author: Jonathan Allen (jallen01)
 
-<% unless @task.errors.any? %>
-    $("#tasks-list .list-group").html("<%= j render "tasks/list", task: @task%>");
-    $("<%= j "#edit-task-#{@task.id}-modal" %>").modal("hide");
+var modal = $("<%= j "#edit-task-#{@task.id}-modal" %>");
+modal.find(".form-submit-btn").button("reset");
+modal.find(".form-cancel-btn").removeClass("disabled");
+
+<% if @task.errors.any? %>
+	modal.find("form").replaceWith("<%= j render "tasks/form", task: @task %>");
+	modal.find("form").trigger("formCreated");
+<% else %>
+    modal.modal("hide").on("hidden.bs.modal", function () {
+    	$("#tasks-list").html("<%= j render "tasks/list" %>");
+    	$("#tasks-list form").trigger("formCreated");
+    });
 <% end %>
-
-$("<%= j "#edit-task-#{@task.id}-modal .modal-body" %>").html("<%= j render "tasks/form", task: @task %>");
-
