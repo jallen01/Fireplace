@@ -9,7 +9,6 @@ $(function () {
 });
 
 var main = function () {
-
     // Task Descriptions
     // =============
     $('#tasks-list .list-group a').each(function(index, elem) {

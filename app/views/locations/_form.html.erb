@@ -1,10 +1,10 @@
-<!-- Primary Author: Michelle Johnson (mchlljy) -->
-
+<!-- Primary Author: Rebecca Krosnick (krosnick) -->
 <%= form_for location, remote: true, html: { class: "modal-form" } do |f| %>
   
   <%= render "layouts/form_errors", errors: location.errors %>
   
   <div class="form-group">
+
     <%= f.label :name %>
     <%= f.text_field :name, class: "form-control" %>
   </div>
@@ -13,23 +13,22 @@
 
   <hr>
 
-
- <div class='btn btn-primary' id="add-address">Hide Address</div><br>
-
-
-    <div class="form-group loc" >
-      <hr>
-      <%= f.label "Street" %><br>
-      <%= text_field_tag('location[address_hash[street]]', nil, :class => "form-control") %>
-
-      <%= f.label "City" %><br>
-      <%= text_field_tag('location[address_hash[city]]', nil, :class => "form-control") %>
-
-      <%= f.label "Zip" %><br>
-      <%= text_field_tag('location[address_hash[zip]]', nil, :class => "form-control") %>
-
-      <%= f.label "State" %><br>
-      <%= text_field_tag('location[address_hash[state]]', nil, :class => "form-control") %>
+<!-- Code from https://github.com/sgruhier/jquery-addresspicker -->
+ <div class='clearfix'>
+    <div class='input input-positioned'>
+      <label>Address : </label> <input id="addresspicker_map" />
     </div>
+
+    <div class='map-wrapper'>
+      <label id="geo_label" for="reverseGeocode">Reverse Geocode after Marker Drag?</label>
+      <select id="reverseGeocode">
+        <option value="false" selected>No</option>
+        <option value="true">Yes</option>
+      </select><br/>
+
+      <div id="map"></div>
+      <div id="legend">You can drag and drop the marker to the correct location</div>
+    </div>
+  </div>
 <% end %>
 
