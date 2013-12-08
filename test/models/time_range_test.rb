@@ -2,7 +2,7 @@ require 'test_helper'
 
 class TimeRangeTest < ActiveSupport::TestCase
 
-  # time range can be made
+  # time ranges can be made
   test "basic save" do
   	u = users(:user1)
   	n = "FaveTimes"

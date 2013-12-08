@@ -3,7 +3,7 @@ require 'simple_day'
 
 class DayRangeTest < ActiveSupport::TestCase
 
-  # day range can be made
+  # day ranges can be made
   test "basic save" do
   	u = users(:user1)
   	n = "FaveDays"
