@@ -51,11 +51,11 @@ class TasksController < ApplicationController
     end
 
     def reset_context_overrides
-      session[:overrides] = { time_frame: :now, location: nil }
+      session[:context_overrides] = { time_frame: :now, location: nil }
     end
 
     def set_context
-      @context = current_user.get_context(session[:overrides], session[:location], session[:utc_offset])
+      @context = current_user.get_context(session[:context_overrides], session[:location], session[:utc_offset])
     end
 
     # Sanitize params.

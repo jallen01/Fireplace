@@ -3,11 +3,12 @@
 <%= form_tag update_context_overrides_user_url(current_user), remote: true, method: :post do %>
   <div class="form-group">
     <label>Time Frame</label>
-    <%= select_tag :time_frame, options_for_select(User::TIME_FRAMES, session[:time_frame]), class: "form-control" %>
+    <%= select_tag :time_frame, options_for_select(User::TIME_FRAMES, session[:context_overrides][:time_frame]), class: "form-control" %>
   </div>
 
   <div class="form-group">
     <label>Location</label>
-    <%= select_tag :location, options_from_collection_for_select(current_user.get_locations, "id", :name), class: "form-control" %>
+    <%= locations = current_user.get_locations.map { |location| [location.id, location.name] }
+    <%= select_tag :location, options_from_collection_for_select(, "id", :name), class: "form-control" %>
   </div>
 <% end %>

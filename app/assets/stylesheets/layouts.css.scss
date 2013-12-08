@@ -7,13 +7,6 @@ body {
 	text-align: center;
 }
 
-.time-tick {
-	position: absolute;
-	text-align: center;
-	width: 100%;
-	color: black;
-}
-
 .popover {
  	width: 200px;
 }
@@ -23,4 +16,9 @@ body {
 .btn-buffer { 
 	margin-top: 10px; 
 	margin-bottom: 10px;
+}
+
+// Link objects
+[data-target]:not([Data-Attribute=""]) {
+	cursor: pointer;
 }

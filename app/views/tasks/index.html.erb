@@ -4,15 +4,7 @@
   <div class="col-md-4 page-header">
     <h1><%= current_user.first_name %>'s Fireplace</h1>
     <div data-toggle="modal" data-target="#context-overrides-modal" id="context-overrides">
-      <h4>
-
-        <%=content_tag :span, "Time Frame: #{(session[:overrides][:time_frame] || "Automatic").capitalize}", class: "label label-info", id: "time-label" %>
-
-      </h4>
-      <h4>
-        <%= content_tag :span, "Location: #{(session[:overrides][:location] || "Automatic").capitalize}", class: "label label-info", id: "location-label", data: { :"update-url" => update_location_user_url(current_user).html_safe } %>
-      </h4>
-      <h5 class="text-info">Change Context</h5>
+      <%= render "tasks/context_view" %>
     </div>
   </div>
 </div>
