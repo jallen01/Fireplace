@@ -6,7 +6,6 @@ $(document).on("ajaxComplete", main);
 
 $(document).on("mouseover", "#tasks-list .list-group-item", function (event) {
     $(event.target).popover("show");
-    console.log("hi");
 });
 
 $(document).on("change", ".filter-policy-toggle", function(event) {

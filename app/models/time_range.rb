@@ -46,7 +46,7 @@ class TimeRange < ActiveRecord::Base
 
   # Returns true if this has a parent tag.
   def hidden?
-    !self.parent_tag_id.nil?
+    !self.parent_tag.nil?
   end
   
   def update_times(times)
