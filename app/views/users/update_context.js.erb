@@ -4,5 +4,7 @@ var modal = $("#user-context-modal");
 modal.find(".modal-close-btn").button("reset");
 
 modal.modal('hide');
+$("#time-label").html("<%= j "Time Frame: #{session[:time_frame].capitalize} #{@user_context[:day].to_s}" %>");
+
 $("#tasks-list").html("<%= j render "tasks/list" %>");
-filter_tasks_list();
+$("#tasks-list").trigger("listUpdated");

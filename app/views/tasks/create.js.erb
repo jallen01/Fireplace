@@ -9,7 +9,7 @@ modal.find(".form-cancel-btn").removeClass("disabled");
 
 	$("#tasks-list").html("<%= j render "tasks/list" %>");
 	$("#tasks-list form").trigger("formCreated");
-	filter_tasks_list();	
+	$("#tasks-list").trigger("listUpdated");
 <% end %>
 
 modal.find("form").replaceWith("<%= j render "tasks/form", task: @new_task %>");

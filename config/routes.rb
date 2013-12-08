@@ -4,8 +4,8 @@ TscizzleMichelleojKrosnickJallen01Final::Application.routes.draw do
 
   resources :users, only: [] do
     member do
-      post 'update_location', defaults: { format: 'js' }
       post 'update_context', defaults: { format: 'js' }
+      post 'update_location', defaults: { format: 'js' }
     end
   end
 

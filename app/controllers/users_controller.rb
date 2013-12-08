@@ -13,5 +13,14 @@ class UsersController < ApplicationController
   end
 
   def update_location
+    unless session[:utc_offset].nil?
+      session[:utc_offset] = Integer(params[:utc_offset])
+    end
+
+    unless params[:latitude].nil?
+
+    end
+
+    @user_context = current_user.get_context(session[:time_frame], session[:utc_offset], session[:location])
   end
 end
