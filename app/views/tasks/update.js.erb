@@ -1,7 +1,8 @@
 // Primary Author: Jonathan Allen (jallen01)
 
 var modal = $("<%= j "#edit-task-#{@task.id}-modal" %>");
-enable_modal(modal);
+modal.find(".form-submit-btn").button("reset");
+modal.find(".form-cancel-btn").removeClass("disabled");
 
 <% if @task.errors.any? %>
 	modal.find("form").replaceWith("<%= j render "tasks/form", task: @task %>");
@@ -11,5 +12,6 @@ enable_modal(modal);
     	$("#tasks-list").html("<%= j render "tasks/list" %>");
     	$("#tasks-list form").trigger("formCreated");
     	$("#tasks-list").trigger("listUpdated");
+    	$("#tasks-list").trigger("ajaxComplete");
     });
 <% end %>
