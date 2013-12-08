@@ -85,8 +85,7 @@ class TagTest < ActiveSupport::TestCase
   	d = SimpleDay.new(0)
   	dr = DayRange.new(user: u, name: "dr1")
   	dr.update_days([d])
-  	drs = [dr]
-  	t.update_day_ranges(drs)
+  	t.update_day_ranges([dr])
   	assert(t.include_day?(d), "Tag incorrectly says it doesn't include day 0 after it was added")
   end
 
@@ -109,8 +108,7 @@ class TagTest < ActiveSupport::TestCase
   	time = SimpleTime.new(0, 0)
   	tr = TimeRange.new(user: u, name: "tr1")
   	tr.update_times([time])
-  	trs = [tr]
-  	t.update_time_ranges(trs)
+  	t.update_time_ranges([tr])
   	assert(t.include_time?(time), "Tag incorrectly says it doesn't include time 0, 0 after it was added")
   end
 
@@ -131,14 +129,64 @@ class TagTest < ActiveSupport::TestCase
   	n = "NiceTag"
   	t = Tag.new(user: u, name: n)
   	l = locations(:location1)
-  	ls = [l]
-  	t.update_locations(ls)
-  	assert(t.include_location?(l), "Tag incorrectly says it doesn't include time 0, 0 after it was added")
+  	t.update_locations([l])
+  	assert(t.include_location?(l),
+  		"Tag incorrectly says it doesn't include Location Bestlocation after it was added")
   end
 
   # unit test for Tag.update_metadata method
   test "update metadata" do
-  	
+  	u = users(:user1)
+  	n1 = "NiceTag"
+  	t1 = Tag.new(user: u, name: n1)
+  	drs = [DayRange.new(user: u, name: "dr1")]
+  	trs = [TimeRange.new(user: u, name: "tr1")]
+  	md1 = { tags: [], day_ranges: drs, time_ranges: trs, day_range_select: [], time_range_select: [] }
+  	t1.update_metadata(md1)
+  	assert(t1.day_ranges.to_a.map { |dr| dr.name } .include?("dr1"),
+  		"Tag does not contain DayRange dr1 after it should have been added with update_metadata")
+  	assert(t1.time_ranges.to_a.map { |tr| tr.name } .include?("tr1"),
+  		"Tag does not contain TimeRange tr1 after it should have been added with update_metadata")
+  	n2 = "PrettyNiceTag"
+  	t2 = Tag.new(user: u, name: n2)
+  	d = SimpleDay.new(0)
+  	time = SimpleTime.new(0, 0)
+  	md2 = { tags: [], day_ranges: [], time_ranges: [], day_range_select: [d], time_range_select: [time] }
+  	t2.update_metadata(md2)
+  	assert(t2.include_day?(d),
+  		"Tag does not contain day 0 after it should have been added with update_metadata")
+  	assert(t2.include_time?(time),
+  		"Tag does not contain time 0, 0 after it should have been added with update_metadata")
+  end
+
+  # unit test for Tag.relevant? method
+  test "relevant?" do
+  	u = users(:user1)
+  	right_now = Time.now
+  	time = SimpleTime.new(right_now.hour, right_now.min)
+  	day = SimpleDay.new(right_now.wday)
+  	loc = locations(:location1)
+  	uc = { day: day, time: time, location: loc }
+  	n1 = "NiceTag"
+  	t1 = Tag.new(user: u, name: n1)
+  	day1 = day
+  	time1 = SimpleTime.new(time.hour, 0)
+  	md1 = { day_ranges: [], time_ranges: [], day_range_select: [day1], time_range_select: [time1] }
+  	t1.update_metadata(md1)
+  	assert(t1.relevant?(uc), "Incorrectly said t1 was not relevant when it was relevant")
+  	n2 = "PrettyNiceTag"
+  	t2 = Tag.new(user: u, name: n2)
+  	day2 = day
+  	time2 = SimpleTime.new(time.hour+3, 0)
+  	md2 = { day_ranges: [], time_ranges: [], day_range_select: [day2], time_range_select: [time2] }
+  	t2.update_metadata(md2)
+  	assert_not(t2.relevant?(uc), "Incorrectly said t2 was relevant when it was not relevant")
+  	n3 = "NotGreatTag"
+  	t3 = Tag.new(user: u, name: n2)
+  	time3 = SimpleTime.new(time.hour, 0)
+  	md3 = { day_ranges: [], time_ranges: [], day_range_select: [], time_range_select: [time3] }
+  	t3.update_metadata(md3)
+  	assert_not(t2.relevant?(uc), "Incorrectly said t3 was not relevant when it was relevant")
   end
 
 end
