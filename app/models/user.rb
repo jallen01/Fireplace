@@ -124,11 +124,11 @@ class User < ActiveRecord::Base
     case time_frame
     when :today
       context[:time] = nil
-      context[:day] = context[:day].succ
+      context[:day] = context[:day]
       context[:location] = nil
     when :tomorrow
       context[:time] = nil
-      context[:day] = context[:day].succ.succ
+      context[:day] = context[:day].succ
       context[:location] = nil
       context[:date] += 1
     when :week

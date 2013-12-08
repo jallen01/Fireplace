@@ -57,9 +57,9 @@ class UserTest < ActiveSupport::TestCase
   	assert(u.time_ranges.to_a.map { |tr| tr.name } .include?("FaveTimes"),
   		"User does not have TimeRange FaveTimes after it was supposed to be created")
   	trs = u.get_time_ranges
-  	assert(u.get_time_ranges.map { |tr| tr.name } .include?("FaveTimes"),
+  	assert(trs.map { |tr| tr.name } .include?("FaveTimes"),
   		"get_time_ranges did not have TimeRange FaveTimes, but it should have")
-  	assert_not(u.get_time_ranges.map { |tr| tr.name } .include?("TerribleTimes"),
+  	assert_not(trs.map { |tr| tr.name } .include?("TerribleTimes"),
   		"get_time_ranges had TimeRange TerribleTimes, but it should not have")
   end
 
@@ -74,9 +74,9 @@ class UserTest < ActiveSupport::TestCase
   	assert(u.day_ranges.to_a.map { |dr| dr.name } .include?("FaveDays"),
   		"User does not have DayRange FaveDays after it was supposed to be created")
   	drs = u.get_day_ranges
-  	assert(u.get_day_ranges.map { |dr| dr.name } .include?("FaveDays"),
+  	assert(drs.map { |dr| dr.name } .include?("FaveDays"),
   		"get_day_ranges did not have DayRange FaveDays, but it should have")
-  	assert_not(u.get_day_ranges.map { |dr| dr.name } .include?("TerribleDays"),
+  	assert_not(drs.map { |dr| dr.name } .include?("TerribleDays"),
   		"get_day_ranges had DayRange TerribleDays, but it should not have")
   end
 
@@ -90,11 +90,47 @@ class UserTest < ActiveSupport::TestCase
   	u.create_tag("CoolTag")
   	assert(u.tags.to_a.map { |t| t.name } .include?("CoolTag"),
   		"User does not have Tag CoolTag after it was supposed to be created")
-  	ts = u.tags
-  	assert(u.get_tags.map { |t| t.name } .include?("CoolTag"),
+  	ts = u.get_tags
+  	assert(ts.map { |t| t.name } .include?("CoolTag"),
   		"get_tags did not have Tag CoolTag, but it should have")
-  	assert_not(u.get_tags.map { |t| t.name } .include?("SuckyTag"),
+  	assert_not(ts.map { |t| t.name } .include?("SuckyTag"),
   		"get_tags had Tag SuckyTag, but it should not have")
+  end
+
+  # unit test for creating and getting locations
+  test "locations" do
+  	em = "blooby@blib.blub"
+  	pw = "supersafe"
+  	fn = "Bob"
+  	ln = "Bean"
+  	u = User.new(email: em, password: pw, password_confirmation: pw, first_name: fn, last_name: ln)
+  	loc_params = { name: "Bestlocation",
+  		address_hash: { street: "69 Cumming St", city: "Bumpass", zip: "02139", state: "MA" } }
+  	u.create_location(loc_params)
+  	assert(u.locations.to_a.map { |loc| loc.name } .include?("Bestlocation"),
+  		"User does not have Location BestLocation after it was supposed to be created #{u.locations.to_a.map {|loc| loc.name} }")
+  	locs = u.get_locations
+  	assert(locs.map { |loc| loc.name } .include?("Bestlocation"),
+  		"get_locations did not have Location BestLocation, but it should have")
+  	assert_not(locs.map { |loc| loc.name } .include?("WorstLocation"),
+  		"get_locations had Location WorstLocation, but it should not have")
+  end
+
+  # unit test for creating and getting tasks
+  test "tasks" do
+  	em = "blooby@blib.blub"
+  	pw = "supersafe"
+  	fn = "Bob"
+  	ln = "Bean"
+  	u = User.new(email: em, password: pw, password_confirmation: pw, first_name: fn, last_name: ln)
+  	u.create_task("CoolTask", "thanks, bro")
+  	assert(u.tasks.to_a.map { |t| t.title } .include?("CoolTask"),
+  		"User does not have Task CoolTask after it was supposed to be created")
+  	ts = u.get_tasks
+  	assert(ts.map { |t| t.title } .include?("CoolTask"),
+  		"get_tasks did not have Task CoolTask, but it should have")
+  	assert_not(ts.map { |t| t.title } .include?("SuckyTask"),
+  		"get_tasks had Task SuckyTask, but it should not have")
   end
 
 end
