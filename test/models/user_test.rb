@@ -140,9 +140,7 @@ class UserTest < ActiveSupport::TestCase
   	fn = "Bob"
   	ln = "Bean"
   	u = User.new(email: em, password: pw, password_confirmation: pw, first_name: fn, last_name: ln)
-  	loc_params = { name: "Bestlocation",
-  		address_hash: { street: "69 Cumming St", city: "Bumpass", zip: "02139", state: "MA" } }
-  	loc = Location.new(loc_params)
+  	loc = locations(:location1)
   	right_now = Time.now
   	utc_offset = right_now.gmt_offset
   	c = u.get_context(nil, utc_offset, loc)
@@ -155,9 +153,9 @@ class UserTest < ActiveSupport::TestCase
   	assert_equal(SimpleDay.new(Time.now.wday), c_now[:day], "Incorrect day for regular context")
   	c_today = u.get_context(:today, utc_offset, loc)
   	assert_equal(Time.now.to_date, c_today[:date], "Incorrect date for today context")
-	assert_nil(c_today[:time], "Non nil time for today context")
-	assert_equal(SimpleDay.new(Time.now.wday), c_today[:day], "Incorrect day for today context")
-	assert_nil(c_today[:location], "Non nil location for today context")
+	  assert_nil(c_today[:time], "Non nil time for today context")
+	  assert_equal(SimpleDay.new(Time.now.wday), c_today[:day], "Incorrect day for today context")
+	  assert_nil(c_today[:location], "Non nil location for today context")
   	c_tomorrow = u.get_context(:tomorrow, utc_offset, loc)
   	assert_equal(Time.now.to_date+1, c_tomorrow[:date], "Incorrect date for tomorrow context")
   	assert_nil(c_tomorrow[:time], "Non nil time for tomorrow context")

@@ -1,19 +1,45 @@
 // Primary Author: Jonathan Allen (jallen01)
 
 var main = function () {
-    $(".modal form").each(function (i, form) {
-        initialize_form(form);
-    });
     widen_modal();
 }
 
 $(document).ready(main);
 $(document).on("ajaxComplete", main);
 
+// Forms
+// =====
+
+$(function () {
+    $(".modal form").each(function (i, form) {
+        initialize_form(form);
+    });
+});
+
 $(document).on("formCreated", function (event) {
     initialize_form(event.target);
     widen_modal();
 });
+
+var initialize_form = function (form) {
+    $(form).find("[id^=_]").remove();
+
+    $(form).find("input[type=text], textarea").each(function (i, input) {
+        var id = $(input).attr("id");
+        var val = $(input).val();
+
+        var hidden = $("<input type='hidden'>").attr("id", "_" + id).val(val);
+        $(input).parent().append(hidden);
+    });
+
+    $(form).find("input[type=checkbox]").each(function (i, checkbox) {
+        var id = $(checkbox).attr("id");
+        var checked = $(checkbox).prop("checked");
+
+        var hidden = $("<input type='hidden'>").attr("id", "_" + id).val(checked);
+        $(checkbox).parent().append(hidden);
+    });
+}
 
 
 // Miscellaneous Methods
@@ -47,24 +73,18 @@ var widen_modal = function(){
     });
 }
 
-var initialize_form = function (form) {
-    $(form).find("[id^=_]").remove();
+enable_modal = function (modal) {
+    $(modal).find("fieldset").attr("disabled", false);
+    $(modal).find(".modal-submit-btn").button("reset");
+    $(modal).find(".modal-cancel-btn").button("reset");
+    $(modal).find(".modal-submit-btn").removeClass("disabled");
+    $(modal).find(".modal-cancel-btn").removeClass("disabled");
+}
 
-    $(form).find("input[type=text], textarea").each(function (i, input) {
-        var id = $(input).attr("id");
-        var val = $(input).val();
-
-        var hidden = $("<input type='hidden'>").attr("id", "_" + id).val(val);
-        $(input).parent().append(hidden);
-    });
-
-    $(form).find("input[type=checkbox]").each(function (i, checkbox) {
-        var id = $(checkbox).attr("id");
-        var checked = $(checkbox).prop("checked");
-
-        var hidden = $("<input type='hidden'>").attr("id", "_" + id).val(checked);
-        $(checkbox).parent().append(hidden);
-    });
+disable_modal = function (modal) {
+    $(modal).find("fieldset").attr("disabled", true);
+    $(modal).find(".modal-submit-btn").addClass("disabled");
+    $(modal).find(".modal-cancel-btn").addClass("disabled");
 }
 
 // Remove hash on modal close
@@ -91,16 +111,19 @@ $(document).on("hidden.bs.modal", ".modal[data-form='reset']", function (event) 
 });
 
 // Register modal submit button. Submits form in modal with class "modal-form".
-$(document).on("click", ".form-submit-btn", function (event) {
+$(document).on("click", ".modal-submit-btn", function (event) {
     var modal = $(event.target).parents(".modal");
-    $(event.target).button("loading");
-    modal.find(".form-delete-btn").addClass("disabled");
 
     modal.find(".modal-form").first().submit();
+
+    $(event.target).button("loading");
+    disable_modal(modal);
 });
 
-$(document).on("click", ".form-delete-btn", function (event) {
+// Register modal delete button. Disables modal buttons.
+$(document).on("click", ".modal-delete-btn", function (event) {
     var modal = $(event.target).parents(".modal");
+
     $(event.target).button("loading");
-    modal.find(".form-submit-btn").addClass("disabled");
+    disable_modal(modal);
 });

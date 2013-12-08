@@ -1,0 +1,11 @@
+# seed locations
+
+location1:
+  id: 1
+  user_id: 1
+  name: Bestlocation
+  address_hash:
+    street: 69 Cumming St
+    city: Bumpass
+    zip: 02139
+    state: MA

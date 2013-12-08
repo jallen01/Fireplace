@@ -1,8 +1,7 @@
 // Primary Author: Jonathan Allen (jallen01)
 
 var modal = $("#new-tag-modal");
-modal.find(".form-submit-btn").button("reset");
-modal.find(".form-cancel-btn").removeClass("disabled");
+enable_modal(modal);
 
 <% unless @new_tag.errors.any? %>
 	$("#tags-list").html("<%= j render "tags/list" %>");
