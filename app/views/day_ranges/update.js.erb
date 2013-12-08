@@ -11,6 +11,7 @@ modal.find(".form-cancel-btn").removeClass("disabled");
     modal.modal("hide").on("hidden.bs.modal", function () {
     	$("#day-ranges-list").html("<%= j render "day_ranges/list" %>");
     	$("#day-ranges-list form").trigger("formCreated");
+    	$("#time-ranges-list").trigger("listUpdated");
     });
 <% end %>
 

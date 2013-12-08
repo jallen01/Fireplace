@@ -1,15 +1,14 @@
-
+<!-- Primary Author: Jonathan Allen (jallen01) -->
 
 <div class="row">
   <div class="col-md-4 page-header">
     <h1><%= current_user.first_name %>'s Fireplace</h1>
     <div data-toggle="modal" data-target="#user-context-modal" id="user-context">
       <h4>
-        <%=content_tag :span, , class: "label label-info" %>
-          6:55PM | November 19th, 2013
+        <%=content_tag :span, "Time Frame: #{session[:time_frame].capitalize}", class: "label label-info", id: "time-label" %>
       </h4>
       <h4>
-        <%= content_tag :span, class: "label label-info" do %>
+        <%= content_tag :span, class: "label label-info", id: "location-label", data: { :"update-url" => update_location_user_url(current_user).html_safe } do %>
           Cambridge, MA
         <% end %>
       </h4>

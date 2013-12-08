@@ -7,6 +7,7 @@ modal.find(".form-cancel-btn").removeClass("disabled");
 <% unless @new_day_range.errors.any? %>
     $("#day-ranges-list").html("<%= j render "day_ranges/list" %>");
     $("#day-ranges-list form").trigger("formCreated");
+    $("#time-ranges-list").trigger("listUpdated");
 
     modal.modal("hide");
 <% end %>

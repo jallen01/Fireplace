@@ -11,6 +11,6 @@ modal.find(".form-cancel-btn").removeClass("disabled");
     modal.modal("hide").on("hidden.bs.modal", function () {
     	$("#tasks-list").html("<%= j render "tasks/list" %>");
     	$("#tasks-list form").trigger("formCreated");
-    	filter_tasks_list();
+    	$("#tasks-list").trigger("listUpdated");
     });
 <% end %>

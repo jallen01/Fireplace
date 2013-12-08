@@ -5,4 +5,5 @@ var modal = $("<%= j "#edit-time-range-#{@time_range_id}-modal" %>");
 modal.modal("hide").on("hidden.bs.modal", function () {
 	$("#time-ranges-list").html("<%= j render "time_ranges/list" %>");
 	$("#time-ranges-list form").trigger("formCreated");
+	$("#time-ranges-list").trigger("listUpdated");
 });
