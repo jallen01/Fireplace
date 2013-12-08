@@ -39,7 +39,7 @@ class Location < ActiveRecord::Base
   # -----------
 
   # Distance in miles.
-  def calc_distance(latitude, longitude)
-    Geocoder::Calculations.distance_between(self.latitude, self.longitude, latitude, longitude)
+  def calc_distance(latidue, longitude)
+    Geocoder::Calculations.distance_between([self.latitude, self.longitude], [latitude, longitude])
   end
 end
