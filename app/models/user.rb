@@ -106,7 +106,7 @@ class User < ActiveRecord::Base
   end
 
   def closest_location(userLat, userLong)
-    closest_location_distance = 1000 #closest location 
+    closest_location_distance = 100000 #closest location 
     closest_location = ''
     threshold = 1 #one mile
     current_user.get_locations.each do |location|

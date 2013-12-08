@@ -33,7 +33,7 @@ class TimeRangeTest < ActiveSupport::TestCase
   end
 
   # time ranges must be unique within a user
-  test "name uniquess" do
+  test "name uniqueness" do
   	u = users(:user1)
   	n = "FaveTimes"
   	tr1 = TimeRange.new(user: u, name: n)
