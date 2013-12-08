@@ -64,6 +64,15 @@ class User < ActiveRecord::Base
   # Methods
   # -------
 
+  # NOTE ABOUT PARENTS BEING NIL:
+  # 
+  # If a tag has a parent task, it means that tag is a hidden tag because the parent task had custom details.
+  # If a day/time range has a parent tag, it means that day/time range is a hidden day/time range because
+  #   the parent tag had custom details.
+  # Hidden tags are an implementation detail to which the user is not aware, they are not part of the user's
+  #   tag list, which is why get_tags only returns tags without a parent task (parent_task_id: nil).
+  # Same idea for hidden time/day ranges.
+
   def create_time_range(name)
     TimeRange.create(user: self, name: name)
   end
@@ -100,6 +109,10 @@ class User < ActiveRecord::Base
     Task.create(user: self, title: title, content: content)
   end
 
+  def get_tasks
+    self.tasks
+  end
+
   def get_context(time_frame, location)
     context = {}
 
@@ -129,9 +142,5 @@ class User < ActiveRecord::Base
     end
 
     context
-  end
-
-  def get_tasks
-    self.tasks
   end
 end

@@ -58,4 +58,13 @@
 <div class="form-group center-block">
   <h4>Locations</h4>
 
+  <div id="locations" class="btn-group" data-toggle="buttons">
+    <% current_user.get_locations.each do |location| %>
+      <%= content_tag :label, class: "btn btn-default btn-buffer location-button-bar #{(tag.locations.include?(location) ? 'active' : '')}" do %>
+        <%= check_box_tag "locations[]", location.id, tag.locations.include?(location) %>
+        <%= location.name %>
+      <% end %>
+    <% end %>
+    
+  </div>
 </div>

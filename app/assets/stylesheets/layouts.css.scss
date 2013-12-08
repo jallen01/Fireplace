@@ -16,16 +16,13 @@ body {
 	color: black;
 }
 
+.popover {
+ 	width: 200px;
+}
+
 // Buttons
 
 .btn-buffer { 
 	margin-top: 10px; 
 	margin-bottom: 10px;
-}
-
-// Modals
-
-.modal .modal-body {
-    max-height: 420px;
-    overflow-y: auto;
 }

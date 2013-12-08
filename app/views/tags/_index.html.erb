@@ -7,8 +7,3 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-tag-modal">New Tag</button>
 
 <%= render "layouts/modal_form", object: @new_tag, modal_id: "new-tag-modal", modal_title: "New Tag", modal_data: { form: "temporary" }, modal_content: render("tags/form", tag: @new_tag) %>
-
-<!-- Edit tag modals -->
-<% current_user.get_tags.each do |tag| %>
-  <%= render "layouts/modal_form", object: tag, modal_id: "edit-tag-#{tag.id}-modal", modal_title: "Edit Tag", modal_content: render("tags/form", tag: tag) %>
-<% end %>

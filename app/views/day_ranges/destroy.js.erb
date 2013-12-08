@@ -1,1 +1,8 @@
-$("#day-ranges-list .list-group").html("<%= j render "day_ranges/list" %>");
+// Primary Author: Jonathan Allen (jallen01)
+
+var modal = $("<%= j "#edit-task-#{@day_range_id}-modal" %>");
+
+modal.modal("hide").on("hidden.bs.modal", function () {
+	$("#day-ranges-list").html("<%= j render "day_ranges/list" %>");
+	$("#day-ranges-list form").trigger("formCreated");
+});

@@ -1,3 +1,8 @@
 // Primary Author: Jonathan Allen (jallen01)
-$("#tasks-list .list-group").html("<%= j render "tasks/list" %>");
-$("#tasks-list form").trigger("formCreated");
+
+var modal = $("<%= j "#edit-task-#{@task_id}-modal" %>");
+
+modal.modal("hide").on("hidden.bs.modal", function () {
+	$("#tasks-list").html("<%= j render "tasks/list" %>");
+	$("#tasks-list form").trigger("formCreated");
+});

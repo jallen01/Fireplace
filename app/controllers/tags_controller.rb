@@ -23,6 +23,7 @@ class TagsController < ApplicationController
   end
 
   def destroy
+    @tag_id = @tag.id
     @tag.destroy
 
     respond_to do |format|
