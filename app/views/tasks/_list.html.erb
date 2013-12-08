@@ -1,20 +1,21 @@
 <!-- Primary Author: Jonathan Allen (jallen01) -->
 
 <!-- Tasks list -->
-<table class="table table-bordered table-hover">
-	<tbody>
-    <% current_user.tasks.each do |task| %>
-    	<%= content_tag :tr, data: { toggle: "modal", target: "#edit-task-#{task.id}-modal", trigger: "hover", content: task.content, placement: "right", relevant: task.relevant?(@context), important: !!task.important, quick: !!task.long_lasting } do %>
-    		<td>
-          <p class="text-primary">
-            <%= task.title %>
-            <%= link_to '<i class="glyphicon glyphicon-remove"></i>'.html_safe, task, method: :delete, remote: true, data: { dismiss: "alert" }, "aria-hidden" => "true", class: "close" %>
-          </p>
-        </td>
-  	  <% end %>
+<div class="list-group">
+  <% current_user.get_tasks.each do |task| %>
+    <%= link_to "#edit-task-#{task.id}-modal", class: "list-group-item", data: { toggle: "modal", trigger: "hover", content: task.content, placement: "right", relevant: task.relevant?(@context), important: !!task.important, quick: !!task.long_lasting } do %>
+      <%= task.title %>
+      <div class="pull-right">
+        <% if !!task.long_lasting %>
+          <span class="label label-success">Quick</span>
+        <% end %>
+        <% if !!task.important %>
+          <span class="label label-warning">Important</span>
+        <% end %>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  <% end %>
+</div>
 
 <!-- Edit task modals -->
 <% current_user.get_tasks.each do |task| %>

@@ -35,6 +35,8 @@ class Location < ActiveRecord::Base
     end
   end
 
+  scope :ordered, -> { order(:name) }
+
 	geocoded_by :address
 
  #  Returns string representation of address_data. Includes all fields with keys in ADDRESS_FIELDS_SHOW that aren't nil.

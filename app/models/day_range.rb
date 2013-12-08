@@ -33,6 +33,8 @@ class DayRange < ActiveRecord::Base
     end
   end
 
+  scope :ordered, -> { order(:name) }
+
 
   # Validations
   # -----------
