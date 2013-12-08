@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131116025050) do
+ActiveRecord::Schema.define(version: 20131208230305) do
 
   create_table "day_ranges", force: true do |t|
     t.integer  "user_id"
@@ -27,9 +27,12 @@ ActiveRecord::Schema.define(version: 20131116025050) do
     t.string   "name"
     t.float    "latitude"
     t.float    "longitude"
-    t.text     "address_string"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip_code"
   end
 
   create_table "tag_day_ranges", force: true do |t|

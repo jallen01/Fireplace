@@ -6,7 +6,13 @@ class LocationsController < ApplicationController
 
   def create
     @new_location = current_user.create_location(location_params[:name])
-    
+
+    #valid_address = (street.blank? && city.blank? && state.blank? && zip_code.blank?) || ( !street.blank? && !city.blank? && !state.blank? && !zip_code.blank?)
+    #logger.debug("Is street blank?: #{street.blank?}")
+    #logger.debug("Is city blank?: #{city.blank?}")
+    #logger.debug("Is state blank?: #{state.blank?}")
+    #logger.debug("Is zip code blank?: #{zip_code.blank?}")
+
     unless @new_location.errors.any?
       @location = @new_location
       @new_location = Location.new(user: current_user)
@@ -20,7 +26,9 @@ class LocationsController < ApplicationController
 
   
   def update
-    @location.update(location_params)
+    unless @location.errors.any?
+      @location.update(location_params)
+    end
   end
 
   def destroy
@@ -34,7 +42,7 @@ class LocationsController < ApplicationController
 
   private 
     def location_params
-      params.require(:location).permit(:name, :address_string, :latitude, :longitude)
+      params.require(:location).permit(:name, :street, :city, :state, :zip_code, :latitude, :longitude)
     end
 
     def set_location

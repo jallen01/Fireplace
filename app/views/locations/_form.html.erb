@@ -1,4 +1,5 @@
-<!-- Primary Author: Rebecca Krosnick (krosnick) -->
+<!-- Primary Author: Michelle Johnson (mchlljy) -->
+
 <%= form_for location, remote: true, html: { class: "modal-form" } do |f| %>
   
   <%= render "layouts/form_errors", errors: location.errors %>
@@ -9,18 +10,22 @@
     <%= f.text_field :name, class: "form-control" %>
   </div>
 
-
-
   <hr>
 
+  <div class="form-group loc" >
+    <hr>
+    <%= f.label "Street" %><br>
+    <%= f.text_field :street, class: "form-control" %>
 
- <div class='btn btn-primary' id="add-address">Hide Address</div><br>
+    <%= f.label "City" %><br>
+    <%= f.text_field :city, class: "form-control" %>
 
+    <%= f.label "State" %><br>
+    <%= f.text_field :state, class: "form-control" %>
 
-    <div class="form-group loc" >
-      <hr>
-      <%= f.label "Address" %><br>
-      <%= f.text_field :address_string, class: "form-control" %>
+    <%= f.label "Zip Code" %><br>
+    <%= f.text_field :zip_code, class: "form-control" %>
 
-    </div>
+  </div>
 <% end %>
+
