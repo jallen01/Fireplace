@@ -57,7 +57,7 @@ class Task < ActiveRecord::Base
     result = true
 
     # if a deadline has been set is the deadline soon enough to show the task?
-    result &&= (self.deadline.blank? || ((user_context[:date] - self.deadline) <= self.days_notice))
+    result &&= (self.deadline.blank? || ((self.deadline - user_context[:date]) <= self.days_notice))
 
     if self.tags.blank?
       result &&= self.hidden_tag.relevant?(user_context)
