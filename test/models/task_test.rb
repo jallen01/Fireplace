@@ -97,7 +97,8 @@ class TaskTest < ActiveSupport::TestCase
   	day2 = SimpleDay.new(Time.now.wday)
   	loc2 = locations(:location1)
   	uc2 = { date: date2, time: time2, day: day2, location: loc2 }
-  	assert_not(ta2.relevant?(uc2), "Task should not be relevant, but was considered relevant")
+  	assert_not(ta2.relevant?(uc2), "Task should not be relevant, but was considered relevant
+  		\ndl2: #{dl2} dn2: #{dn2} date2: #{date2} time2: #{time2} day2: #{day2}")
   end
 
 end
