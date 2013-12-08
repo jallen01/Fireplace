@@ -19,6 +19,7 @@ class UsersController < ApplicationController
     session[:utc_offset] = Integer(params[:utc_offset]) unless session[:utc_offset].nil?
 
     session[:location] = current_user.get_closest_location(params[:latitude], [:longitude]) unless (session[:latitude].nil? || session[:longitude].nil?)
+    session[:location] = session[:location].id if session[:location].nil?
     
     @context = current_user.get_context(session[:context_overrides], session[:location], session[:utc_offset])
   end

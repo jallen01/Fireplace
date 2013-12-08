@@ -53,9 +53,9 @@ var reset_form = function (form) {
         $(checkbox).prop("checked", checked === "true");
         if ($(checkbox).parents("[data-toggle='buttons']").length !== 0) {
             if (checked === "true") {
-                $(checkbox).parents("btn").addClass("active");
+                $(checkbox).parents(".btn").addClass("active");
             } else {
-                $(checkbox).parents("btn").removeClass("active");
+                $(checkbox).parents(".btn").removeClass("active");
             }
         }
     });
