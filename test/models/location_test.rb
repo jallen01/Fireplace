@@ -45,7 +45,12 @@ class LocationTest < ActiveSupport::TestCase
   # unit test for Location.calc_distance method
   test "calc distance" do
     u = users(:user1)
-    n = "FaveLocation"
+    n = "SanFran"
+    l = Location.new(user: u, name: n, latitude: 37.8, longitude: -122.4)
+    boston_lat = 42.4
+    boston_long = -71.1
+    assert_in_delta(2335, l.calc_distance(boston_lat, boston_long), 100,
+      "Calculated distance between boston and san fran too far from correct answer")
   end
 
 end
