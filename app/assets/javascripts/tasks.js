@@ -9,6 +9,7 @@ $(function () {
 });
 
 var main = function () {
+    console.log("this is the main")
     $('#tasks-list tr').each(function(index, elem) {
         $(elem).popover();
     });
