@@ -1,23 +1,10 @@
 //<!--  Primary Author: Michelle Johnson (mchlljy) -->
-<% if @location.errors.any? %>
-     console.log('Error');
-     $(".a-unique-class").html('<%= j render "location_form" %>');
-
-<% else %>
-     console.log('Changes Saved');
-
-     $('#my-modal').modal('hide');
-
-     if ($('#location<%= @location.id %>')) {
-     	$('#location<%= @location.id %>').replaceWith("<%= escape_javascript(render(partial: @location, locals: { :current => false })) %>");
-     } else {
-     	$("<%= escape_javascript(render(partial: @location, locals: { :current => false })) %>")
-         .appendTo("#locations")
-         .hide()
-         .fadeIn();
-     }
-     
-     
-
-     
+<% unless @location.errors.any? %>
+    $("<%= j "#edit-location-#{@location.id}-modal" %>").modal("hide").on("hidden.bs.modal", ".modal", function () {
+        $("#locations-list .list-group").html("<%= j render "locations/list", location: @location%>");
+    });
 <% end %>
+
+$("<%= j "#edit-location-#{@location.id}-modal .modal-body" %>").html("<%= j render "locations/form", location: @location %>");
+
+$("#location<%= @location.id %>").html("<%= @location.name %>");

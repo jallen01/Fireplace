@@ -14,14 +14,11 @@ success = function(pos) {
 error = function(err) {
   console.warn('ERROR(' + err.code + '): ' + err.message);
 };
-<%= list_of_locations =  Array.new %>
-<% current_user.get_locations.each do |location| %>
-	<%= list_of_locations.push(location) %>
-	<% if location.latitude != nil && location.longitude != nil %>
-		target = {
-		  latitude : <%= location.latitude %>,
-		  longitude: <%= location.longitude %>,
-		}
+
+target = {
+	latitude: 0,
+	longitude: 0,
+}
 
 
 options = {
