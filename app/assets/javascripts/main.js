@@ -1,13 +1,17 @@
 // Primary Author: Jonathan Allen (jallen01)
 
 var main = function () {
-    $(".btn-group").button();
-    $(".modal").each(function (i, modal) {
-        initialize_modal(modal);
+    $(".modal form").each(function (i, form) {
+        initialize_form(form);
     });
 }
 
 $(document).ready(main);
+$(document).on("ajaxComplete", main);
+
+$(document).on("formCreated", function (event) {
+    initialize_form(event.target);
+});
 
 
 // Miscellaneous Methods
@@ -35,23 +39,24 @@ var removeHash = function () {
 // Modal Methods
 // =============
 
-var initialize_modal = function (modal) {
-    if ($(modal).data("form") === "reset") {
-        $(modal).find("input[type=text], textarea").not("input[type='hidden']").each(function (i, input) {
-            var id = String($(input).attr("id"));
-            var val = $(input).val();
+var initialize_form = function (form) {
+    $(form).find("[id^=_]").remove();
 
-            $(modal).find("#original_" + id).remove();
-            var hidden = $("<input type='hidden'>");
-            hidden.attr("id", "original_" + id);
-            hidden.attr("name", "original_" + id);
-            hidden.val(val);
-            
-            $('#new-task-modal #' + id).parent().append("sadkfljalkjsfd");
-            console.log($(input));
-            console.log($('#new-task-modal #' + id));
-        });
-    }
+    $(form).find("input[type=text], textarea").each(function (i, input) {
+        var id = $(input).attr("id");
+        var val = $(input).val();
+
+        var hidden = $("<input type='hidden'>").attr("id", "_" + id).val(val);
+        $(input).parent().append(hidden);
+    });
+
+    $(form).find("input[type=checkbox]").each(function (i, checkbox) {
+        var id = $(checkbox).attr("id");
+        var checked = $(checkbox).prop("checked");
+
+        var hidden = $("<input type='hidden'>").attr("id", "_" + id).val(checked);
+        $(checkbox).parent().append(hidden);
+    });    
 }
 
 // Remove hash on modal close
@@ -62,21 +67,19 @@ $(document).on("hidden.bs.modal", ".modal", function (event) {
 
 // Reset form fields if data-form="reset"
 $(document).on("hidden.bs.modal", ".modal[data-form='reset']", function (event) {
-    $(event.target).find("input[type=text], textarea").not("input[type=hidden]").each(function (i, input) {
+    $(event.target).find("input[type=text], textarea").each(function (i, input) {
         var id = String($(input).attr("id"));
-        var value = $(event.target).find("#original_" + id).val();
-        $(input).val(value);
+        var val = $(event.target).find("#_" + id).val();
+
+        $(input).val(val);
     });
-});
 
-// Reset form if data-form="temporary"
-$(document).on("hidden.bs.modal", ".modal[data-form='temporary']", function (event) {
-    $(event.target).find("input[type=text], textarea").val("");
-});
+    $(event.target).find("input[type=checkbox]").each(function (i, checkbox) {
+        var id = String($(checkbox).attr("id"));
+        var checked = $(event.target).find("#_" + id).val();
 
-// Destroy modal if data-form="destroy"
-$(document).on("hidden.bs.modal", ".modal[data-form='destroy']", function (event) {
-    $(event.target).remove();
+        $(checkbox).prop("checked", checked === "true");
+    });
 });
 
 // Register modal submit button. Submits form in modal with class "modal-form".

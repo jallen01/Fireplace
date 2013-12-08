@@ -1,8 +1,8 @@
 <!-- Tasks list -->
-
-<div class="list-group-item" id="task<%= task.id %>">
-<%= link_to task.title, "#edit-task-#{task.id}-modal", data: { toggle: "modal", trigger: 'hover', content: task.content, placement: 'right', title: task.title }, class: "task", style: "color: #555555", rel: 'popover' %></td>
-
+<div class="list-group">
+  <% current_user.tasks.each do |task| %>
+    <%= link_to task.title, "#edit-task-#{task.id}-modal", data: { toggle: "modal", trigger: "hover", content: task.content, placement: 'right'}, class: "list-group-item" %>
+  <% end %>
 </div>
 
 <!-- Edit task modals -->

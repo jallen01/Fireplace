@@ -28,7 +28,7 @@ class Location < ActiveRecord::Base
 
   # Initialize serialized object
   after_initialize do
-    if self.address_hash.blank?
+    if self.address_hash.nil?
       self.address_hash = Hash.new 
     end
   end
@@ -50,11 +50,13 @@ class Location < ActiveRecord::Base
   validates :name, presence: true, length: { maximum: Location::NAME_MAX_LENGTH }, uniqueness: { scope: :user }
 
   # Capitalize first letter of each word in name
-  before_validation do 
-    self.name = self.name.downcase.split.map(&:capitalize).join(' ') 
+  before_validation do
+    unless name.nil?
+      self.name = self.name.downcase.split.map(&:capitalize).join(' ') 
+    end
 
     # Sanitize address hash
-    self.address_hash.permit(*ADDRESS_FIELDS_ALL)
+    self.address_hash.select { |k,v| ADDRESS_FIELDS_ALL.include?(k) }
     self.address_hash.each do |k, v|
       self.address_hash[k] = String(v)
     end
@@ -66,23 +68,20 @@ class Location < ActiveRecord::Base
   # Methods
   # -----------
 
-  def calc_distance(point1, point2) #point1 and point2 are arrays [lat, long]
-    distance = Geocoder::Calculations.bearing_between(point1[0], point1[1], point2[0], point2[1]) #distance in miles
+  # point1 and point2 are arrays [lat, long]
+  def calc_distance(point1, point2)
+    # distance in miles
+    distance = Geocoder::Calculations.bearing_between(point1[0], point1[1], point2[0], point2[1])
     return distance
   end
 
-  def within_distance?(clat, clong, lat, long, distance) #current_location is a Location object, radius is in miles
+  # current_location is a Location object, radius is in miles
+  def within_distance?(clat, clong, lat, long, distance)
     calc_dist = calc_distance([clat, clong], [lat, long])
-    if calc_dist < distance
-      return true
-    else
-      return false
-    end
+    return calc_dist < distance
   end
 
-  # 
   def update_locations(locations)
-    puts "hey i'm the locations: #{locations}"
 
     if locations != nil
       self.address_hash.clear()
@@ -92,7 +91,6 @@ class Location < ActiveRecord::Base
     end
   end
 
-  # Returns true if day_set is blank or day is in day_set.
   def include_location?(location)
     self.address_hash.include?(location)
   end

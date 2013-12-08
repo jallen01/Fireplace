@@ -1,7 +1,9 @@
-<% unless @time_range.errors.any? %>
-	$("#time-ranges-list .list-group").html("<%= j render "time_ranges/list" %>");
-	$("<%= j "#edit-time-range-#{@time_range.id}-modal" %>").modal('hide');	
+<% if @time_range.errors.any? %>
+	$("<%= j "#edit-time-range-#{@time_range.id}-modal .modal-body" %>").html("<%= j render "time_ranges/form", time_range: @time_range %>");
+	$("<%= j "#edit-time-range-#{@time_range.id}-modal form" %>").trigger("formCreated");
+<% else %>
+	$("<%= j "#edit-time-range-#{@time_range.id}-modal" %>").modal('hide').on("hidden.bs.modal", function () {
+		$("#time-ranges-list .list-group").html("<%= j render "time_ranges/list" %>");
+		$("#time-ranges-list form").trigger("formCreated");
+	});	
 <% end %>
-
-$("<%= j "#edit-time-range-#{@time_range.id}-modal .modal-body" %>").html("<%= j render "time_ranges/form", time_range: @time_range %>");
-
