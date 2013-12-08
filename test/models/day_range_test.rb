@@ -3,7 +3,7 @@ require 'simple_day'
 
 class DayRangeTest < ActiveSupport::TestCase
 
-  # day range can be made
+  # day ranges can be made
   test "basic save" do
   	u = users(:user1)
   	n = "FaveDays"
@@ -34,7 +34,7 @@ class DayRangeTest < ActiveSupport::TestCase
   end
 
   # day ranges must be unique within a user
-  test "name uniquess" do
+  test "name uniqueness" do
   	u = users(:user1)
   	n = "FaveDays"
   	dr1 = DayRange.new(user: u, name: n)

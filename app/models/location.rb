@@ -26,6 +26,8 @@ class Location < ActiveRecord::Base
 
   serialize :address_hash, Hash
 
+  Geocoder.configure(:always_raise => [SocketError, TimeoutError, Geocoder::InvalidRequest, Geocoder::OverQueryLimitError])
+
   # Initialize serialized object
   after_initialize do
     if self.address_hash.nil?
@@ -34,7 +36,6 @@ class Location < ActiveRecord::Base
   end
 
 	geocoded_by :address
-  after_validation :geocode
 
  #  Returns string representation of address_data. Includes all fields with keys in ADDRESS_FIELDS_SHOW that aren't nil.
   def address
@@ -81,6 +82,12 @@ class Location < ActiveRecord::Base
     return calc_dist < distance
   end
 
+  #returns the coordinates of the location you're searching for
+  def self.get_coordinates(pars)
+    coords = Geocoder.coordinates("#{pars[:address_hash][:street]} #{pars[:address_hash][:city]} #{pars[:address_hash][:zip]} #{pars[:address_hash][:state]}")
+    return coords
+  end
+
   def update_locations(locations)
 
     if locations != nil
@@ -95,28 +102,12 @@ class Location < ActiveRecord::Base
     self.address_hash.include?(location)
   end
   
-  # def self.save_current_location(current_user_id, lat, lng)
-  #   if Location.find_by(:user_id => current_user_id, :name => "Current") == nil
-  #     location = Location.new(:user_id => current_user_id, :name => "Current", :latitude => lat, :longitude => lng)
-  #     location.save
-  #   else
-  #     location = Location.find_by(:name => "Current")
-  #     location.latitude = lat
-  #     location.longitude = lng
-  #     location.save
 
-  #   end
-
-  # end
 
   def include_location_or_empty?(location)
     self.include_location?(location) || self.address_hash.empty?
   end
 
 
-  private
-
-    def self.location_params(params) #only allow these params (white list)
-        params.permit(:name, :street, :city, :state, :zip)
-    end
+ 
 end

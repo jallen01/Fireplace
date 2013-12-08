@@ -105,6 +105,26 @@ class User < ActiveRecord::Base
     self.locations
   end
 
+  def closest_location(userLat, userLong)
+    closest_location_distance = 100000 #closest location 
+    closest_location = ''
+    threshold = 1 #one mile
+    current_user.get_locations.each do |location|
+      distance = Location.calc_distance([location.latitude, location.longitude], [userLat, userLong])
+      if distance <= closest_location_distance #if within a mile of current location.
+        closest_location_distance = distance
+        closest_location = location
+      end
+    end
+
+    if closest_location_distance <= threshold
+      return closest_location
+    else
+      return nil
+    end
+
+  end
+
   def create_task(title, content)
     Task.create(user: self, title: title, content: content)
   end

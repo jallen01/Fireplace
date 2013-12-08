@@ -21,16 +21,16 @@
     <div class="form-group loc" >
       <hr>
       <%= f.label "Street" %><br>
-      <%= text_field(:address_hash, :street, :class => "form-control") %>
+      <%= text_field_tag('location[address_hash[street]]', nil, :class => "form-control") %>
 
       <%= f.label "City" %><br>
-      <%= text_field(:address_hash, :city, :class => "form-control") %>
+      <%= text_field_tag('location[address_hash[city]]', nil, :class => "form-control") %>
 
       <%= f.label "Zip" %><br>
-      <%= text_field(:address_hash, :zip, :class => "form-control") %>
+      <%= text_field_tag('location[address_hash[zip]]', nil, :class => "form-control") %>
 
       <%= f.label "State" %><br>
-      <%= text_field(:address_hash, :state, :class => "form-control") %>
+      <%= text_field_tag('location[address_hash[state]]', nil, :class => "form-control") %>
     </div>
 <% end %>
 

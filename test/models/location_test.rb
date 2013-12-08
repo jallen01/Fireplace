@@ -33,7 +33,7 @@ class LocationTest < ActiveSupport::TestCase
   end
 
   # locations must be unique within a user
-  test "name uniquess" do
+  test "name uniqueness" do
   	u = users(:user1)
   	n = "FaveLocation"
   	l1 = Location.new(user: u, name: n)
