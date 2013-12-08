@@ -42,4 +42,10 @@ class LocationTest < ActiveSupport::TestCase
   	assert(!l2.save, "Saved a Location with same name as existing Location")
   end
 
+  # unit test for Location.calc_distance method
+  test "calc distance" do
+    u = users(:user1)
+    n = "FaveLocation"
+  end
+
 end
