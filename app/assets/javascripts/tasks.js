@@ -33,6 +33,19 @@ $(function(){
         if(event.target.id.indexOf("edit-task-") != -1){ // if an edit-task modal has been opened
             //custom_tag_classes = this_modal.find(".custom-tag")
             //if($("#"+modal_id + " " + ))
+            if(!$("#"+modal_id + " .custom-tag").hasClass("active")){
+                $("#"+modal_id + " .custom-form").hide()
+            }
+        }
+        if(event.target.id.indexOf("edit-tag-") != -1){ // if an edit-task modal has been opened
+            //custom_tag_classes = this_modal.find(".custom-tag")
+            //if($("#"+modal_id + " " + ))
+            if(!$("#"+modal_id + " .custom-day-range").hasClass("active")){
+                $("#"+modal_id + " .day-ranges-custom").hide()
+            }
+            if(!$("#"+modal_id + " .custom-time-range").hasClass("active")){
+                $("#"+modal_id + " .time-ranges-custom").hide()
+            }
         }
     });
 
@@ -51,19 +64,37 @@ $(function(){
             $("#new-task-modal .btn-time").removeClass("active")
         }
     });
-    $('.custom-tag').change(function() {
+    $(".custom-tag :checkbox").change(function(event) {
         modal_id = $(this).parents(".modal").attr("id")
-        if(!$(this).hasClass("active")) {
+        //console.log("#"+modal_id + " .tag-button-bar")
+        var checkbox = $(event.target);
+        //if($(this).hasClass("active")) {
+        //console.log("checkbox")
+        //console.log(checkbox)
+        console.log("checked status")
+        console.log(checkbox.is(":checked"))
+        console.log(this)
+        if (checkbox.is(":checked")) {
             $("#"+modal_id + " .tag-button-bar").removeClass("active")
             // show custom form
             $("#"+modal_id + " .custom-form").show()
+            /*console.log("#"+modal_id + " .custom-form")
+            console.log(event)
+            console.log("custom form shown")*/
         }else{
             $("#"+modal_id + " .custom-form").hide()
+            /*console.log("#"+modal_id + " .custom-form")
+            console.log(event)
+            console.log("custom form hidden")*/
         }
     });
-    $('.tag-button-bar').change(function() {
+    $('.tag-button-bar').change(function(event) {
         modal_id = $(this).parents(".modal").attr("id")
-        if(!$(this).hasClass("active")) {
+        var checkbox = $(event.target);
+        //console.log("checkbox")
+        //console.log(checkbox)
+        if (checkbox.is(":checked")) {
+        //if(!$(this).hasClass("active")) {
             $("#"+modal_id + " .custom-tag").removeClass("active")
             // hide custom form
             $("#"+modal_id + " .custom-form").hide()
@@ -71,10 +102,10 @@ $(function(){
     });
 
 
-    $(".modal-form-cancel").click(function(){
+    $(".modal-form-cancel").click(function(event){
         modal_id = $(this).parents(".modal").attr("id")
         this_modal = $(modal_id)
-        console.log("cancel button pressed")
+        //console.log("cancel button pressed")
     });
 
     $(".modal-form-submit").click(function(){
