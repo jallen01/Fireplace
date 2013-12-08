@@ -1,0 +1,11 @@
+// Primary Author: Jonathan Allen
+
+var modal = $("#context-overrides-modal");
+modal.find(".modal-close-btn").button("reset");
+
+modal.modal('hide');
+$("#time-label").html("<%= j "Time Frame: #{session[:context_overrides][:time_frame].capitalize}" %>");
+$("#context-overrides").html("<%= j render "tasks/context_view" %>");
+
+$("#tasks-list").html("<%= j render "tasks/list" %>");
+$("#tasks-list").trigger("listUpdated");

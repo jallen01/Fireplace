@@ -25,14 +25,14 @@ class Task < ActiveRecord::Base
     end
   end
 
-  scope :ordered, -> { order(:important) }
+  scope :ordered, -> { order(:title) }
 
   # Validations
   # -----------
 
   validates :user, presence: true
   
-  validates :title, presence: true, length: { maximum: Task::TITLE_MAX_LENGTH }, uniqueness: { scope: :user }
+  validates :title, presence: true, length: { maximum: TITLE_MAX_LENGTH }, uniqueness: { scope: :user }
 
 
   # Methods
@@ -46,6 +46,8 @@ class Task < ActiveRecord::Base
   end
 
   def update_metadata(metadata)
+    logger.debug "my-metadata"
+    logger.debug metadata
     self.update_tags(metadata[:tags])
     self.hidden_tag.update_metadata(metadata)
   end

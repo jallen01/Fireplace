@@ -1,4 +1,5 @@
-//<!--  Primary Author: Michelle Johnson (mchlljy) -->
+// Primary Author: Michelle Johnson (mchlljy)
+
 <% unless @location.errors.any? %>
     $("<%= j "#edit-location-#{@location.id}-modal" %>").modal("hide").on("hidden.bs.modal", ".modal", function () {
         $("#locations-list .list-group").html("<%= j render "locations/list", location: @location%>");

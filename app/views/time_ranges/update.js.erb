@@ -1,8 +1,7 @@
 // Primary Author: Jonathan Allen (jallen01)
 
 var modal = $("<%= j "#edit-task-#{@time_range.id}-modal" %>");
-modal.find(".form-submit-btn").button("reset");
-modal.find(".form-cancel-btn").removeClass("disabled");
+enable_modal(modal);
 
 <% if @time_range.errors.any? %>
 	modal.find("form").replaceWith("<%= j render "time_ranges/form", time_range: @time_range %>");

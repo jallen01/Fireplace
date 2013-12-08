@@ -9,13 +9,16 @@ $(function () {
 });
 
 var main = function () {
-    $('.task').each(function(index, elem) {
+    $('#tasks-list tr').each(function(index, elem) {
         $(elem).popover();
     });
 }
 
 $(document).ready(main);
 $(document).on("ajaxComplete", main);
+
+// User Context
+// ============
 
 // Code from https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.watchPosition?redirectlocale=en-US&redirectslug=Web%2FAPI%2Fwindow.navigator.geolocation.watchPosition
 var watch_location = function () {
@@ -38,47 +41,39 @@ var watch_location = function () {
     var geo_watcher = navigator.geolocation.watchPosition(success, error, options);
 }
 
+// Tasks List
+// ==========
+
 var filter_tasks_list = function () {
-    $("#tasks-list .list-group-item").show();
+    $("#tasks-list tr").show();
 
     $(".filter-policy-toggle").each(function (index, checkbox) {
         var filter = $(checkbox).data("filter");
         var checked = $(checkbox).prop("checked");
 
-
-        if (filter === "all") {
-            $("#tasks-list .list-group-item").each(function (index, elem) {
+        $("#tasks-list tr").each(function (index, elem) {
+            if (filter === "all") {
                 if ($(elem).data("relevant") !== true && !checked) {
                     $(elem).hide();
                 }
-            });
-
-        } else {
-            if (checked === true) {
-                $("#tasks-list .list-group-item").each(function (index, elem) {
-                    if ($(elem).data(filter) === false) {
-                        $(elem).hide();
-                    }
-                });
+            } else {
+                if (checked === true) {
+                    $("#tasks-list tr").each(function (index, elem) {
+                        if ($(elem).data(filter) === false) {
+                            $(elem).hide();
+                        }
+                    });
+                }
             }
-        }
+        });
     });
 }
 $(document).on("listUpdated", "#tasks-list", filter_tasks_list);
+$(document).on("change", ".filter-policy-toggle", filter_tasks_list);
 
-$(document).on("change", ".filter-policy-toggle", function(event) {
-    filter_tasks_list();
-});
 
-$(document).on("listChange", "#tasks-list", function (event) {
-    filter_tasks_list();
-});
-
-$(document).on("click", "#user-context-modal .modal-close-btn", function (event) {
-    var modal = $(event.target).parents(".modal");
-    $(event.target).button("loading");
-    modal.find("form").first().submit();
-});
+// Task Form
+// =========
 
 $(function(){
     $("#new-task-modal .custom-form").hide()
@@ -137,9 +132,16 @@ $(function(){
         var checkbox = $(event.target);
         if (checkbox.is(":checked")) {
             $("#"+modal_id + " .tag-button-bar").removeClass("active")
+            $("#"+modal_id + " .tag-button-bar :checked").attr("checked", false)
             // show custom form
             $("#"+modal_id + " .custom-form").show()
         }else{
+            $("#"+modal_id + " .spec-tag").removeClass("active")
+            $("#"+modal_id + " .spec-tag :checked").attr("checked", false)
+            $("#"+modal_id + " .spec-day").removeClass("active")
+            $("#"+modal_id + " .spec-day :checked").attr("checked", false)
+            $("#"+modal_id + " .spec-time").removeClass("active")
+            $("#"+modal_id + " .spec-time :checked").attr("checked", false)
             $("#"+modal_id + " .custom-form").hide()
         }
     });
@@ -148,6 +150,13 @@ $(function(){
         var checkbox = $(event.target);
         if (checkbox.is(":checked")) {
             $("#"+modal_id + " .custom-tag").removeClass("active")
+            $("#"+modal_id + " .custom-tag :checked").attr("checked", false)
+            $("#"+modal_id + " .spec-tag").removeClass("active")
+            $("#"+modal_id + " .spec-tag :checked").attr("checked", false)
+            $("#"+modal_id + " .spec-day").removeClass("active")
+            $("#"+modal_id + " .spec-day :checked").attr("checked", false)
+            $("#"+modal_id + " .spec-time").removeClass("active")
+            $("#"+modal_id + " .spec-time :checked").attr("checked", false)
             // hide custom form
             $("#"+modal_id + " .custom-form").hide()
         }   

@@ -1,8 +1,10 @@
+<!-- Primary Author: Jonathan Allen (jallen01@mit.edu) -->
+
 <!-- Custom day input -->
 <div class="btn-group" data-toggle="buttons" id="day-range-select">
 
   <% SimpleDay.week_days.each do |day| %>
-    <%= content_tag :label, class: "btn btn-default btn-buffer btn-day #{"active" if day_range.include_day?(day)}".html_safe do %>
+    <%= content_tag :label, class: "btn btn-default btn-buffer btn-day spec-day #{"active" if day_range.include_day?(day)}".html_safe do %>
       <%= check_box_tag "day_range_select[]", day.day_int, day_range.include_day?(day) %>
        <%= day.to_s_abbrev %>
     <% end %> 

@@ -1,8 +1,7 @@
 // Primary Author: Jonathan Allen (jallen01)
 
 var modal = $("#new-time-range-modal");
-modal.find(".form-submit-btn").button("reset");
-modal.find(".form-cancel-btn").removeClass("disabled");
+enable_modal(modal);
 
 <% unless @new_time_range.errors.any? %>
 	$("#time-ranges-list").html("<%= j render "time_ranges/list" %>");

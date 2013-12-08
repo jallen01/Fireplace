@@ -35,6 +35,8 @@ class Location < ActiveRecord::Base
     end
   end
 
+  scope :ordered, -> { order(:name) }
+
 	geocoded_by :address
 
  #  Returns string representation of address_data. Includes all fields with keys in ADDRESS_FIELDS_SHOW that aren't nil.
@@ -48,7 +50,7 @@ class Location < ActiveRecord::Base
 
   validates :user, presence: true
 
-  validates :name, presence: true, length: { maximum: Location::NAME_MAX_LENGTH }, uniqueness: { scope: :user }
+  validates :name, presence: true, length: { maximum: NAME_MAX_LENGTH }, uniqueness: { scope: :user }
 
   # Capitalize first letter of each word in name
   before_validation do
