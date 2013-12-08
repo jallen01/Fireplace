@@ -8,7 +8,8 @@
 
   <div class="form-group">
     <label>Location</label>
-    <% locations = current_user.get_locations.map { |location| [location.id, location.name] } %>
-    <%= select_tag :location, options_for_select(locations), class: "form-control" %>
+    <% locations = current_user.get_locations.map { |location| [location.name, location.id] } %>
+    <% locations.insert(0, ["Automatic", nil]) %>
+    <%= select_tag :location, options_for_select(locations, session[:context_overrides][:location]), class: "form-control" %>
   </div>
 <% end %>

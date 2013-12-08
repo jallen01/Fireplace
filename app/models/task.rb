@@ -34,6 +34,13 @@ class Task < ActiveRecord::Base
   
   validates :title, presence: true, length: { maximum: TITLE_MAX_LENGTH }, uniqueness: { scope: :user }
 
+  # Capitalize first letter of each word in title
+  before_validation do
+    unless title.nil?
+      self.title = self.title.downcase.split.map(&:capitalize).join(' ') 
+    end
+  end 
+
 
   # Methods
   # -----------

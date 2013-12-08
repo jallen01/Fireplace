@@ -52,6 +52,10 @@ class User < ActiveRecord::Base
 
     self.create_day_range("Weekdays").update_days(WEEKDAY_DAYS)
     self.create_day_range("Weekend").update_days(WEEKEND_DAYS)
+
+    self.create_location("Home")
+    self.create_location("Work")
+    self.create_location("Shopping")
   end
 
 
@@ -99,8 +103,8 @@ class User < ActiveRecord::Base
     self.tags.where(parent_task_id: nil).ordered
   end
 
-  def create_location(params)
-    Location.create(user: self, name: params[:name], address_hash: params[:address_hash])
+  def create_location(name)
+    Location.create(user: self, name: name)
   end
 
   def get_locations
@@ -111,7 +115,7 @@ class User < ActiveRecord::Base
     closest_location_distance = 10*LOCATION_THRESHOLD
     closest_location = nil
     current_user.get_locations.each do |location|
-      distance = Location.calc_distance([location.latitude, location.longitude], [latitude, longitude])
+      distance = location.calc_distance(latitude, longitude)
       if (distance <= closest_location_distance) && (distance <= LOCATION_THRESHOLD)
         closest_location_distance = distance
         closest_location = location

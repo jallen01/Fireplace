@@ -42,7 +42,7 @@ class TaskTest < ActiveSupport::TestCase
   	assert(!ta2.save, "Saved a Task with same title as existing Task")
   end
 
-  # unit test for update_tags method
+  # unit test for Task.update_tags method
   test "update tags" do
   	u = users(:user1)
   	ti = "FunTask"
@@ -53,7 +53,7 @@ class TaskTest < ActiveSupport::TestCase
   		"ta.tags should contain Tag tag1name, but does not")
   end
 
-  # unit test for update_metadata method
+  # unit test for Task.update_metadata method
   test "update metadata" do
   	u = users(:user1)
   	ti1 = "FunTask"
@@ -75,7 +75,7 @@ class TaskTest < ActiveSupport::TestCase
   		"ta2's hidden tag does not have the added time range")
   end
 
-  # unit test for relevant? method
+  # unit test for Task.relevant? method
   test "relevant?" do
   	u = users(:user1)
   	ti1 = "FunTask"
@@ -97,8 +97,7 @@ class TaskTest < ActiveSupport::TestCase
   	day2 = SimpleDay.new(Time.now.wday)
   	loc2 = locations(:location1)
   	uc2 = { date: date2, time: time2, day: day2, location: loc2 }
-  	assert_not(ta2.relevant?(uc2), "Task should not be relevant, but was considered relevant
-  		\ndl2: #{dl2} dn2: #{dn2} date2: #{date2} time2: #{time2} day2: #{day2}")
+  	assert_not(ta2.relevant?(uc2), "Task should not be relevant, but was considered relevant")
   end
 
 end

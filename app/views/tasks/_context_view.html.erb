@@ -3,7 +3,8 @@
 
 </h4>
 <h4>
-  <%= content_tag :span, "Location: #{(session[:context_overrides][:location] || "Automatic").capitalize}", class: "label label-info", id: "location-label", data: { :"update-url" => update_location_user_url(current_user).html_safe } %>
+  <% location_name = current_user.get_locations.find_by(id: session[:context_overrides][:location]) %>
+  <%= content_tag :span, "Location: #{(location_name || "Automatic").capitalize}", class: "label label-info", id: "location-label", data: { :"update-url" => update_location_user_url(current_user).html_safe } %>
 </h4>
 
 <h5 class="text-info">Change Context</h5>

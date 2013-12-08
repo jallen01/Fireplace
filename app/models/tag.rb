@@ -46,6 +46,13 @@ class Tag < ActiveRecord::Base
 
   validates :name, presence: true, length: { maximum: NAME_MAX_LENGTH }, uniqueness: { scope: :user }, unless: :hidden?
 
+  # Capitalize first letter of each word in name
+  before_validation do
+    unless name.nil?
+      self.name = self.name.downcase.split.map(&:capitalize).join(' ') 
+    end
+  end 
+
 
   # Methods
   # -------
@@ -98,7 +105,7 @@ class Tag < ActiveRecord::Base
   end
 
   def update_locations(locations)
-    self.locations = []
+    self.tag_locations.destroy_all
     locations.each { |location| TagLocation.create(tag: self, location: location) }
 
     self.save

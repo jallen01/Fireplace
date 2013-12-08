@@ -1,7 +1,7 @@
 <!-- Primary Author: Jonathan Allen (jallen01@mit.edu) -->
 
 <!-- Custom day input -->
-<div class="btn-group" data-toggle="buttons" id="day-range-select">
+<div class="btn-group day-range-select" data-toggle="buttons">
 
   <% SimpleDay.week_days.each do |day| %>
     <%= content_tag :label, class: "btn btn-default btn-buffer btn-day spec-day #{"active" if day_range.include_day?(day)}".html_safe do %>

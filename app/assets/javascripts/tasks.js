@@ -82,13 +82,9 @@ $(function(){
     $(document).on("show.bs.modal", ".modal", function (event) {
         modal_id = event.target.id
         this_modal = $(modal_id)
-        console.log("modal_id")
-        console.log(modal_id)
         if(modal_id.indexOf("edit-task-") != -1){ // if an edit-task modal has been opened
             //custom_tag_classes = this_modal.find(".custom-tag")
             //if($("#"+modal_id + " " + ))
-            console.log("entered if statement")
-            console.log($("#"+modal_id + " .custom-tag").attr("class"))
             if(!$("#"+modal_id + " .custom-tag").hasClass("active")){
                 $("#"+modal_id + " .custom-form").hide()
             }

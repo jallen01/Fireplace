@@ -133,7 +133,7 @@ class UserTest < ActiveSupport::TestCase
   		"get_tasks had Task SuckyTask, but it should not have")
   end
 
-  # unit test for get context method
+  # unit test for User.get_context method
   test "get context" do
   	em = "blooby@blib.blub"
   	pw = "supersafe"
@@ -143,25 +143,25 @@ class UserTest < ActiveSupport::TestCase
   	loc = locations(:location1)
   	right_now = Time.now
   	utc_offset = right_now.gmt_offset
-  	c = u.get_context(nil, utc_offset, loc)
+  	c = u.get_context({}, loc, utc_offset)
   	assert_equal(Time.now.to_date, c[:date], "Incorrect date for regular context")
   	assert_equal(SimpleTime.new(Time.now.hour, Time.now.min), c[:time], "Incorrect time for regular context")
   	assert_equal(SimpleDay.new(Time.now.wday), c[:day], "Incorrect day for regular context")
-  	c_now = u.get_context(:now, utc_offset, loc)
+  	c_now = u.get_context({time_frame: :now}, loc, utc_offset)
   	assert_equal(Time.now.to_date, c_now[:date], "Incorrect date for now context")
   	assert_equal(SimpleTime.new(Time.now.hour, Time.now.min), c_now[:time], "Incorrect time for now context")
   	assert_equal(SimpleDay.new(Time.now.wday), c_now[:day], "Incorrect day for regular context")
-  	c_today = u.get_context(:today, utc_offset, loc)
+  	c_today = u.get_context({time_frame: :today}, loc, utc_offset)
   	assert_equal(Time.now.to_date, c_today[:date], "Incorrect date for today context")
 	  assert_nil(c_today[:time], "Non nil time for today context")
 	  assert_equal(SimpleDay.new(Time.now.wday), c_today[:day], "Incorrect day for today context")
 	  assert_nil(c_today[:location], "Non nil location for today context")
-  	c_tomorrow = u.get_context(:tomorrow, utc_offset, loc)
+  	c_tomorrow = u.get_context({time_frame: :tomorrow}, loc, utc_offset)
   	assert_equal(Time.now.to_date+1, c_tomorrow[:date], "Incorrect date for tomorrow context")
   	assert_nil(c_tomorrow[:time], "Non nil time for tomorrow context")
   	assert_equal(SimpleDay.new(Time.now.wday).succ, c_tomorrow[:day], "Incorrect day for tomorrow context")
   	assert_nil(c_today[:location], "Non nil location for today context")
-  	c_week = u.get_context(:week, utc_offset, loc)
+  	c_week = u.get_context({time_frame: :week}, loc, utc_offset)
   	assert_nil(c_week[:time], "Non nil time for week context")
   	assert_nil(c_week[:day], "Non nil day for week context")
   	assert_nil(c_week[:location], "Non nil location for today context")
