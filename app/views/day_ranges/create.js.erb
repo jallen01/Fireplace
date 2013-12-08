@@ -1,8 +1,7 @@
 // Primary Author: Jonathan Allen (jallen01)
 
 var modal = $("#new-day-range-modal");
-modal.find(".form-submit-btn").button("reset");
-modal.find(".form-cancel-btn").removeClass("disabled");
+enable_modal(modal);
 
 <% unless @new_day_range.errors.any? %>
     $("#day-ranges-list").html("<%= j render "day_ranges/list" %>");
