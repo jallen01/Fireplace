@@ -1,6 +1,6 @@
 <%= form_tag update_context_user_url(current_user), remote: true, method: :post do %>
   <div class="form-group">
     <label>Time Frame</label>
-    <%= select_tag :time_frame, options_for_select(User::TIME_FRAMES, (session[:time_frame] || :now)), class: "form-control" %>
+    <%= select_tag :time_frame, options_for_select(User::TIME_FRAMES, (session[:time_frame])), class: "form-control" %>
   </div>
 <% end %>

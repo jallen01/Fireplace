@@ -137,7 +137,7 @@ class User < ActiveRecord::Base
     context = {}
 
     utc_offset = 0 if utc_offset.nil?
-    time = Time.now + utc_offset
+    time = Time.now.getlocal(utc_offset)
 
     context[:date] = Date.parse(time.to_s)
     context[:time] = SimpleTime.new(time.hour, time.min)
@@ -155,7 +155,7 @@ class User < ActiveRecord::Base
       context[:date] += 1
     when :week
       context[:time] = nil
-      context[:date] += 7
+      context[:day] = nil
       context[:location] = nil
     else
       # :now or nil
