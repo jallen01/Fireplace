@@ -73,8 +73,9 @@ class TagTest < ActiveSupport::TestCase
   	t = Tag.new(user: u, name: n)
   	drs = [DayRange.new(user: u, name: "dr1")]
   	t.update_day_ranges(drs)
-  	assert(t.day_ranges.to_a.map { |dr| dr.name } .include?("dr1"),
-  		"t.day_ranges should contain DayRange dr1, but does not")
+    print = t.day_ranges.to_a.map { |dr| dr.name }
+  	assert(t.day_ranges.to_a.map { |dr| dr.name } .include?("Dr1"),
+  		"t.day_ranges should contain DayRange Dr1, but does not")
   end
 
   # unit test for Tag.include_day? method
@@ -96,8 +97,8 @@ class TagTest < ActiveSupport::TestCase
   	t = Tag.new(user: u, name: n)
   	trs = [TimeRange.new(user: u, name: "tr1")]
   	t.update_time_ranges(trs)
-  	assert(t.time_ranges.to_a.map { |tr| tr.name } .include?("tr1"),
-  		"t.time_ranges should contain TimeRange tr1, but does not")
+  	assert(t.time_ranges.to_a.map { |tr| tr.name } .include?("Tr1"),
+  		"t.time_ranges should contain TimeRange Tr1, but does not")
   end
 
   # unit test for Tag.include_time? method
@@ -143,10 +144,10 @@ class TagTest < ActiveSupport::TestCase
   	trs = [TimeRange.new(user: u, name: "tr1")]
   	md1 = { tags: [], day_ranges: drs, time_ranges: trs, day_range_select: [], time_range_select: [] }
   	t1.update_metadata(md1)
-  	assert(t1.day_ranges.to_a.map { |dr| dr.name } .include?("dr1"),
-  		"Tag does not contain DayRange dr1 after it should have been added with update_metadata")
-  	assert(t1.time_ranges.to_a.map { |tr| tr.name } .include?("tr1"),
-  		"Tag does not contain TimeRange tr1 after it should have been added with update_metadata")
+  	assert(t1.day_ranges.to_a.map { |dr| dr.name } .include?("Dr1"),
+  		"Tag does not contain DayRange Dr1 after it should have been added with update_metadata")
+  	assert(t1.time_ranges.to_a.map { |tr| tr.name } .include?("Tr1"),
+  		"Tag does not contain TimeRange Tr1 after it should have been added with update_metadata")
   	n2 = "PrettyNiceTag"
   	t2 = Tag.new(user: u, name: n2)
   	d = SimpleDay.new(0)

@@ -46,6 +46,23 @@ class UserTest < ActiveSupport::TestCase
   	assert(!u2.save, "Saved a User with too long a last name")
   end
 
+  # unit test for creating and getting day ranges
+  test "day ranges" do
+    em = "blooby@blib.blub"
+    pw = "supersafe"
+    fn = "Bob"
+    ln = "Bean"
+    u = User.new(email: em, password: pw, password_confirmation: pw, first_name: fn, last_name: ln)
+    u.create_day_range("FaveDays")
+    assert(u.day_ranges.to_a.map { |dr| dr.name } .include?("Favedays"),
+      "User does not have DayRange Favedays after it was supposed to be created")
+    drs = u.get_day_ranges
+    assert(drs.map { |dr| dr.name } .include?("Favedays"),
+      "get_day_ranges did not have DayRange Favedays, but it should have")
+    assert_not(drs.map { |dr| dr.name } .include?("Terribledays"),
+      "get_day_ranges had DayRange Terribledays, but it should not have")
+  end
+
   # unit test for creating and getting time ranges
   test "time ranges" do
   	em = "blooby@blib.blub"
@@ -54,30 +71,13 @@ class UserTest < ActiveSupport::TestCase
   	ln = "Bean"
   	u = User.new(email: em, password: pw, password_confirmation: pw, first_name: fn, last_name: ln)
   	u.create_time_range("FaveTimes")
-  	assert(u.time_ranges.to_a.map { |tr| tr.name } .include?("FaveTimes"),
-  		"User does not have TimeRange FaveTimes after it was supposed to be created")
+  	assert(u.time_ranges.to_a.map { |tr| tr.name } .include?("Favetimes"),
+  		"User does not have TimeRange Favetimes after it was supposed to be created")
   	trs = u.get_time_ranges
-  	assert(trs.map { |tr| tr.name } .include?("FaveTimes"),
-  		"get_time_ranges did not have TimeRange FaveTimes, but it should have")
-  	assert_not(trs.map { |tr| tr.name } .include?("TerribleTimes"),
-  		"get_time_ranges had TimeRange TerribleTimes, but it should not have")
-  end
-
-  # unit test for creating and getting day ranges
-  test "day ranges" do
-  	em = "blooby@blib.blub"
-  	pw = "supersafe"
-  	fn = "Bob"
-  	ln = "Bean"
-  	u = User.new(email: em, password: pw, password_confirmation: pw, first_name: fn, last_name: ln)
-  	u.create_day_range("FaveDays")
-  	assert(u.day_ranges.to_a.map { |dr| dr.name } .include?("FaveDays"),
-  		"User does not have DayRange FaveDays after it was supposed to be created")
-  	drs = u.get_day_ranges
-  	assert(drs.map { |dr| dr.name } .include?("FaveDays"),
-  		"get_day_ranges did not have DayRange FaveDays, but it should have")
-  	assert_not(drs.map { |dr| dr.name } .include?("TerribleDays"),
-  		"get_day_ranges had DayRange TerribleDays, but it should not have")
+  	assert(trs.map { |tr| tr.name } .include?("Favetimes"),
+  		"get_time_ranges did not have TimeRange Favetimes, but it should have")
+  	assert_not(trs.map { |tr| tr.name } .include?("Terribletimes"),
+  		"get_time_ranges had TimeRange Terribletimes, but it should not have")
   end
 
   # unit test for creating and getting tags
@@ -88,13 +88,13 @@ class UserTest < ActiveSupport::TestCase
   	ln = "Bean"
   	u = User.new(email: em, password: pw, password_confirmation: pw, first_name: fn, last_name: ln)
   	u.create_tag("CoolTag")
-  	assert(u.tags.to_a.map { |t| t.name } .include?("CoolTag"),
-  		"User does not have Tag CoolTag after it was supposed to be created")
+  	assert(u.tags.to_a.map { |t| t.name } .include?("Cooltag"),
+  		"User does not have Tag Cooltag after it was supposed to be created")
   	ts = u.get_tags
-  	assert(ts.map { |t| t.name } .include?("CoolTag"),
-  		"get_tags did not have Tag CoolTag, but it should have")
-  	assert_not(ts.map { |t| t.name } .include?("SuckyTag"),
-  		"get_tags had Tag SuckyTag, but it should not have")
+  	assert(ts.map { |t| t.name } .include?("Cooltag"),
+  		"get_tags did not have Tag Cooltag, but it should have")
+  	assert_not(ts.map { |t| t.name } .include?("Suckytag"),
+  		"get_tags had Tag Suckytag, but it should not have")
   end
 
   # unit test for creating and getting locations
@@ -104,16 +104,15 @@ class UserTest < ActiveSupport::TestCase
   	fn = "Bob"
   	ln = "Bean"
   	u = User.new(email: em, password: pw, password_confirmation: pw, first_name: fn, last_name: ln)
-  	loc_params = { name: "Bestlocation",
-  		address_hash: { street: "69 Cumming St", city: "Bumpass", zip: "02139", state: "MA" } }
-  	u.create_location(loc_params)
+  	loc_name = "BestLocation"
+  	u.create_location(loc_name)
   	assert(u.locations.to_a.map { |loc| loc.name } .include?("Bestlocation"),
-  		"User does not have Location BestLocation after it was supposed to be created")
+  		"User does not have Location Bestlocation after it was supposed to be created")
   	locs = u.get_locations
   	assert(locs.map { |loc| loc.name } .include?("Bestlocation"),
-  		"get_locations did not have Location BestLocation, but it should have")
-  	assert_not(locs.map { |loc| loc.name } .include?("WorstLocation"),
-  		"get_locations had Location WorstLocation, but it should not have")
+  		"get_locations did not have Location Bestlocation, but it should have")
+  	assert_not(locs.map { |loc| loc.name } .include?("Worstlocation"),
+  		"get_locations had Location Worstlocation, but it should not have")
   end
 
   # unit test for creating and getting tasks
@@ -124,13 +123,13 @@ class UserTest < ActiveSupport::TestCase
   	ln = "Bean"
   	u = User.new(email: em, password: pw, password_confirmation: pw, first_name: fn, last_name: ln)
   	u.create_task("CoolTask", "thanks, bro")
-  	assert(u.tasks.to_a.map { |t| t.title } .include?("CoolTask"),
-  		"User does not have Task CoolTask after it was supposed to be created")
+  	assert(u.tasks.to_a.map { |t| t.title } .include?("Cooltask"),
+  		"User does not have Task Cooltask after it was supposed to be created")
   	ts = u.get_tasks
-  	assert(ts.map { |t| t.title } .include?("CoolTask"),
-  		"get_tasks did not have Task CoolTask, but it should have")
-  	assert_not(ts.map { |t| t.title } .include?("SuckyTask"),
-  		"get_tasks had Task SuckyTask, but it should not have")
+  	assert(ts.map { |t| t.title } .include?("Cooltask"),
+  		"get_tasks did not have Task Cooltask, but it should have")
+  	assert_not(ts.map { |t| t.title } .include?("Suckytask"),
+  		"get_tasks had Task Suckytask, but it should not have")
   end
 
   # unit test for User.get_context method
