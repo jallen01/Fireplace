@@ -39,17 +39,7 @@ class LocationTest < ActiveSupport::TestCase
   	l1 = Location.new(user: u, name: n)
   	l1.save
   	l2 = Location.new(user: u, name: n)
-  	assert(!dr2.save, "Saved a Location with same name as existing Location")
-  end
-
-  # unit test for Location.calc_distance method
-  test "within distance?" do
-  	u = users(:user1)
-  	n = "FaveLocation"
-  	# the distance between 42N 71W and 38N 122W is about 2322 miles
-  	p1, p2 = [42, -71], [38, -122]
-  	d = calc_distance(p1, p2)
-  	assert_in_delta(2322, d, 300, "calc_distance returned #{d} miles instead of about 2322 miles")
+  	assert(!l2.save, "Saved a Location with same name as existing Location")
   end
 
 end

@@ -50,11 +50,13 @@ class Location < ActiveRecord::Base
   validates :name, presence: true, length: { maximum: Location::NAME_MAX_LENGTH }, uniqueness: { scope: :user }
 
   # Capitalize first letter of each word in name
-  before_validation do 
-    self.name = self.name.downcase.split.map(&:capitalize).join(' ') 
+  before_validation do
+    unless name.nil?
+      self.name = self.name.downcase.split.map(&:capitalize).join(' ') 
+    end
 
     # Sanitize address hash
-    self.address_hash.permit(*ADDRESS_FIELDS_ALL)
+    self.address_hash.select { |k,v| ADDRESS_FIELDS_ALL.include?(k) }
     self.address_hash.each do |k, v|
       self.address_hash[k] = String(v)
     end

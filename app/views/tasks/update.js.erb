@@ -1,6 +1,6 @@
 <% if @task.errors.any? %>
-	$("<%= j "#edit-task-#{@task.id}-modal .modal-body" %>").html("<%= j render "tasks/form", task: @task %>");
-	$("<%= j "#edit-task-#{@task.id}-modal .modal-body" %>").trigger("formsCreated");
+	$("<%= j "#edit-task-#{@task.id}-modal form" %>").html("<%= j render "tasks/form", task: @task %>");
+	$("<%= j "#edit-task-#{@task.id}-modal form" %>").trigger("formCreated");
 <% else %>
     $("<%= j "#edit-task-#{@task.id}-modal" %>").modal("hide").on("hidden.bs.modal", function () {
     	$("#tasks-list .list-group").html("<%= j render "tasks/list" %>");
