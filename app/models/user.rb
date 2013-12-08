@@ -113,18 +113,20 @@ class User < ActiveRecord::Base
     self.tasks
   end
 
-  def get_context(time_frame, location)
+  def get_context(time_frame, utc_offset, location)
     context = {}
 
-    context[:date] = Date.today
-    context[:time] = SimpleTime.new(Time.now.hour, Time.now.min)
-    context[:day] = SimpleDay.new(Time.now.wday)
+    utc_offset = 0 if utc_offset.nil?
+    time = Time.now + utc_offset
+
+    context[:date] = Date.parse(time.to_s)
+    context[:time] = SimpleTime.new(time.hour, time.min)
+    context[:day] = SimpleDay.new(time.wday)
     context[:location] = location
 
     case time_frame
     when :today
       context[:time] = nil
-      context[:day] = context[:day]
       context[:location] = nil
     when :tomorrow
       context[:time] = nil

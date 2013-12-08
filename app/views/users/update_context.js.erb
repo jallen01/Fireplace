@@ -1,0 +1,8 @@
+// Primary Author: Jonathan Allen
+
+var modal = $("#user-context-modal");
+modal.find(".modal-close-btn").button("reset");
+
+modal.modal('hide');
+$("#tasks-list").html("<%= j render "tasks/list" %>");
+filter_tasks_list();

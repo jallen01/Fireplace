@@ -1,27 +1,3 @@
-var main = function () {
-}
-
-$(document).ready(main);
-$(document).on("ajaxComplete", main);
-
-$(document).on("mouseover", "#tasks-list .list-group-item", function (event) {
-    $(event.target).popover("show");
-});
-
-$(document).on("change", ".filter-policy-toggle", function(event) {
-    var checkbox = $(event.target);
-    var filter = checkbox.data("filter");
-    if (checkbox.is(":checked")) {
-    	$("#tasks-list .list-group-item").each(function (index, elem) {
-    		if ($(elem).data(filter) === false) {
-    			$(elem).hide();
-    		}
-    	});
-    } else {
-    	$("#tasks-list .list-group-item").show();
-    }
-});
-
 $(function(){
     $("#new-task-modal .custom-form").hide()
     $("#new-task-modal .day-ranges-custom").hide()

@@ -5,10 +5,11 @@ modal.find(".form-submit-btn").button("reset");
 modal.find(".form-cancel-btn").removeClass("disabled");
 
 <% unless @new_task.errors.any? %>
+	modal.modal("hide");
+
 	$("#tasks-list").html("<%= j render "tasks/list" %>");
 	$("#tasks-list form").trigger("formCreated");
-
-	modal.modal("hide");
+	filter_tasks_list();	
 <% end %>
 
 modal.find("form").replaceWith("<%= j render "tasks/form", task: @new_task %>");
