@@ -4,9 +4,7 @@ var main = function () {
     $(".modal form").each(function (i, form) {
         initialize_form(form);
     });
-    $(".modal-dialog").css("min-width", function(){
-        return ($("html").width())*4.0/5;
-    });
+    widen_modal();
 }
 
 $(document).ready(main);
@@ -14,6 +12,7 @@ $(document).on("ajaxComplete", main);
 
 $(document).on("formCreated", function (event) {
     initialize_form(event.target);
+    widen_modal();
 });
 
 
@@ -41,6 +40,12 @@ var removeHash = function () {
 
 // Modal Methods
 // =============
+
+var widen_modal = function(){
+    $(".modal-dialog").css("min-width", function(){
+        return ($("html").width())*4.0/5;
+    });
+}
 
 var initialize_form = function (form) {
     $(form).find("[id^=_]").remove();

@@ -16,6 +16,13 @@
         <%= f.text_area :content, class: "form-control", rows: "5"  %>
       </div>
 
+        <div class="checkbox">
+          <%= label_tag do %>
+            <%= f.check_box :long_lasting %>
+            Quick
+          <% end %>
+        </div>
+
       <div class="checkbox">
         <%= label_tag do %>
           <%= f.check_box :important %>

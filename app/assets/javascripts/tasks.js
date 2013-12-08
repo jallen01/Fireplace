@@ -1,27 +1,3 @@
-var main = function () {
-}
-
-$(document).ready(main);
-$(document).on("ajaxComplete", main);
-
-$(document).on("mouseover", "#tasks-list .list-group-item", function (event) {
-    $(event.target).popover("show");
-});
-
-$(document).on("change", ".filter-policy-toggle", function(event) {
-    var checkbox = $(event.target);
-    var filter = checkbox.data("filter");
-    if (checkbox.is(":checked")) {
-    	$("#tasks-list .list-group-item").each(function (index, elem) {
-    		if ($(elem).data(filter) === false) {
-    			$(elem).hide();
-    		}
-    	});
-    } else {
-    	$("#tasks-list .list-group-item").show();
-    }
-});
-
 $(function(){
     $("#new-task-modal .custom-form").hide()
     $("#new-task-modal .day-ranges-custom").hide()
@@ -30,14 +6,24 @@ $(function(){
     $(document).on("show.bs.modal", ".modal", function (event) {
         modal_id = event.target.id
         this_modal = $(modal_id)
-        if(event.target.id.indexOf("edit-task-") != -1){ // if an edit-task modal has been opened
+        console.log("modal_id")
+        console.log(modal_id)
+        if(modal_id.indexOf("edit-task-") != -1){ // if an edit-task modal has been opened
             //custom_tag_classes = this_modal.find(".custom-tag")
             //if($("#"+modal_id + " " + ))
+            console.log("entered if statement")
+            console.log($("#"+modal_id + " .custom-tag").attr("class"))
             if(!$("#"+modal_id + " .custom-tag").hasClass("active")){
                 $("#"+modal_id + " .custom-form").hide()
             }
+            if(!$("#"+modal_id + " .custom-day-range").hasClass("active")){
+                $("#"+modal_id + " .day-ranges-custom").hide()
+            }
+            if(!$("#"+modal_id + " .custom-time-range").hasClass("active")){
+                $("#"+modal_id + " .time-ranges-custom").hide()
+            }
         }
-        if(event.target.id.indexOf("edit-tag-") != -1){ // if an edit-task modal has been opened
+        if(modal_id.indexOf("edit-tag-") != -1){ // if an edit-task modal has been opened
             //custom_tag_classes = this_modal.find(".custom-tag")
             //if($("#"+modal_id + " " + ))
             if(!$("#"+modal_id + " .custom-day-range").hasClass("active")){
@@ -64,37 +50,21 @@ $(function(){
             $("#new-task-modal .btn-time").removeClass("active")
         }
     });
-    $(".custom-tag :checkbox").change(function(event) {
+    $(document).on("change", ".custom-tag :checkbox", function(event) {
         modal_id = $(this).parents(".modal").attr("id")
-        //console.log("#"+modal_id + " .tag-button-bar")
         var checkbox = $(event.target);
-        //if($(this).hasClass("active")) {
-        //console.log("checkbox")
-        //console.log(checkbox)
-        console.log("checked status")
-        console.log(checkbox.is(":checked"))
-        console.log(this)
         if (checkbox.is(":checked")) {
             $("#"+modal_id + " .tag-button-bar").removeClass("active")
             // show custom form
             $("#"+modal_id + " .custom-form").show()
-            /*console.log("#"+modal_id + " .custom-form")
-            console.log(event)
-            console.log("custom form shown")*/
         }else{
             $("#"+modal_id + " .custom-form").hide()
-            /*console.log("#"+modal_id + " .custom-form")
-            console.log(event)
-            console.log("custom form hidden")*/
         }
     });
-    $('.tag-button-bar').change(function(event) {
+    $(document).on("change", ".tag-button-bar", function(event) {
         modal_id = $(this).parents(".modal").attr("id")
         var checkbox = $(event.target);
-        //console.log("checkbox")
-        //console.log(checkbox)
         if (checkbox.is(":checked")) {
-        //if(!$(this).hasClass("active")) {
             $("#"+modal_id + " .custom-tag").removeClass("active")
             // hide custom form
             $("#"+modal_id + " .custom-form").hide()
@@ -105,11 +75,10 @@ $(function(){
     $(".modal-form-cancel").click(function(event){
         modal_id = $(this).parents(".modal").attr("id")
         this_modal = $(modal_id)
-        //console.log("cancel button pressed")
     });
 
     $(".modal-form-submit").click(function(){
-        console.log("save button pressed")
+
     });
 
 });
