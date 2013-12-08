@@ -1,5 +1,6 @@
 // Primary Author: Jonathan Allen (jallen01)
 
+
 var main = function () {
 }
 
@@ -87,6 +88,7 @@ var removeHash = function () {
 // Modal Methods
 // =============
 
+
 enable_modal = function (modal) {
     $(modal).find("fieldset").attr("disabled", false);
     $(modal).find(".modal-submit-btn").button("reset");
@@ -129,3 +131,8 @@ $(document).on("click", ".modal-delete-btn", function (event) {
     $(event.target).button("loading");
     disable_modal(modal);
 });
+
+
+
+
+

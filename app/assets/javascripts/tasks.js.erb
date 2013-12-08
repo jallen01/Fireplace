@@ -9,7 +9,6 @@ $(function () {
 });
 
 var main = function () {
-
     // Task Descriptions
     // =============
     $('#tasks-list .list-group a').each(function(index, elem) {
@@ -20,18 +19,11 @@ var main = function () {
             $('#descriptions-panel').find('.panel-body').empty();
         });
     });
+
 }
 
 $(document).ready(main);
 $(document).on("ajaxComplete", main);
-
-
-
-
-
-
-// User Context
-// ============
 
 // Code from https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.watchPosition?redirectlocale=en-US&redirectslug=Web%2FAPI%2Fwindow.navigator.geolocation.watchPosition
 var watch_location = function () {
@@ -54,37 +46,45 @@ var watch_location = function () {
     var geo_watcher = navigator.geolocation.watchPosition(success, error, options);
 }
 
-// Tasks List
-// ==========
-
 var filter_tasks_list = function () {
-    $("#tasks-list .list-group-item").show();
+    $("#tasks-list tr").show();
 
     $(".filter-policy-toggle").each(function (index, checkbox) {
         var filter = $(checkbox).data("filter");
         var checked = $(checkbox).prop("checked");
 
-        $("#tasks-list .list-group-item").each(function (index, item) {
+        $("#tasks-list tr").each(function (index, elem) {
             if (filter === "all") {
-                if ($(item).data("relevant") !== true && !checked) {
-                    $(item).hide();
+                if ($(elem).data("relevant") !== true && !checked) {
+                    $(elem).hide();
                 }
             } else {
                 if (checked === true) {
-                    if ($(item).data(filter) === false) {
-                        $(item).hide();
-                    }
+                    $("#tasks-list tr").each(function (index, elem) {
+                        if ($(elem).data(filter) === false) {
+                            $(elem).hide();
+                        }
+                    });
                 }
             }
         });
     });
 }
 $(document).on("listUpdated", "#tasks-list", filter_tasks_list);
-$(document).on("change", ".filter-policy-toggle", filter_tasks_list);
 
+$(document).on("change", ".filter-policy-toggle", function(event) {
+    filter_tasks_list();
+});
 
-// Task Form
-// =========
+$(document).on("listChange", "#tasks-list", function (event) {
+    filter_tasks_list();
+});
+
+$(document).on("click", "#context-overrides-modal .modal-close-btn", function (event) {
+    var modal = $(event.target).parents(".modal");
+    $(event.target).button("loading");
+    modal.find("form").first().submit();
+});
 
 $(function(){
     $("#new-task-modal .custom-form").hide()
@@ -94,9 +94,13 @@ $(function(){
     $(document).on("show.bs.modal", ".modal", function (event) {
         modal_id = event.target.id
         this_modal = $(modal_id)
+        console.log("modal_id")
+        console.log(modal_id)
         if(modal_id.indexOf("edit-task-") != -1){ // if an edit-task modal has been opened
             //custom_tag_classes = this_modal.find(".custom-tag")
             //if($("#"+modal_id + " " + ))
+            console.log("entered if statement")
+            console.log($("#"+modal_id + " .custom-tag").attr("class"))
             if(!$("#"+modal_id + " .custom-tag").hasClass("active")){
                 $("#"+modal_id + " .custom-form").hide()
             }

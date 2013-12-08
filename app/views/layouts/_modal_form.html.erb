@@ -9,6 +9,7 @@
 <% modal_title = "" if local_assigns[:modal_title].nil? %>
 <% modal_content = "" if local_assigns[:modal_content].nil? %>
 
+
 <%= content_tag :div, class: "modal fade", id: modal_id, data: modal_data, style: "display: none;", role: "dialog" do %>
   <div class="modal-dialog">
     <div class="modal-content">
