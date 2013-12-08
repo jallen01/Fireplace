@@ -53,19 +53,21 @@ $(function(){
         }
     });
     $('.custom-tag').change(function() {
+        modal_id = $(this).parents(".modal").attr("id")
         if(!$(this).hasClass("active")) {
-            $('.tag-button-bar').removeClass("active")
+            $("#"+modal_id + " .tag-button-bar").removeClass("active")
             // show custom form
-            $(".custom-form").show()
+            $("#"+modal_id + " .custom-form").show()
         }else{
-            $(".custom-form").hide()
+            $("#"+modal_id + " .custom-form").hide()
         }
     });
     $('.tag-button-bar').change(function() {
+        modal_id = $(this).parents(".modal").attr("id")
         if(!$(this).hasClass("active")) {
-            $('.custom-tag').removeClass("active")
+            $("#"+modal_id + " .custom-tag").removeClass("active")
             // hide custom form
-            $(".custom-form").hide()
+            $("#"+modal_id + " .custom-form").hide()
         }   
     });
 

@@ -10,7 +10,7 @@
         <%= day_range.name %>
       <% end %> 
     <% end %>
-    <%= content_tag :label, class: "btn btn-default btn-buffer custom-day-range #{"active" if !tag.hidden_time_range.empty?}".html_safe do" do %>
+    <%= content_tag :label, class: "btn btn-default btn-buffer custom-day-range #{"active" if tag.hidden_time_range.empty?}".html_safe do %>
       <%= check_box_tag "day_ranges[]", "custom" %>
       Custom
     <% end %> 
@@ -38,7 +38,7 @@
         <%= time_range.name %>
       <% end %> 
     <% end %>
-    <%= content_tag :label, class: "btn btn-default btn-buffer custom-time-range #{"active" if !tag.hidden_day_range.empty?}".html_safe do %>
+    <%= content_tag :label, class: "btn btn-default btn-buffer custom-time-range #{"active" if tag.hidden_day_range.empty?}".html_safe do %>
       <%= check_box_tag "time_ranges[]", "custom" %>
       Custom
     <% end %> 

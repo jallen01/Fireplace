@@ -42,38 +42,42 @@ $(function(){
     });
 
 	$('.custom-day-range').change(function() {
+        modal_id = $(this).parents(".modal").attr("id")
         if(!$(this).hasClass("active")) {
-            $('.day-button-bar').removeClass("active")
+            $("#"+modal_id + " .day-button-bar").removeClass("active")
             // show custom form
-            $(".day-ranges-custom").show()
+            $("#"+modal_id + " .day-ranges-custom").show()
         }else{
-        	$(".day-ranges-custom").hide()
+        	$("#"+modal_id + " .day-ranges-custom").hide()
         }
     });
     $('.day-button-bar').change(function() {
+        modal_id = $(this).parents(".modal").attr("id")
         if(!$(this).hasClass("active")) {
-            $('.custom-day-range').removeClass("active")
+            $("#"+modal_id + " .custom-day-range").removeClass("active")
             // hide custom form
-            $(".day-ranges-custom").hide()
+            $("#"+modal_id + " .day-ranges-custom").hide()
         }   
     });
 
     // Custom time ranges
     //$(".time-ranges-custom").hide()
 	$('.custom-time-range').change(function() {
+        modal_id = $(this).parents(".modal").attr("id")
         if(!$(this).hasClass("active")) {
-            $('.time-button-bar').removeClass("active")
+            $("#"+modal_id + " .time-button-bar").removeClass("active")
             // show custom form
-            $(".time-ranges-custom").show()
+            $("#"+modal_id + " .time-ranges-custom").show()
         }else{
-        	$(".time-ranges-custom").hide()
+        	$("#"+modal_id + " .time-ranges-custom").hide()
         }
     });
     $('.time-button-bar').change(function() {
+        modal_id = $(this).parents(".modal").attr("id")
         if(!$(this).hasClass("active")) {
-            $('.custom-time-range').removeClass("active")
+            $("#"+modal_id + " .custom-time-range").removeClass("active")
             // hide custom form
-            $(".time-ranges-custom").hide()
+            $("#"+modal_id + " .time-ranges-custom").hide()
         }   
     });
 });
