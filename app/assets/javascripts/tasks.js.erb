@@ -9,7 +9,7 @@ $(function () {
 });
 
 var main = function () {
-    $('.task').each(function(index, elem) {
+    $('#tasks-list tr').each(function(index, elem) {
         $(elem).popover();
     });
 }
@@ -50,7 +50,7 @@ var filter_tasks_list = function () {
                 if ($(elem).data("relevant") !== true && !checked) {
                     $(elem).hide();
                 }
-            else {
+            } else {
                 if (checked === true) {
                     $("#tasks-list tr").each(function (index, elem) {
                         if ($(elem).data(filter) === false) {
