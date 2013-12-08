@@ -5,11 +5,12 @@ class LocationsController < ApplicationController
   before_action :set_location, except: [:create]
 
   def create
-    @new_location = current_user.create_location(location_params)
+    @new_location = current_user.create_location(location_params[:name])
     
     unless @new_location.errors.any?
       @location = @new_location
       @new_location = Location.new(user: current_user)
+      @location.update(location_params)
     end
 
     respond_to do |format|

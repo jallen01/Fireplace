@@ -10,6 +10,6 @@ enable_modal(modal);
     modal.modal("hide").on("hidden.bs.modal", function () {
     	$("#locations-list").html("<%= j render "locations/list" %>");
     	$("#locations-list form").trigger("formCreated");
-    	$("#time-ranges-list").trigger("listUpdated");
+    	$("#locations-list").trigger("listUpdated");
     });
 <% end %>

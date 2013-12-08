@@ -4,11 +4,11 @@ var modal = $("#new-location-modal");
 enable_modal(modal);
 
 <% unless @new_location.errors.any? %>
-    $("#location-list").html("<%= j render "locations/list" %>");
-    $("#location-list form").trigger("formCreated");
-    $("#location-list").trigger("listUpdated");
-
-    modal.modal("hide");
+   modal.modal("hide").on("hidden.bs.modal", function () {
+    	$("#locations-list").html("<%= j render "locations/list" %>");
+    	$("#locations-list form").trigger("formCreated");
+    	$("#locations-list").trigger("listUpdated");
+    });
 <% end %>
 
 modal.find("form").replaceWith("<%= j render "locations/form", location: @new_location %>");

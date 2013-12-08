@@ -13,22 +13,14 @@
 
   <hr>
 
-<!-- Code from https://github.com/sgruhier/jquery-addresspicker -->
- <div class='clearfix'>
-    <div class='input input-positioned'>
-      <label>Address : </label> <input id="addresspicker_map" />
-    </div>
 
-    <div class='map-wrapper'>
-      <label id="geo_label" for="reverseGeocode">Reverse Geocode after Marker Drag?</label>
-      <select id="reverseGeocode">
-        <option value="false" selected>No</option>
-        <option value="true">Yes</option>
-      </select><br/>
+ <div class='btn btn-primary' id="add-address">Hide Address</div><br>
 
-      <div id="map"></div>
-      <div id="legend">You can drag and drop the marker to the correct location</div>
+
+    <div class="form-group loc" >
+      <hr>
+      <%= f.label "Address" %><br>
+      <%= f.text_field :address_string, class: "form-control" %>
+
     </div>
-  </div>
 <% end %>
-
