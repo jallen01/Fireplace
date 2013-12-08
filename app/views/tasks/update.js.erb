@@ -1,5 +1,5 @@
 <% unless @task.errors.any? %>
-    $("#tasks-list .list-group").html("<%= j render "tasks/list" %>");
+    $("#tasks-list .list-group").html("<%= j render "tasks/list", task: @task%>");
     $("<%= j "#edit-task-#{@task.id}-modal" %>").modal("hide");
 <% end %>
 

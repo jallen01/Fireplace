@@ -60,4 +60,24 @@ $(function(){
             $(".time-ranges-custom").hide()
         }   
     });
+
+    // Custom locations
+    $(".locations-custom").hide()
+    $('.custom-location').change(function() {
+        if(!$(this).hasClass("active")) {
+            $('.location-button-bar').removeClass("active")
+            // show custom form
+            $(".location-custom").show()
+        }else{
+            $(".location-custom").hide()
+        }
+    });
+    $('.location-button-bar').change(function() {
+        if(!$(this).hasClass("active")) {
+            $('.custom-location').removeClass("active")
+            // hide custom form
+            $(".location-custom").hide()
+        }   
+    });
+
 });
