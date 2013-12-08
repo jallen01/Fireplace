@@ -1,4 +1,5 @@
-//<!--  Primary Author: Michelle Johnson (mchlljy) -->
+// Primary Author: Michelle Johnson (mchlljy)
+
 <% unless @new_location.errors.any? %>
     $("#locations-list").append('<%= j render "locations/list", location: @location %>');
     $('#new-location-modal').modal('hide');

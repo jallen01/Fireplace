@@ -1,15 +1,15 @@
+<!-- Primary Author: Jonathan Allen (jallen01) -->
+
 <!-- Days -->
 <div class="panel-group" id="accordion">
   
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-          Days
-        </a>
-      </h4>
+      <div data-toggle="collapse" data-parent="#accordion" data-target="#day-ranges-collapse" class="panel-title">
+        Days
+      </div>
     </div>
-    <div id="collapseOne" class="panel-collapse collapse in">
+    <div id="day-ranges-collapse" class="panel-collapse collapse in">
       <div class="panel-body">
         <div id="day-ranges" class="btn-group" data-toggle="buttons">
           <!-- Predefined day ranges -->
@@ -37,13 +37,11 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-          Times
-        </a>
-      </h4>
+      <div data-toggle="collapse" data-parent="#accordion" data-target="#time-ranges-collapse" class="panel-title">
+        Times
+      </div>
     </div>
-    <div id="collapseTwo" class="panel-collapse collapse in">
+    <div id="time-ranges-collapse" class="panel-collapse collapse">
       <div class="panel-body">
         <div id="time-ranges" class="btn-group" data-toggle="buttons">
           <!-- Predefined time ranges -->
@@ -71,13 +69,11 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-          Locations
-        </a>
-      </h4>
+      <div data-toggle="collapse" data-parent="#accordion" data-target="#locations-collapse" class="panel-title">
+        Locations
+      </div>
     </div>
-    <div id="collapseThree" class="panel-collapse collapse in">
+    <div id="locations-collapse" class="panel-collapse collapse">
       <div class="panel-body">
         <div id="locations" class="btn-group" data-toggle="buttons">
       <% current_user.get_locations.each do |location| %>

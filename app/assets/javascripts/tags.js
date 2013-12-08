@@ -1,26 +1,4 @@
-// Day range select
-
-// $(document).on('click', '#day-range-select-toggle', function () {
-//     $("#day-range-select .btn").removeClass("disabled");
-//     $("#day-range-select-toggle").addClass("active");
-//     $("#day-ranges .btn").removeClass("active");
-// });
-
-// $(document).on('click', '#day-ranges .btn', function () {
-//     $("#day-range-select .btn").addClass("disabled");
-//     $("#day-range-select-toggle").removeClass("active");
-// });
-
-// // Time range select
-
-// $(document).on('click', '#time-range-select-toggle', function () {
-//     $("#time-range-select-toggle").addClass("active");
-//     $("#time-ranges .btn").removeClass("active");
-// });
-
-// $(document).on('click', '#time-ranges .btn', function () {
-//     $("#time-range-select-toggle").removeClass("active");
-// });
+// Primary Author: Rebecca Krosnick (krosnick)
 
 $(function(){
 	// Custom day ranges

@@ -17,7 +17,6 @@ var main = function () {
 $(document).ready(main);
 $(document).on("ajaxComplete", main);
 
-<<<<<<< HEAD:app/assets/javascripts/tasks.js.erb
 // Code from https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.watchPosition?redirectlocale=en-US&redirectslug=Web%2FAPI%2Fwindow.navigator.geolocation.watchPosition
 var watch_location = function () {
     function success(pos) {
@@ -46,23 +45,21 @@ var filter_tasks_list = function () {
         var filter = $(checkbox).data("filter");
         var checked = $(checkbox).prop("checked");
 
-
-        if (filter === "all") {
-            $("#tasks-list tr").each(function (index, elem) {
+        $("#tasks-list tr").each(function (index, elem) {
+            if (filter === "all") {
                 if ($(elem).data("relevant") !== true && !checked) {
                     $(elem).hide();
                 }
-            });
-
-        } else {
-            if (checked === true) {
-                $("#tasks-list tr").each(function (index, elem) {
-                    if ($(elem).data(filter) === false) {
-                        $(elem).hide();
-                    }
-                });
+            else {
+                if (checked === true) {
+                    $("#tasks-list tr").each(function (index, elem) {
+                        if ($(elem).data(filter) === false) {
+                            $(elem).hide();
+                        }
+                    });
+                }
             }
-        }
+        });
     });
 }
 $(document).on("listUpdated", "#tasks-list", filter_tasks_list);
