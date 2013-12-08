@@ -1,7 +1,7 @@
 // Primary Author: Jonathan Allen
 
 var modal = $("#context-overrides-modal");
-modal.find(".modal-close-btn").button("reset");
+enable_modal(modal);
 
 modal.modal('hide');
 $("#context-overrides").html("<%= j render "tasks/context_view" %>");

@@ -9,14 +9,25 @@ $(function () {
 });
 
 var main = function () {
-    console.log("this is the main")
-    $('#tasks-list tr').each(function(index, elem) {
-        $(elem).popover();
+    // Task Descriptions
+    // =============
+    $('#tasks-list .list-group a').each(function(index, elem) {
+        $(elem).hover(function () {
+            console.log($(this).attr('data-content'));
+            $('#descriptions-panel').find('.panel-body').html($(this).attr('data-content'));
+        }, function() {
+            $('#descriptions-panel').find('.panel-body').empty();
+        });
     });
 }
 
 $(document).ready(main);
 $(document).on("ajaxComplete", main);
+
+
+
+
+
 
 // User Context
 // ============
@@ -25,8 +36,9 @@ $(document).on("ajaxComplete", main);
 var watch_location = function () {
     function success(pos) {
       var crd = pos.coords;
+      var utc_offset = (-60)*(new Date().getTimezoneOffset());
 
-      $.post(update_location_url, { latitude: crd.latitude, longitude: crd.longitude });
+      $.post(update_location_url, { utc_offset: utc_offset, latitude: crd.latitude, longitude: crd.longitude });
     };
 
     function error(err) {

@@ -1,5 +1,6 @@
 // Primary Author: Jonathan Allen (jallen01)
 
+
 var main = function () {
 }
 
@@ -34,8 +35,6 @@ var initialize_form = function (form) {
 
         var hidden = $("<input type='hidden'>").attr("id", "_" + id).val(checked);
         $(checkbox).parent().append(hidden);
-
-        
     });
 }
 
@@ -87,18 +86,21 @@ var removeHash = function () {
 // Modal Methods
 // =============
 
+
 enable_modal = function (modal) {
     $(modal).find("fieldset").attr("disabled", false);
     $(modal).find(".modal-submit-btn").button("reset");
-    $(modal).find(".modal-cancel-btn").button("reset");
+    $(modal).find(".modal-delete-btn").button("reset");
     $(modal).find(".modal-submit-btn").removeClass("disabled");
     $(modal).find(".modal-cancel-btn").removeClass("disabled");
+    $(modal).find(".modal-delete-btn").removeClass("disabled");
 }
 
 disable_modal = function (modal) {
     $(modal).find("fieldset").attr("disabled", true);
     $(modal).find(".modal-submit-btn").addClass("disabled");
     $(modal).find(".modal-cancel-btn").addClass("disabled");
+    $(modal).find(".modal-delete-btn").addClass("disabled");
 }
 
 // Remove hash on modal close
@@ -129,3 +131,8 @@ $(document).on("click", ".modal-delete-btn", function (event) {
     $(event.target).button("loading");
     disable_modal(modal);
 });
+
+
+
+
+

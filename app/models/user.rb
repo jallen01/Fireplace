@@ -114,7 +114,7 @@ class User < ActiveRecord::Base
   def get_closest_location(latitude, longitude)
     closest_location_distance = 10*LOCATION_THRESHOLD
     closest_location = nil
-    current_user.get_locations.each do |location|
+    self.get_locations.each do |location|
       distance = location.calc_distance(latitude, longitude)
       if (distance <= closest_location_distance) && (distance <= LOCATION_THRESHOLD)
         closest_location_distance = distance
@@ -133,7 +133,7 @@ class User < ActiveRecord::Base
     self.tasks.ordered
   end
 
-  def get_context(overrides, location, utc_offset)
+  def get_context(time_frame, location, utc_offset)
     context = {}
 
     utc_offset = 0 if utc_offset.nil?
@@ -142,9 +142,9 @@ class User < ActiveRecord::Base
     context[:date] = Date.parse(time.to_s)
     context[:time] = SimpleTime.new(time.hour, time.min)
     context[:day] = SimpleDay.new(time.wday)
-    context[:location] = overrides[:location] || location
+    context[:location] = location
 
-    case overrides[:time_frame]
+    case time_frame
     when :today
       context[:time] = nil
       context[:location] = nil

@@ -69,9 +69,9 @@ class TaskTest < ActiveSupport::TestCase
   	trs = [TimeRange.new(user: u, name: "tr1")]
   	md2 = { tags: [], day_ranges: drs, time_ranges: trs, day_range_select: [], time_range_select: [] }
   	ta2.update_metadata(md2)
-  	assert(ta2.hidden_tag.day_ranges.map { |dr| dr.name } .include?("dr1"),
+  	assert(ta2.hidden_tag.day_ranges.map { |dr| dr.name } .include?("Dr1"),
   		"ta2's hidden tag does not have the added day range")
-  	assert(ta2.hidden_tag.time_ranges.map { |tr| tr.name } .include?("tr1"),
+  	assert(ta2.hidden_tag.time_ranges.map { |tr| tr.name } .include?("Tr1"),
   		"ta2's hidden tag does not have the added time range")
   end
 

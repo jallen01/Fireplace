@@ -38,8 +38,8 @@ class Location < ActiveRecord::Base
   # Methods
   # -----------
 
-  # pos1 and pos2 are arrays: [latitude, longitude]. Distance in miles.
-  def calc_distance(latidue, longitude)
-    Geocoder::Calculations.bearing_between(self.latitude, self.longitude, latitude, longitude)
+  # Distance in miles.
+  def calc_distance(latitude, longitude)
+    Geocoder::Calculations.distance_between(self.latitude, self.longitude, latitude, longitude)
   end
 end
