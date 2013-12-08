@@ -21,6 +21,9 @@ class Location < ActiveRecord::Base
 
   scope :ordered, -> { order(:name) }
 
+  geocoded_by :address_string
+  after_validation :geocode
+
   # Validations
   # -----------
 
@@ -31,6 +34,7 @@ class Location < ActiveRecord::Base
   # Capitalize first letter of each word in name
   before_validation do
     unless name.nil?
+      puts "the name: #{name}"
       self.name = self.name.downcase.split.map(&:capitalize).join(' ') 
     end
   end 
