@@ -8,4 +8,4 @@
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-time-range-modal">New Time Range</button>
 
-<%= render "layouts/modal_form", object: @new_time_range, modal_id: "new-time-range-modal", modal_title: "New Time Range", modal_data: { form: "temporary" }, modal_content: render("time_ranges/form", time_range: @new_time_range) %>
+<%= render "layouts/modal_form", object: @new_time_range, modal_id: "new-time-range-modal", modal_title: "New Time Range", modal_data: { form: "reset" }, modal_content: render("time_ranges/form", time_range: @new_time_range) %>

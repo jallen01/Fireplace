@@ -1,3 +1,11 @@
 // Primary Author: Michelle Johnson (mchlljy)
 
 $("#location<%= @location.id %>").remove();
+
+var modal = $("<%= j "#edit-task-#{@location_id}-modal" %>");
+
+modal.modal("hide").on("hidden.bs.modal", function () {
+	$("#locations-list").html("<%= j render "locations/list" %>");
+	$("#locations-list form").trigger("formCreated");
+	$("#time-ranges-list").trigger("listUpdated");
+});

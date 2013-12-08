@@ -46,6 +46,13 @@ class Tag < ActiveRecord::Base
 
   validates :name, presence: true, length: { maximum: NAME_MAX_LENGTH }, uniqueness: { scope: :user }, unless: :hidden?
 
+  # Capitalize first letter of each word in name
+  before_validation do
+    unless name.nil?
+      self.name = self.name.downcase.split.map(&:capitalize).join(' ') 
+    end
+  end 
+
 
   # Methods
   # -------

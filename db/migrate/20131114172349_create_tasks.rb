@@ -7,7 +7,7 @@ class CreateTasks < ActiveRecord::Migration
       t.string :content
 
       t.boolean :important
-      t.boolean :long_lasting
+      t.boolean :quick
       t.date :deadline
       t.integer :days_notice
 

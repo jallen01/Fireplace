@@ -60,6 +60,6 @@ class TasksController < ApplicationController
 
     # Sanitize params.
     def task_params
-      params.require(:task).permit(:title, :content, :important, :long_lasting, :deadline, :days_notice)
+      params.require(:task).permit(:title, :content, :important, :quick, :deadline, :days_notice)
     end
 end

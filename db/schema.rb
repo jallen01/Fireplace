@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20131116025050) do
     t.string   "name"
     t.float    "latitude"
     t.float    "longitude"
-    t.text     "address_hash"
+    t.text     "address_string"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 20131116025050) do
     t.string   "title"
     t.string   "content"
     t.boolean  "important"
-    t.boolean  "long_lasting"
+    t.boolean  "quick"
     t.date     "deadline"
     t.integer  "days_notice"
     t.datetime "created_at"
