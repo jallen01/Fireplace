@@ -98,7 +98,7 @@ class Tag < ActiveRecord::Base
   end
 
   def update_locations(locations)
-    self.locations = []
+    self.tag_locations.destroy_all
     locations.each { |location| TagLocation.create(tag: self, location: location) }
 
     self.save
