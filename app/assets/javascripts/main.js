@@ -83,6 +83,16 @@ $(document).on("hidden.bs.modal", ".modal[data-form='reset']", function (event) 
 });
 
 // Register modal submit button. Submits form in modal with class "modal-form".
-$(document).on("click", ".modal-form-submit", function (event) {
-    $(event.target).parents(".modal").find(".modal-form").first().submit();
+$(document).on("click", ".form-submit-btn", function (event) {
+    var modal = $(event.target).parents(".modal");
+    $(event.target).button("loading");
+    modal.find(".form-delete-btn").addClass("disabled");
+
+    modal.find(".modal-form").first().submit();
+});
+
+$(document).on("click", ".form-delete-btn", function (event) {
+    var modal = $(event.target).parents(".modal");
+    $(event.target).button("loading");
+    modal.find(".form-submit-btn").addClass("disabled");
 });

@@ -1,1 +1,8 @@
-$("#tags-list .list-group").html("<%= j render "tags/list" %>");
+// Primary Author: Jonathan Allen (jallen01)
+
+var modal = $("<%= j "#edit-tag-#{@tag_id}-modal" %>");
+
+modal.modal("hide").on("hidden.bs.modal", function () {
+	$("#tag-list").html("<%= j render "tags/list" %>");
+	$("#tag-list form").trigger("formCreated");
+});

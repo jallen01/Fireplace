@@ -9,6 +9,10 @@
 <% modal_title = "" if local_assigns[:modal_title].nil? %>
 <% modal_content = "" if local_assigns[:modal_content].nil? %>
 
+<% modal_data[:replace] = true %>
+<% modal_data[:width] = "1000" %>
+<% modal_data[:maxHeight] = "100" %>
+
 <%= content_tag :div, class: "modal fade", id: modal_id, data: modal_data, style: "display: none;", role: "dialog" do %>
   <div class="modal-dialog">
     <div class="modal-content">
@@ -21,10 +25,10 @@
       </div>
       <div class="modal-footer">
         <% unless object.new_record? %>
-          <%= link_to "Delete", object, method: :delete, remote: true, data: {dismiss: "modal"}, class: "btn btn-danger" %>
+          <%= link_to "Delete", object, method: :delete, remote: true, data: {"loading-text" => "Deleting..."}, class: "btn btn-danger form-delete-btn" %>
         <% end %>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary modal-form-submit">Save</button>
+        <button type="button" class="btn btn-default form-cancel-btn" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary form-submit-btn" data-loading-text="Saving...">Save</button>
       </div>
     </div>
   </div>

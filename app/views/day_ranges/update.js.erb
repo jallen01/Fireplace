@@ -1,8 +1,17 @@
-<% unless @day_range.errors.any? %>
-    $("<%= j "#edit-day-range-#{@day_range.id}-modal" %>").modal("hide").on("hidden.bs.modal", function () {
-    	$("#day-ranges-list .list-group").html("<%= j render "day_ranges/list" %>");
+// Primary Author: Jonathan Allen (jallen01)
+
+var modal = $("<%= j "#edit-day-range-#{@day_range.id}-modal" %>");
+modal.find(".form-submit-btn").button("reset");
+modal.find(".form-cancel-btn").removeClass("disabled");
+
+<% if @day_range.errors.any? %>
+	modal.find("form").replaceWith("<%= j render "day_ranges/form", day_range: @day_range %>");
+	modal.find("form").trigger("formCreated");
+<% else %>
+    modal.modal("hide").on("hidden.bs.modal", function () {
+    	$("#day-ranges-list").html("<%= j render "day_ranges/list" %>");
+    	$("#day-ranges-list form").trigger("formCreated");
     });
 <% end %>
 
-$("<%= j "#edit-day-range-#{@day_range.id}-modal .modal-body" %>").html("<%= j render "day_ranges/form", day_range: @day_range %>");
 

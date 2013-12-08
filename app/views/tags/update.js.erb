@@ -1,9 +1,15 @@
-<% unless @tag.errors.any? %>
-    $("<%= j "#edit-tag-#{@tag.id}-modal" %>").modal("hide").on("hidden.bs.modal", ".modal", function () {
-    	$("#tags-list .list-group").html("<%= j render "tags/list" %>");
+// Primary Author: Jonathan Allen (jallen01)
+
+var modal = $("<%= j "#edit-tag-#{@tag.id}-modal" %>");
+modal.find(".form-submit-btn").button("reset");
+modal.find(".form-cancel-btn").removeClass("disabled");
+
+<% if @tag.errors.any? %>
+	modal.find("form").replaceWith("<%= j render "tags/form", tag: @tag %>");
+	modal.find("form").trigger("formCreated");
+<% else %>
+    modal.modal("hide").on("hidden.bs.modal", function () {
+    	$("#tags-list").html("<%= j render "tags/list" %>");
+    	$("#tags-list form").trigger("formCreated");
     });
 <% end %>
-
-$("<%= j "#edit-tag-#{@tag.id}-modal .modal-body" %>").html("<%= j render "tags/form", tag: @tag %>");
-
-$(document).trigger("pageUpdate");

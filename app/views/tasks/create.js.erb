@@ -1,12 +1,15 @@
-// if the new task was made, update the tasks list and hide the new task modal
-// the new task modal gets reset at the end
+// Primary Author: Jonathan Allen (jallen01)
+
+var modal = $("#new-task-modal");
+modal.find(".form-submit-btn").button("reset");
+modal.find(".form-cancel-btn").removeClass("disabled");
 
 <% unless @new_task.errors.any? %>
-	$("#tasks-list .list-group").html("<%= j render "tasks/list" %>");
+	$("#tasks-list").html("<%= j render "tasks/list" %>");
 	$("#tasks-list form").trigger("formCreated");
 
-	$("#new-task-modal").modal("hide");
+	modal.modal("hide");
 <% end %>
 
-$("#new-task-modal modal-body").html("<%= j render "tasks/form", task: @new_task %>");
-$("#new-task-modal form").trigger("formCreated");
+modal.find("form").replaceWith("<%= j render "tasks/form", task: @new_task %>");
+modal.find("form").trigger("formCreated");
