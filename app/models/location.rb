@@ -21,7 +21,7 @@ class Location < ActiveRecord::Base
 
   scope :ordered, -> { order(:name) }
 
-  geocoded_by :address_string
+  geocoded_by :get_address
   after_validation :geocode
 
   # Validations
@@ -45,5 +45,9 @@ class Location < ActiveRecord::Base
   # Distance in miles.
   def calc_distance(latidue, longitude)
     Geocoder::Calculations.distance_between([self.latitude, self.longitude], [latitude, longitude])
+  end
+
+  def get_address
+    "#{self.street}, #{self.city}, #{self.state}, #{self.zip_code}"
   end
 end
