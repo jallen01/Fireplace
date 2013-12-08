@@ -1,10 +1,11 @@
 TscizzleMichelleojKrosnickJallen01Final::Application.routes.draw do
   
-  devise_for :users do
+  devise_for :users
+
+  resources :users, only: [] do
     member do
-      post 'update_policies', defaults: { format: 'js' }
       post 'update_location', defaults: { format: 'js' }
-      post 'update_time_frame', defaults: { format: 'js' }
+      post 'update_context', defaults: { format: 'js' }
     end
   end
 
