@@ -5,7 +5,7 @@ enable_modal(modal);
 
 <% unless @new_task.errors.any? %>
 	modal.modal("hide");
-
+	$('main .container .row').prepend("<%= escape_javascript(render :partial => 'layouts/messages' , :locals => { :flash => flash }).html_safe %>")
 	$("#tasks-list").html("<%= j render "tasks/list" %>");
 	$("#tasks-list form").trigger("formCreated");
 	$("#tasks-list").trigger("listUpdated");

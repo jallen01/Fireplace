@@ -19,6 +19,7 @@ class TasksController < ApplicationController
     end
 
     respond_to do |format|
+      flash[:notice] = "Task created Successfully"
       format.js
     end
   end
