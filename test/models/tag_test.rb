@@ -142,7 +142,8 @@ class TagTest < ActiveSupport::TestCase
   	t1 = Tag.new(user: u, name: n1)
   	drs = [DayRange.new(user: u, name: "dr1")]
   	trs = [TimeRange.new(user: u, name: "tr1")]
-  	md1 = { tags: [], day_ranges: drs, time_ranges: trs, day_range_select: [], time_range_select: [] }
+  	md1 = { tags: [], day_ranges: drs, time_ranges: trs,
+      day_range_select: [], time_range_select: [], locations: [] }
   	t1.update_metadata(md1)
   	assert(t1.day_ranges.to_a.map { |dr| dr.name } .include?("Dr1"),
   		"Tag does not contain DayRange Dr1 after it should have been added with update_metadata")
@@ -152,7 +153,8 @@ class TagTest < ActiveSupport::TestCase
   	t2 = Tag.new(user: u, name: n2)
   	d = SimpleDay.new(0)
   	time = SimpleTime.new(0, 0)
-  	md2 = { tags: [], day_ranges: [], time_ranges: [], day_range_select: [d], time_range_select: [time] }
+  	md2 = { tags: [], day_ranges: [], time_ranges: [],
+      day_range_select: [d], time_range_select: [time], locations: [] }
   	t2.update_metadata(md2)
   	assert(t2.include_day?(d),
   		"Tag does not contain day 0 after it should have been added with update_metadata")
@@ -172,20 +174,23 @@ class TagTest < ActiveSupport::TestCase
   	t1 = Tag.new(user: u, name: n1)
   	day1 = day
   	time1 = SimpleTime.new(time.hour, 0)
-  	md1 = { day_ranges: [], time_ranges: [], day_range_select: [day1], time_range_select: [time1] }
+  	md1 = { day_ranges: [], time_ranges: [],
+      day_range_select: [day1], time_range_select: [time1], locations: [] }
   	t1.update_metadata(md1)
   	assert(t1.relevant?(uc), "Incorrectly said t1 was not relevant when it was relevant")
   	n2 = "PrettyNiceTag"
   	t2 = Tag.new(user: u, name: n2)
   	day2 = day
   	time2 = SimpleTime.new(time.hour+3, 0)
-  	md2 = { day_ranges: [], time_ranges: [], day_range_select: [day2], time_range_select: [time2] }
+  	md2 = { day_ranges: [], time_ranges: [],
+      day_range_select: [day2], time_range_select: [time2], locations: [] }
   	t2.update_metadata(md2)
   	assert_not(t2.relevant?(uc), "Incorrectly said t2 was relevant when it was not relevant")
   	n3 = "NotGreatTag"
   	t3 = Tag.new(user: u, name: n2)
   	time3 = SimpleTime.new(time.hour, 0)
-  	md3 = { day_ranges: [], time_ranges: [], day_range_select: [], time_range_select: [time3] }
+  	md3 = { day_ranges: [], time_ranges: [],
+      day_range_select: [], time_range_select: [time3], locations: [] }
   	t3.update_metadata(md3)
   	assert_not(t2.relevant?(uc), "Incorrectly said t3 was not relevant when it was relevant")
   end

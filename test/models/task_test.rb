@@ -59,7 +59,8 @@ class TaskTest < ActiveSupport::TestCase
   	ti1 = "FunTask"
   	ta1 = Task.new(user: u, title: ti1)
   	tags = [tags(:tag1)]
-  	md1 = { tags: tags, day_ranges: [], time_ranges: [], day_range_select: [], time_range_select: [] }
+  	md1 = { tags: tags, day_ranges: [], time_ranges: [],
+      day_range_select: [], time_range_select: [], locations: [] }
   	ta1.update_metadata(md1)
   	assert(ta1.tags.to_a.map { |tag| tag.name } .include?("tag1name"),
   		"ta1.tags should contain Tag tag1name, but does not")
@@ -67,7 +68,8 @@ class TaskTest < ActiveSupport::TestCase
   	ta2 = Task.new(user: u, title: ti2)
   	drs = [DayRange.new(user: u, name: "dr1")]
   	trs = [TimeRange.new(user: u, name: "tr1")]
-  	md2 = { tags: [], day_ranges: drs, time_ranges: trs, day_range_select: [], time_range_select: [] }
+  	md2 = { tags: [], day_ranges: drs, time_ranges: trs,
+      day_range_select: [], time_range_select: [], locations: [] }
   	ta2.update_metadata(md2)
   	assert(ta2.hidden_tag.day_ranges.map { |dr| dr.name } .include?("Dr1"),
   		"ta2's hidden tag does not have the added day range")
