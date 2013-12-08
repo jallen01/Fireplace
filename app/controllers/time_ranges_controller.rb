@@ -23,6 +23,7 @@ class TimeRangesController < ApplicationController
   end
 
   def destroy
+    @time_range_id = @time_range.id
     @time_range.destroy
 
     respond_to do |format|

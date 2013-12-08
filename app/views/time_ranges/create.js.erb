@@ -1,8 +1,15 @@
+// Primary Author: Jonathan Allen (jallen01)
+
+var modal = $("#new-time-range-modal");
+modal.find(".form-submit-btn").button("reset");
+modal.find(".form-cancel-btn").removeClass("disabled");
+
 <% unless @new_time_range.errors.any? %>
 	$("#time-ranges-list").html("<%= j render "time_ranges/list" %>");
 	$("#time-ranges-list form").trigger("formCreated");
-	$("#new-time-range-modal").modal('hide');
+
+	modal.modal('hide');
 <% end %>
 
-$("#new-time-range-modal modal-body").html("<%= j render 'time_ranges/form', time_range: @new_time_range %>");
-$("#new-time-range-modal form").trigger("formCreated");
+modal.find("form").replaceWith("<%= j render "time_ranges/form", time_range: @new_time_range %>");
+modal.find("form").trigger("formCreated");

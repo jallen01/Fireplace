@@ -44,7 +44,7 @@
 	        <%= tag.name %>
 	      <% end %> 
 	    <% end %>
-      <%= content_tag :label, class: "btn btn-default btn-buffer custom-tag" do %>
+      <%= content_tag :label, class: "btn btn-default btn-buffer custom-tag #{"active" if !task.hidden_tag.empty?}".html_safe do %>
         <%= check_box_tag "tags[]", "custom" %>
         Custom
       <% end %> 

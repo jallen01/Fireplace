@@ -30,6 +30,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    @task_id = @task.id
     @task.destroy
 
     respond_to do |format|

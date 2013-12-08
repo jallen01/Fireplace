@@ -1,11 +1,15 @@
-// if the new tag was made, update the tags list and hide the new tag modal
-// the new tag modal gets reset at the end
+// Primary Author: Jonathan Allen (jallen01)
+
+var modal = $("#new-tag-modal");
+modal.find(".form-submit-btn").button("reset");
+modal.find(".form-cancel-btn").removeClass("disabled");
 
 <% unless @new_tag.errors.any? %>
-	$("#tags-list .list-group").html("<%= j render "tags/list" %>");
-	$("#new-tag-modal").modal("hide").on("hidden.bs.modal", function () {
-		$(document).trigger("pageUpdate");
-	});
+	$("#tags-list").html("<%= j render "tags/list" %>");
+	$("#tags-list form").trigger("formCreated");
+
+	modal.modal("hide");
 <% end %>
 
-$("#new-tag-modal modal-body").html("<%= j render "tags/form", tag: @new_tag %>");
+modal.find("form").replaceWith("<%= j render "tags/form", tag: @new_tag %>");
+modal.find("form").trigger("formCreated");
