@@ -37,8 +37,9 @@ $(document).on("ajaxComplete", main);
 var watch_location = function () {
     function success(pos) {
       var crd = pos.coords;
+      var utc_offset = (-60)*(new Date().getTimezoneOffset());
 
-      $.post(update_location_url, { latitude: crd.latitude, longitude: crd.longitude });
+      $.post(update_location_url, { utc_offset: utc_offset, latitude: crd.latitude, longitude: crd.longitude });
     };
 
     function error(err) {

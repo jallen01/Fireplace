@@ -4,11 +4,10 @@ class UsersController < ApplicationController
   def update_context_overrides
     time_frame = params[:time_frame].to_sym
     time_frame = User::TIME_FRAMES.include?(time_frame) ? time_frame : :now
-    location = current_user.get_locations.exists?(id: params[:location]) ? params[:location] : nil
+    location_id = current_user.get_locations.exists?(id: params[:location]) ? params[:location] : nil
+    session[:context_overrides] = { time_frame: time_frame, location_id: location_id }
 
-    session[:context_overrides] = {time_frame: time_frame, location: location}
-
-    @context = current_user.get_context(session[:context_overrides], session[:location], session[:utc_offset])
+    @context = current_user_context
 
     respond_to do |format|
       format.js
@@ -16,11 +15,10 @@ class UsersController < ApplicationController
   end
 
   def update_location
-    session[:utc_offset] = Integer(params[:utc_offset]) unless session[:utc_offset].nil?
-
-    session[:location] = current_user.get_closest_location(params[:latitude], [:longitude]) unless (session[:latitude].nil? || session[:longitude].nil?)
-    session[:location] = session[:location].id if session[:location].nil?
+    session[:utc_offset] = Integer(params[:utc_offset]) unless params[:utc_offset].nil?
+    location = current_user.get_closest_location(params[:latitude], params[:longitude])
+    session[:location_id] = location.id unless location.nil?
     
-    @context = current_user.get_context(session[:context_overrides], session[:location], session[:utc_offset])
+    @context = current_user_context
   end
 end
