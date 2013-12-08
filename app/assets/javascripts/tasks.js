@@ -1,4 +1,5 @@
 var main = function () {
+    filter_tasks_list();
 }
 
 $(document).ready(main);
@@ -8,18 +9,35 @@ $(document).on("mouseover", "#tasks-list .list-group-item", function (event) {
     $(event.target).popover("show");
 });
 
+filter_tasks_list = function () {
+    $("#tasks-list .list-group-item").show();
+
+    $(".filter-policy-toggle").each(function (index, checkbox) {
+        var filter = $(checkbox).data("filter");
+        var checked = $(checkbox).prop("checked");
+
+
+        if (filter === "all") {
+            $("#tasks-list .list-group-item").each(function (index, elem) {
+                if ($(elem).data("relevant") !== true && !checked) {
+                    $(elem).hide();
+                }
+            });
+
+        } else {
+            if (checked === true) {
+                $("#tasks-list .list-group-item").each(function (index, elem) {
+                    if ($(elem).data(filter) === false) {
+                        $(elem).hide();
+                    }
+                });
+            }
+        }
+    });
+}
+
 $(document).on("change", ".filter-policy-toggle", function(event) {
-    var checkbox = $(event.target);
-    var filter = checkbox.data("filter");
-    if (checkbox.is(":checked")) {
-    	$("#tasks-list .list-group-item").each(function (index, elem) {
-    		if ($(elem).data(filter) === false) {
-    			$(elem).hide();
-    		}
-    	});
-    } else {
-    	$("#tasks-list .list-group-item").show();
-    }
+    filter_tasks_list();
 });
 
 $(function(){
