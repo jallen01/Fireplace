@@ -46,4 +46,55 @@ class UserTest < ActiveSupport::TestCase
   	assert(!u2.save, "Saved a User with too long a last name")
   end
 
+  # unit test for creating and getting time ranges
+  test "time ranges" do
+  	em = "blooby@blib.blub"
+  	pw = "supersafe"
+  	fn = "Bob"
+  	ln = "Bean"
+  	u = User.new(email: em, password: pw, password_confirmation: pw, first_name: fn, last_name: ln)
+  	u.create_time_range("FaveTimes")
+  	assert(u.time_ranges.to_a.map { |tr| tr.name } .include?("FaveTimes"),
+  		"User does not have TimeRange FaveTimes after it was supposed to be created")
+  	trs = u.get_time_ranges
+  	assert(u.get_time_ranges.map { |tr| tr.name } .include?("FaveTimes"),
+  		"get_time_ranges did not have TimeRange FaveTimes, but it should have")
+  	assert_not(u.get_time_ranges.map { |tr| tr.name } .include?("TerribleTimes"),
+  		"get_time_ranges had TimeRange TerribleTimes, but it should not have")
+  end
+
+  # unit test for creating and getting day ranges
+  test "day ranges" do
+  	em = "blooby@blib.blub"
+  	pw = "supersafe"
+  	fn = "Bob"
+  	ln = "Bean"
+  	u = User.new(email: em, password: pw, password_confirmation: pw, first_name: fn, last_name: ln)
+  	u.create_day_range("FaveDays")
+  	assert(u.day_ranges.to_a.map { |dr| dr.name } .include?("FaveDays"),
+  		"User does not have DayRange FaveDays after it was supposed to be created")
+  	drs = u.get_day_ranges
+  	assert(u.get_day_ranges.map { |dr| dr.name } .include?("FaveDays"),
+  		"get_day_ranges did not have DayRange FaveDays, but it should have")
+  	assert_not(u.get_day_ranges.map { |dr| dr.name } .include?("TerribleDays"),
+  		"get_day_ranges had DayRange TerribleDays, but it should not have")
+  end
+
+  # unit test for creating and getting tags
+  test "tags" do
+  	em = "blooby@blib.blub"
+  	pw = "supersafe"
+  	fn = "Bob"
+  	ln = "Bean"
+  	u = User.new(email: em, password: pw, password_confirmation: pw, first_name: fn, last_name: ln)
+  	u.create_tag("CoolTag")
+  	assert(u.tags.to_a.map { |t| t.name } .include?("CoolTag"),
+  		"User does not have Tag CoolTag after it was supposed to be created")
+  	ts = u.tags
+  	assert(u.get_tags.map { |t| t.name } .include?("CoolTag"),
+  		"get_tags did not have Tag CoolTag, but it should have")
+  	assert_not(u.get_tags.map { |t| t.name } .include?("SuckyTag"),
+  		"get_tags had Tag SuckyTag, but it should not have")
+  end
+
 end
