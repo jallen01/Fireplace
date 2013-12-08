@@ -1,12 +1,11 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
+  before_action :reset_time_frame, only: [:index]
   before_action :set_task, except: [:index, :new, :create]
   before_action :set_user_context
 
   def index
     @new_task = Task.new(user: current_user)
-
-    @tasks = current_user.get_tasks
   end
 
   def create
@@ -58,8 +57,12 @@ class TasksController < ApplicationController
       end
     end
 
+    def reset_time_frame
+      session[:time_frame] = :now
+    end
+
     def set_user_context
-      @user_context = current_user.get_context(session[:time_frame], session[:location])
+      @user_context = current_user.get_context(session[:time_frame], session[:utc_offset], session[:location]))
     end
 
     # Sanitize params.
