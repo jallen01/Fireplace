@@ -103,9 +103,16 @@ $(function(){
         var checkbox = $(event.target);
         if (checkbox.is(":checked")) {
             $("#"+modal_id + " .tag-button-bar").removeClass("active")
+            $("#"+modal_id + " .tag-button-bar :checked").attr("checked", false)
             // show custom form
             $("#"+modal_id + " .custom-form").show()
         }else{
+            $("#"+modal_id + " .spec-tag").removeClass("active")
+            $("#"+modal_id + " .spec-tag :checked").attr("checked", false)
+            $("#"+modal_id + " .spec-day").removeClass("active")
+            $("#"+modal_id + " .spec-day :checked").attr("checked", false)
+            $("#"+modal_id + " .spec-time").removeClass("active")
+            $("#"+modal_id + " .spec-time :checked").attr("checked", false)
             $("#"+modal_id + " .custom-form").hide()
         }
     });
@@ -114,6 +121,13 @@ $(function(){
         var checkbox = $(event.target);
         if (checkbox.is(":checked")) {
             $("#"+modal_id + " .custom-tag").removeClass("active")
+            $("#"+modal_id + " .custom-tag :checked").attr("checked", false)
+            $("#"+modal_id + " .spec-tag").removeClass("active")
+            $("#"+modal_id + " .spec-tag :checked").attr("checked", false)
+            $("#"+modal_id + " .spec-day").removeClass("active")
+            $("#"+modal_id + " .spec-day :checked").attr("checked", false)
+            $("#"+modal_id + " .spec-time").removeClass("active")
+            $("#"+modal_id + " .spec-time :checked").attr("checked", false)
             // hide custom form
             $("#"+modal_id + " .custom-form").hide()
         }   
