@@ -6,7 +6,7 @@ class LocationsController < ApplicationController
 
 
   def create
-    puts "the params: #{location_params[:name]}, #{location_params[:address_hash]}"
+    puts "the params: #{location_params}"
     @new_location = current_user.create_location(location_params)
     
     unless @new_location.errors.any?
@@ -25,11 +25,9 @@ class LocationsController < ApplicationController
 
   
   def update
-    pars = edit_location_params
-    coords = Geocoder.search("#{pars[:street]} #{pars[:city]} #{pars[:zip]} #{pars[:state]}")[0].coordinates
-    @location.update(:name => pars[:name], :latitude => coords[0], :longitude => coords[1])
-    puts @metadata[:location_select]
-    @location.update_locations(@metadata[:location_select])
+    pars = location_params
+    coords = Location.get_coordinates(pars)
+    @location.update(:name => pars[:name], :latitude => coords[0], :longitude => coords[1], :address_hash => pars[:address_hash])
   end
 
   def destroy
@@ -49,9 +47,7 @@ class LocationsController < ApplicationController
 
     def location_params
       params.require(:location)
-            .permit(:name).merge(address_hash: params[:address_hash])
-            # .merge(street: params[:street], city: params[:city], zip: params[:zip], state: params[:state])
-      # merge in street, city, zip, and state since they are passed in through a tag, and thus is not nested under location
+            .permit(:name, :address_hash =>[:street, :city, :zip, :state])
     end
 
     def set_location

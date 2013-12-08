@@ -1,70 +1,95 @@
 <!-- Days -->
-<div class="form-group center-block">
-  <h4>Days</h4>
+<div class="panel-group" id="accordion">
+  
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          Days
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+      <div class="panel-body">
+        <div id="day-ranges" class="btn-group" data-toggle="buttons">
+          <!-- Predefined day ranges -->
+          <% current_user.get_day_ranges.each do |day_range| %>
+            <%= content_tag :label, class: "btn btn-default btn-buffer day-button-bar #{(tag.day_ranges.include?(day_range) ? 'active' : '')}" do %>
+              <%= check_box_tag "day_ranges[]", day_range.id, tag.day_ranges.include?(day_range) %>
+              <%= day_range.name %>
+            <% end %> 
+          <% end %>
+          <%= content_tag :label, class: "btn btn-default btn-buffer custom-day-range #{"active" if !tag.hidden_day_range.empty?}".html_safe do %>
+            <%= check_box_tag "day_ranges[]", "custom" %>
+            Custom
+          <% end %> 
+        </div>
 
-  <div id="day-ranges" class="btn-group" data-toggle="buttons">
-    <!-- Predefined day ranges -->
-    <% current_user.get_day_ranges.each do |day_range| %>
-      <%= content_tag :label, class: "btn btn-default btn-buffer day-button-bar #{(tag.day_ranges.include?(day_range) ? 'active' : '')}" do %>
-        <%= check_box_tag "day_ranges[]", day_range.id, tag.day_ranges.include?(day_range) %>
-        <%= day_range.name %>
-      <% end %> 
-    <% end %>
-    <%= content_tag :label, class: "btn btn-default btn-buffer custom-day-range #{"active" if !tag.hidden_time_range.empty?}".html_safe do %>
-      <%= check_box_tag "day_ranges[]", "custom" %>
-      Custom
-    <% end %> 
+        <br>
+
+        <!-- Day range input -->
+        <div class="day-ranges-custom">
+          <%= render "day_ranges/select", day_range: tag.hidden_day_range %>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <br>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          Times
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+      <div class="panel-body">
+        <div id="time-ranges" class="btn-group" data-toggle="buttons">
+          <!-- Predefined time ranges -->
+          <% current_user.get_time_ranges.each do |time_range| %>
+            <%= content_tag :label, class: "btn btn-default btn-buffer time-button-bar #{(tag.time_ranges.include?(time_range) ? 'active' : '')}" do %>
+              <%= check_box_tag "time_ranges[]", time_range.id, tag.time_ranges.include?(time_range) %>
+              <%= time_range.name %>
+            <% end %> 
+          <% end %>
+          <%= content_tag :label, class: "btn btn-default btn-buffer custom-time-range #{"active" if !tag.hidden_time_range.empty?}".html_safe do %>
+            <%= check_box_tag "time_ranges[]", "custom" %>
+            Custom
+          <% end %> 
+        </div>
 
-  <!-- Day range input -->
-  <div class="day-ranges-custom">
-    <%= render "day_ranges/select", day_range: tag.hidden_day_range %>
+        <br>
+
+        <!-- Time range input -->
+        <div class="time-ranges-custom">
+          <%= render "time_ranges/select", time_range: tag.hidden_time_range %>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 
-<hr>
-
-<!-- Times -->
-<div class="form-group center-block">
-  <h4>Times</h4>
-
-  <div id="time-ranges" class="btn-group" data-toggle="buttons">
-    <!-- Predefined time ranges -->
-    <% current_user.get_time_ranges.each do |time_range| %>
-      <%= content_tag :label, class: "btn btn-default btn-buffer time-button-bar #{(tag.time_ranges.include?(time_range) ? 'active' : '')}" do %>
-        <%= check_box_tag "time_ranges[]", time_range.id, tag.time_ranges.include?(time_range) %>
-        <%= time_range.name %>
-      <% end %> 
-    <% end %>
-    <%= content_tag :label, class: "btn btn-default btn-buffer custom-time-range #{"active" if !tag.hidden_day_range.empty?}".html_safe do %>
-      <%= check_box_tag "time_ranges[]", "custom" %>
-      Custom
-    <% end %> 
-  </div>
-
-  <br>
-
-  <!-- Time range input -->
-  <div class="time-ranges-custom">
-    <%= render "time_ranges/select", time_range: tag.hidden_time_range %>
-  </div>
-</div>
-
-<hr>
-
-<!-- Locations -->
-<div class="form-group center-block">
-  <h4>Locations</h4>
-
-  <div id="locations" class="btn-group" data-toggle="buttons">
-    <% current_user.get_locations.each do |location| %>
-      <%= content_tag :label, class: "btn btn-default btn-buffer location-button-bar #{(tag.locations.include?(location) ? 'active' : '')}" do %>
-        <%= check_box_tag "locations[]", location.id, tag.locations.include?(location) %>
-        <%= location.name %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+          Locations
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse in">
+      <div class="panel-body">
+        <div id="locations" class="btn-group" data-toggle="buttons">
+      <% current_user.get_locations.each do |location| %>
+        <%= content_tag :label, class: "btn btn-default btn-buffer location-button-bar #{(tag.locations.include?(location) ? 'active' : '')}" do %>
+          <%= check_box_tag "locations[]", location.id, tag.locations.include?(location) %>
+          <%= location.name %>
+        <% end %>
       <% end %>
-    <% end %>
-    
+      
+    </div>
+      </div>
+    </div>
   </div>
+
 </div>

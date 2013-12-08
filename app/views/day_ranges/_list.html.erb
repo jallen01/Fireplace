@@ -4,7 +4,9 @@
   <% end %>
 </div>
 
+
 <!-- Edit day range modals -->
 <% current_user.get_day_ranges.each do |day_range| %>
   <%= render "layouts/modal_form", object: day_range, modal_id: "edit-day-range-#{day_range.id}-modal", modal_data: { form: "reset" }, modal_title: "Edit Day Range", modal_content: render("day_ranges/form", day_range: day_range) %>
 <% end %>
+</div>
