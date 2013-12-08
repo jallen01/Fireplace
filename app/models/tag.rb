@@ -118,6 +118,7 @@ class Tag < ActiveRecord::Base
   def update_metadata(metadata)
     self.update_day_ranges(metadata[:day_ranges])
     self.update_time_ranges(metadata[:time_ranges])
+    self.update_locations(metadata[:locations])
 
     self.hidden_day_range.update_days(metadata[:day_range_select])
     self.hidden_time_range.update_times(metadata[:time_range_select])

@@ -16,6 +16,21 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:account_update) << :last_name
   end
 
+  def current_user_context
+    location_id = session[:context_overrides][:location_id] || session[:location]
+    if location_id == "all"
+      location = nil
+    else
+      location = current_user.get_locations.find_by(id: location_id)
+    end
+
+    time_frame = session[:time_frame] || :now
+    utc_offset = session[:utc_offset] || 0
+    
+    current_user.get_context(time_frame, location, utc_offset)
+  end
+  helper_method :current_user_context
+
   def parse_metadata
     @metadata = {}
 
