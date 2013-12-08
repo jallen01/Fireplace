@@ -62,7 +62,7 @@ class TasksController < ApplicationController
     end
 
     def set_user_context
-      @user_context = current_user.get_context(session[:time_frame], session[:utc_offset], session[:location]))
+      @user_context = current_user.get_context(session[:time_frame], session[:utc_offset], session[:location])
     end
 
     # Sanitize params.
