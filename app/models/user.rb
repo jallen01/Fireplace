@@ -100,6 +100,10 @@ class User < ActiveRecord::Base
     Task.create(user: self, title: title, content: content)
   end
 
+  def get_tasks
+    self.tasks
+  end
+
   def get_context(time_frame, location)
     context = {}
 
@@ -129,9 +133,5 @@ class User < ActiveRecord::Base
     end
 
     context
-  end
-
-  def get_tasks
-    self.tasks
   end
 end
