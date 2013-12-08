@@ -4,6 +4,7 @@
   <%= render "layouts/form_errors", errors: location.errors %>
   
   <div class="form-group">
+
     <%= f.label :name %>
     <%= f.text_field :name, class: "form-control" %>
   </div>
@@ -15,12 +16,7 @@
 <!-- Code from https://github.com/sgruhier/jquery-addresspicker -->
  <div class='clearfix'>
     <div class='input input-positioned'>
-      <div class="form-group">
-        <%= f.label :address_string %>
-        <%= f.text_field :address_string, class: "form-control" %>
-        <%= f.hidden_field :latitude,  params[:lat] %>
-        <%= f.hidden_field :longitude, params[:lng] %>
-      </div>
+      <label>Address : </label> <input id="addresspicker_map" />
     </div>
 
     <div class='map-wrapper'>

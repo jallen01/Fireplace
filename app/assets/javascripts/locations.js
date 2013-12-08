@@ -1,8 +1,7 @@
 /* Code from https://github.com/sgruhier/jquery-addresspicker */
     $(function() {
-                var addresspickerMap = $( "#address_string" ).addresspicker({
+                var addresspickerMap = $( "#addresspicker_map" ).addresspicker({
                         regionBias: "fr",
-                        reverseGeocode: true, 
       updateCallback: showCallback,
                   elements: {
                     map:      "#map",
@@ -24,7 +23,7 @@
                 addresspickerMap.addresspicker( "updatePosition");
 
     $('#reverseGeocode').change(function(){
-      $("#address_string").addresspicker("option", "reverseGeocode", ($(this).val() === 'true'));
+      $("#addresspicker_map").addresspicker("option", "reverseGeocode", ($(this).val() === 'true'));
     });
 
     function showCallback(geocodeResult, parsedGeocodeResult){
