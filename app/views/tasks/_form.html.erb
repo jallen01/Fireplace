@@ -1,68 +1,77 @@
 <!-- Primary Author: Jonathan Allen (jallen01) -->
 
 <%= form_for task, remote: true, html: { class: "modal-form" } do |f| %>
-	
-	<%= render "layouts/form_errors", errors: task.errors %>
-  <div class="row">
-    <fieldset>
-      <div class="form-group col-md-6">
-      	<div class="form-group">
-          <%= f.label :title %>
-          <%= f.text_field :title, class: "form-control" %>
+  <fieldset>
+
+	<ul class="nav nav-tabs">
+    <li class="active"><%= link_to "Content", "#content-tab-#{task.id}", data: { toggle: "tab" } %></li>
+    <li><%= link_to "Metadata", "#metadata-tab-#{task.id}", data: { toggle: "tab" } %></li>
+  </ul>
+
+  <div class="tab-content">
+    <%= content_tag :div, class: "tab-pane active", id: "content-tab-#{task.id}" do %>
+      <%= render "layouts/form_errors", errors: task.errors %>
+      <div class="form-group">
+        <%= f.label :title %>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :content %>
+        <%= f.text_area :content, class: "form-control", rows: "5" %>
+      </div>
+
+      <div class="checkbox">
+        <%= label_tag do %>
+          <%= f.check_box :long_lasting %>
+          Quick
+        <% end %>
+      </div>
+
+      <div class="checkbox">
+        <%= label_tag do %>
+          <%= f.check_box :important %>
+          Important
+        <% end %>
+      </div>
+
+      <label>Deadline</label>
+      <div class="row form-group">
+        <div class="col-md-4">
+          <%= f.text_field :deadline, class: "form-control", data: { provide: "datepicker" }, placeholder: "Date" %>
         </div>
 
-        <div class="form-group">
-          <%= f.label :content %>
-          <%= f.text_area :content, class: "form-control", rows: "5"  %>
-        </div>
-
-          <div class="checkbox">
-            <%= label_tag do %>
-              <%= f.check_box :long_lasting %>
-              Quick
-            <% end %>
-          </div>
-
-        <div class="checkbox">
-          <%= label_tag do %>
-            <%= f.check_box :important %>
-            Important
-          <% end %>
-        </div>
-
-        <label>Deadline</label>
-        <div class="row form-group">
-          <div class="col-md-4">
-            <%= f.text_field :deadline, class: "form-control", data: { provide: "datepicker" }, placeholder: "Date" %>
-          </div>
-
-          <div class="col-md-4">
-            <%= f.text_field :days_notice, class: "form-control", placeholder: "Days Notice" %>
-          </div>
+        <div class="col-md-4">
+          <%= f.text_field :days_notice, class: "form-control", placeholder: "Days Notice" %>
         </div>
       </div>
-    	<div class="form-group col-md-6 center-block">
-    	  <h4>Tags</h4>
+    <% end %>
+    <%= content_tag :div, class: "tab-pane", id: "metadata-tab-#{task.id}" do %>
+      <div class="center-block">
+        <h4>Tags</h4>
 
-    	  <div id="tags" class="btn-group" data-toggle="buttons">
-    		  <!-- Predefined tags -->
+        <div id="tags" class="btn-group" data-toggle="buttons">
+          <!-- Predefined tags -->
           <% current_user.get_tags.each do |tag| %>
-    	      <%= content_tag :label, class: "btn btn-default btn-buffer tag-button-bar #{"active" if task.tags.include?(tag)}".html_safe do %>
-    	        <%= check_box_tag "tags[]", tag.id, task.tags.include?(tag) %>
-    	        <%= tag.name %>
-    	      <% end %> 
-    	    <% end %>
+            <%= content_tag :label, class: "btn btn-default btn-buffer tag-button-bar #{"active" if task.tags.include?(tag)}".html_safe do %>
+              <%= check_box_tag "tags[]", tag.id, task.tags.include?(tag) %>
+              <%= tag.name %>
+            <% end %> 
+          <% end %>
           <%= content_tag :label, class: "btn btn-default btn-buffer custom-tag #{"active" if !task.hidden_tag.empty?}".html_safe do %>
             <%= check_box_tag "custom-t", "custom" %>
             Custom
           <% end %> 
-    	  </div>
+        </div>
 
         <hr>
+
         <div class="custom-form">
-    		  <%= render "tags/metadata_form", tag: task.hidden_tag %>
+          <%= render "tags/metadata_form", tag: task.hidden_tag %>
         </div>
-    	</div>
-    </fieldset>
+      </div>
+    <% end %>
   </div>
+    
+  </fieldset>
 <% end %>

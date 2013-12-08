@@ -45,24 +45,22 @@ var watch_location = function () {
 // ==========
 
 var filter_tasks_list = function () {
-    $("#tasks-list tr").show();
+    $("#tasks-list .list-group-item").show();
 
     $(".filter-policy-toggle").each(function (index, checkbox) {
         var filter = $(checkbox).data("filter");
         var checked = $(checkbox).prop("checked");
 
-        $("#tasks-list tr").each(function (index, elem) {
+        $("#tasks-list .list-group-item").each(function (index, item) {
             if (filter === "all") {
-                if ($(elem).data("relevant") !== true && !checked) {
-                    $(elem).hide();
+                if ($(item).data("relevant") !== true && !checked) {
+                    $(item).hide();
                 }
             } else {
                 if (checked === true) {
-                    $("#tasks-list tr").each(function (index, elem) {
-                        if ($(elem).data(filter) === false) {
-                            $(elem).hide();
-                        }
-                    });
+                    if ($(item).data(filter) === false) {
+                        $(item).hide();
+                    }
                 }
             }
         });
@@ -83,13 +81,9 @@ $(function(){
     $(document).on("show.bs.modal", ".modal", function (event) {
         modal_id = event.target.id
         this_modal = $(modal_id)
-        console.log("modal_id")
-        console.log(modal_id)
         if(modal_id.indexOf("edit-task-") != -1){ // if an edit-task modal has been opened
             //custom_tag_classes = this_modal.find(".custom-tag")
             //if($("#"+modal_id + " " + ))
-            console.log("entered if statement")
-            console.log($("#"+modal_id + " .custom-tag").attr("class"))
             if(!$("#"+modal_id + " .custom-tag").hasClass("active")){
                 $("#"+modal_id + " .custom-form").hide()
             }

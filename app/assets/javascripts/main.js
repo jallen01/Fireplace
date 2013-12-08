@@ -1,7 +1,6 @@
 // Primary Author: Jonathan Allen (jallen01)
 
 var main = function () {
-    widen_modal();
 }
 
 $(document).ready(main);
@@ -11,14 +10,11 @@ $(document).on("ajaxComplete", main);
 // =====
 
 $(function () {
-    $(".modal form").each(function (i, form) {
-        initialize_form(form);
-    });
+    $("form").trigger("formCreated");
 });
 
 $(document).on("formCreated", function (event) {
     initialize_form(event.target);
-    widen_modal();
 });
 
 var initialize_form = function (form) {
@@ -38,6 +34,30 @@ var initialize_form = function (form) {
 
         var hidden = $("<input type='hidden'>").attr("id", "_" + id).val(checked);
         $(checkbox).parent().append(hidden);
+
+        
+    });
+}
+
+var reset_form = function (form) {
+    $(form).find("input[type=text], textarea").each(function (i, input) {
+        var id = String($(input).attr("id"));
+        var val = $(input).parent().find("#_" + id).val();
+        $(input).val(val);
+    });
+
+    $(form).find("input[type=checkbox]").each(function (i, checkbox) {
+        var id = String($(checkbox).attr("id"));
+        var checked = $(checkbox).parent().find("#_" + id).val();
+
+        $(checkbox).prop("checked", checked === "true");
+        if ($(checkbox).parents("[data-toggle='buttons']").length !== 0) {
+            if (checked === "true") {
+                $(checkbox).parents("btn").addClass("active");
+            } else {
+                $(checkbox).parents("btn").removeClass("active");
+            }
+        }
     });
 }
 
@@ -67,12 +87,6 @@ var removeHash = function () {
 // Modal Methods
 // =============
 
-var widen_modal = function(){
-    $(".modal-dialog").css("min-width", function(){
-        return ($("html").width())*4.0/5;
-    });
-}
-
 enable_modal = function (modal) {
     $(modal).find("fieldset").attr("disabled", false);
     $(modal).find(".modal-submit-btn").button("reset");
@@ -95,19 +109,7 @@ $(document).on("hidden.bs.modal", ".modal", function (event) {
 
 // Reset form fields if data-form="reset"
 $(document).on("hidden.bs.modal", ".modal[data-form='reset']", function (event) {
-    $(event.target).find("input[type=text], textarea").each(function (i, input) {
-        var id = String($(input).attr("id"));
-        var val = $(event.target).find("#_" + id).val();
-
-        $(input).val(val);
-    });
-
-    $(event.target).find("input[type=checkbox]").each(function (i, checkbox) {
-        var id = String($(checkbox).attr("id"));
-        var checked = $(event.target).find("#_" + id).val();
-
-        $(checkbox).prop("checked", checked === "true");
-    });
+    reset_form($(event.target).find("form"));
 });
 
 // Register modal submit button. Submits form in modal with class "modal-form".
