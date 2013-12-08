@@ -10,9 +10,7 @@ $(document).on("ajaxComplete", main);
 // =====
 
 $(function () {
-    $("form").each(function (i, form) {
-        initialize_form(form);
-    });
+    $("form").trigger("formCreated");
 });
 
 $(document).on("formCreated", function (event) {
@@ -45,7 +43,6 @@ var reset_form = function (form) {
     $(form).find("input[type=text], textarea").each(function (i, input) {
         var id = String($(input).attr("id"));
         var val = $(input).parent().find("#_" + id).val();
-
         $(input).val(val);
     });
 
@@ -112,7 +109,7 @@ $(document).on("hidden.bs.modal", ".modal", function (event) {
 
 // Reset form fields if data-form="reset"
 $(document).on("hidden.bs.modal", ".modal[data-form='reset']", function (event) {
-    reset_form();
+    reset_form($(event.target).find("form"));
 });
 
 // Register modal submit button. Submits form in modal with class "modal-form".

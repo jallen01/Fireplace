@@ -1,17 +1,13 @@
 <!-- Primary Author: Jonathan Allen (jallen01) -->
 
 <!-- Days -->
-<div class="panel-group" id="accordion">
+<%= content_tag :div, class: "panel-group", id: "metadata-accordion-#{tag.id}" do %>
   
   <div class="panel panel-default">
-    <div class="panel-heading">
-      <a data-toggle="collapse" data-parent="#accordion" href="#day-ranges-collapse" class="panel-title">
-        Days
-      </a>
-    </div>
-    <div id="day-ranges-collapse" class="panel-collapse collapse in">
+    <%= content_tag :div, "Days", data: { toggle: "collapse", target: "#day-ranges-collapse-#{tag.id}", parent: "#metadata-accordion-#{tag.id}" }, class: "panel-heading" %>
+    <%= content_tag :div, id: "day-ranges-collapse-#{tag.id}", class: "panel-collapse collapse in" do %>
       <div class="panel-body">
-        <div id="day-ranges" class="btn-group" data-toggle="buttons">
+        <div class="btn-group day-ranges" data-toggle="buttons">
           <!-- Predefined day ranges -->
           <% current_user.get_day_ranges.each do |day_range| %>
             <%= content_tag :label, class: "btn btn-default btn-buffer day-button-bar spec-tag #{(tag.day_ranges.include?(day_range) ? 'active' : '')}" do %>
@@ -32,18 +28,14 @@
           <%= render "day_ranges/select", day_range: tag.hidden_day_range %>
         </div>
       </div>
-    </div>
+    <% end %>
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">
-      <a data-toggle="collapse" data-parent="#accordion" href="#time-ranges-collapse" class="panel-title">
-        Times
-      </a>
-    </div>
-    <div id="time-ranges-collapse" class="panel-collapse collapse">
+    <%= content_tag :div, "Times", data: { toggle: "collapse", target: "#time-ranges-collapse-#{tag.id}", parent: "#metadata-accordion-#{tag.id}" }, class: "panel-heading" %>
+    <%= content_tag :div, id: "time-ranges-collapse-#{tag.id}", class: "panel-collapse collapse" do %>
       <div class="panel-body">
-        <div id="time-ranges" class="btn-group" data-toggle="buttons">
+        <div class="btn-group time-ranges" data-toggle="buttons">
           <!-- Predefined time ranges -->
           <% current_user.get_time_ranges.each do |time_range| %>
             <%= content_tag :label, class: "btn btn-default btn-buffer time-button-bar spec-tag #{(tag.time_ranges.include?(time_range) ? 'active' : '')}" do %>
@@ -64,28 +56,23 @@
           <%= render "time_ranges/select", time_range: tag.hidden_time_range %>
         </div>
       </div>
-    </div>
+    <% end %>
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">
-      <a data-toggle="collapse" data-parent="#accordion" href="#locations-collapse" class="panel-title">
-        Locations
-      </a>
-    </div>
-    <div id="locations-collapse" class="panel-collapse collapse">
+    <%= content_tag :div, "Locations", data: { toggle: "collapse", target: "#locations-collapse-#{tag.id}", parent: "#metadata-accordion-#{tag.id}" }, class: "panel-heading" %>
+    <%= content_tag :div, id: "locations-collapse-#{tag.id}", class: "panel-collapse collapse" do %>
       <div class="panel-body">
-        <div id="locations" class="btn-group" data-toggle="buttons">
-      <% current_user.get_locations.each do |location| %>
-        <%= content_tag :label, class: "btn btn-default btn-buffer location-button-bar spec-tag #{(tag.locations.include?(location) ? 'active' : '')}" do %>
-          <%= check_box_tag "locations[]", location.id, tag.locations.include?(location) %>
-          <%= location.name %>
-        <% end %>
-      <% end %>
-      
-    </div>
+        <div class="btn-group locations" data-toggle="buttons">
+          <% current_user.get_locations.each do |location| %>
+            <%= content_tag :label, class: "btn btn-default btn-buffer location-button-bar spec-tag #{(tag.locations.include?(location) ? 'active' : '')}" do %>
+              <%= check_box_tag "locations[]", location.id, tag.locations.include?(location) %>
+              <%= location.name %>
+            <% end %>
+          <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 
-</div>
+<% end %>
