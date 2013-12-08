@@ -10,7 +10,7 @@ class SettingsController < ApplicationController
 
   def locations_form
   	respond_to do |format|               
-	  format.js
-	end   
+  	  format.js
+  	end   
   end
 end

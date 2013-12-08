@@ -39,7 +39,7 @@ class DayRange < ActiveRecord::Base
 
   validates :user, presence: true
 
-  validates :name, presence: true, length: { maximum: DayRange::NAME_MAX_LENGTH }, uniqueness: { scope: :user }, unless: :hidden?
+  validates :name, presence: true, length: { maximum: NAME_MAX_LENGTH }, uniqueness: { scope: :user }, unless: :hidden?
 
 
   # Methods

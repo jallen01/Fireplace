@@ -1,10 +1,10 @@
 // Primary Author: Jonathan Allen
 
-var modal = $("#user-context-modal");
+var modal = $("#context-overrides-modal");
 modal.find(".modal-close-btn").button("reset");
 
 modal.modal('hide');
-$("#time-label").html("<%= j "Time Frame: #{session[:time_frame].capitalize} #{@user_context[:day].to_s}" %>");
+$("#time-label").html("<%= j "Time Frame: #{session[:time_frame].capitalize}" %>");
 
 $("#tasks-list").html("<%= j render "tasks/list" %>");
 $("#tasks-list").trigger("listUpdated");

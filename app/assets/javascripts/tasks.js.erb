@@ -39,7 +39,7 @@ var watch_location = function () {
 }
 
 var filter_tasks_list = function () {
-    $("#tasks-list .list-group-item").show();
+    $("#tasks-list tr").show();
 
     $(".filter-policy-toggle").each(function (index, checkbox) {
         var filter = $(checkbox).data("filter");
@@ -47,7 +47,7 @@ var filter_tasks_list = function () {
 
 
         if (filter === "all") {
-            $("#tasks-list .list-group-item").each(function (index, elem) {
+            $("#tasks-list tr").each(function (index, elem) {
                 if ($(elem).data("relevant") !== true && !checked) {
                     $(elem).hide();
                 }
@@ -55,7 +55,7 @@ var filter_tasks_list = function () {
 
         } else {
             if (checked === true) {
-                $("#tasks-list .list-group-item").each(function (index, elem) {
+                $("#tasks-list tr").each(function (index, elem) {
                     if ($(elem).data(filter) === false) {
                         $(elem).hide();
                     }
@@ -74,7 +74,7 @@ $(document).on("listChange", "#tasks-list", function (event) {
     filter_tasks_list();
 });
 
-$(document).on("click", "#user-context-modal .modal-close-btn", function (event) {
+$(document).on("click", "#context-overrides-modal .modal-close-btn", function (event) {
     var modal = $(event.target).parents(".modal");
     $(event.target).button("loading");
     modal.find("form").first().submit();

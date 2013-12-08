@@ -32,7 +32,7 @@ class Task < ActiveRecord::Base
 
   validates :user, presence: true
   
-  validates :title, presence: true, length: { maximum: Task::TITLE_MAX_LENGTH }, uniqueness: { scope: :user }
+  validates :title, presence: true, length: { maximum: TITLE_MAX_LENGTH }, uniqueness: { scope: :user }
 
 
   # Methods

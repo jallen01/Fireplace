@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   # Constants
   # ---------
 
+  LOCATION_THRESHOLD = 1 # Measured in miles
+
   FIRST_NAME_MAX_LENGTH = 20
   LAST_NAME_MAX_LENGTH = 20
 
@@ -56,9 +58,9 @@ class User < ActiveRecord::Base
   # Validations
   # -----------
 
-  validates :first_name, presence: true, length: { maximum: User::FIRST_NAME_MAX_LENGTH }
+  validates :first_name, presence: true, length: { maximum: FIRST_NAME_MAX_LENGTH }
 
-  validates :last_name, presence: true, length: { maximum: User::LAST_NAME_MAX_LENGTH }
+  validates :last_name, presence: true, length: { maximum: LAST_NAME_MAX_LENGTH }
 
 
   # Methods
@@ -105,24 +107,18 @@ class User < ActiveRecord::Base
     self.locations
   end
 
-  def closest_location(userLat, userLong)
-    closest_location_distance = 100000 #closest location 
-    closest_location = ''
-    threshold = 1 #one mile
+  def get_closest_location(latitude, longitude)
+    closest_location_distance = 10*LOCATION_THRESHOLD
+    closest_location = nil
     current_user.get_locations.each do |location|
-      distance = Location.calc_distance([location.latitude, location.longitude], [userLat, userLong])
-      if distance <= closest_location_distance #if within a mile of current location.
+      distance = Location.calc_distance([location.latitude, location.longitude], [latitude, longitude])
+      if (distance <= closest_location_distance) && (distance <= LOCATION_THRESHOLD)
         closest_location_distance = distance
         closest_location = location
       end
     end
 
-    if closest_location_distance <= threshold
-      return closest_location
-    else
-      return nil
-    end
-
+    closest_location
   end
 
   def create_task(title, content)
@@ -133,7 +129,7 @@ class User < ActiveRecord::Base
     self.tasks
   end
 
-  def get_context(time_frame, utc_offset, location)
+  def get_context(overrides, location, utc_offset)
     context = {}
 
     utc_offset = 0 if utc_offset.nil?
@@ -142,9 +138,9 @@ class User < ActiveRecord::Base
     context[:date] = Date.parse(time.to_s)
     context[:time] = SimpleTime.new(time.hour, time.min)
     context[:day] = SimpleDay.new(time.wday)
-    context[:location] = location
+    context[:location] = overrides[:location] || location
 
-    case time_frame
+    case overrides[:time_frame]
     when :today
       context[:time] = nil
       context[:location] = nil

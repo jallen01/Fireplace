@@ -48,7 +48,7 @@ class Location < ActiveRecord::Base
 
   validates :user, presence: true
 
-  validates :name, presence: true, length: { maximum: Location::NAME_MAX_LENGTH }, uniqueness: { scope: :user }
+  validates :name, presence: true, length: { maximum: NAME_MAX_LENGTH }, uniqueness: { scope: :user }
 
   # Capitalize first letter of each word in name
   before_validation do

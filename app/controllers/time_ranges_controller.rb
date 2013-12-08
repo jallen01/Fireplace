@@ -34,19 +34,12 @@ class TimeRangesController < ApplicationController
   private
 
     def set_time_range
-      @time_range = TimeRange.find_by(id: params[:id])
+      @time_range = current_user.get_time_ranges.find_by(id: params[:id])
 
       # Check that time_range exists.
       unless @time_range
         respond_to do |format|
           format.js { render status: 404 }
-        end
-      end 
-
-      # Check permissions.
-      if (@time_range.hidden? || @time_range.user != current_user)
-        respond_to do |format|
-          format.js { render status: 403 }
         end
       end 
     end

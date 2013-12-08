@@ -1,8 +1,8 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
-  before_action :reset_time_frame, only: [:index]
+  before_action :reset_context_overrides, only: [:index]
   before_action :set_task, except: [:index, :new, :create]
-  before_action :set_user_context
+  before_action :set_context
 
   def index
     @new_task = Task.new(user: current_user)
@@ -40,29 +40,22 @@ class TasksController < ApplicationController
   private
 
     def set_task
-      @task = Task.find_by(id: params[:id])
+      @task = current_user.get_tasks.find_by(id: params[:id])
 
       # Check that task exists.
       unless @task
         respond_to do |format|
           format.js { render status: 404 }
         end
-      end 
-
-      # Check permissions.
-      unless @task.user == current_user
-        respond_to do |format|
-          format.js { render status: 403 }
-        end
       end
     end
 
-    def reset_time_frame
-      session[:time_frame] = :now
+    def reset_context_overrides
+      session[:overrides] = { time_frame: :now, location: nil }
     end
 
-    def set_user_context
-      @user_context = current_user.get_context(session[:time_frame], session[:utc_offset], session[:location])
+    def set_context
+      @context = current_user.get_context(session[:overrides], session[:location], session[:utc_offset])
     end
 
     # Sanitize params.

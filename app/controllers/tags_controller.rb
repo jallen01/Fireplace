@@ -34,19 +34,12 @@ class TagsController < ApplicationController
   private
 
     def set_tag
-      @tag = Tag.find_by(id: params[:id])
+      @tag = current_user.get_tags.find_by(id: params[:id])
 
       # Check that tag exists.
       unless @tag
         respond_to do |format|
           format.js { render status: 404 }
-        end
-      end 
-
-      # Check permissions.
-      if (@tag.hidden? || @tag.user != current_user)
-        respond_to do |format|
-          format.js { render status: 403 }
         end
       end
     end

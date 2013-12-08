@@ -41,14 +41,7 @@ class DayRangesController < ApplicationController
         respond_to do |format|
           format.js { render status: 404 }
         end
-      end 
-
-      # Check permissions.
-      if (@day_range.hidden? || @day_range.user != current_user)
-        respond_to do |format|
-          format.js { render status: 403 }
-        end
-      end 
+      end
     end
 
     # Sanitize params.
