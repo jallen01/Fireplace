@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
   end
 
   def get_time_ranges
-    self.time_ranges.where(parent_tag_id: nil)
+    self.time_ranges.where(parent_tag_id: nil).ordered
   end
 
   def create_day_range(name)
@@ -88,7 +88,7 @@ class User < ActiveRecord::Base
   end
 
   def get_day_ranges
-    self.day_ranges.where(parent_tag_id: nil)
+    self.day_ranges.where(parent_tag_id: nil).ordered
   end
 
   def create_tag(name)
@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
   end
 
   def get_tags
-    self.tags.where(parent_task_id: nil)
+    self.tags.where(parent_task_id: nil).ordered
   end
 
   def create_location(params)
@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
   end
 
   def get_locations
-    self.locations
+    self.locations.ordered
   end
 
   def get_closest_location(latitude, longitude)
@@ -126,7 +126,7 @@ class User < ActiveRecord::Base
   end
 
   def get_tasks
-    self.tasks
+    self.tasks.ordered
   end
 
   def get_context(overrides, location, utc_offset)
