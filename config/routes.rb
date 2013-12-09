@@ -19,6 +19,10 @@ TscizzleMichelleojKrosnickJallen01Final::Application.routes.draw do
   resources :time_ranges, only: [:create, :update, :destroy], defaults: { format: 'js' }
 
   # Route root to user's tasks page
-  root :to => "tasks#index"
+  authenticated :user do
+    root to: "tasks#index", as: "authenticated_root"
+  end
 
+  # Otherwise route to login
+  root to: redirect("/users/sign_in")
 end

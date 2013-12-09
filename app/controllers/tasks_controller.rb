@@ -18,8 +18,9 @@ class TasksController < ApplicationController
       @task.update_metadata(@metadata)
     end
 
+    flash[:list] = "Task Created"
+
     respond_to do |format|
-      flash[:notice] = "Task created Successfully"
       format.js
     end
   end
@@ -27,11 +28,19 @@ class TasksController < ApplicationController
   def update
     @task.update(task_params)
     @task.update_metadata(@metadata)
+
+    flash[:list] = "Task Updated"
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   def destroy
     @task_id = @task.id
     @task.destroy
+
+    flash[:list] = "Task Deleted"
 
     respond_to do |format|
       format.js
