@@ -34,17 +34,6 @@
           Important
         <% end %>
       </div>
-
-      <label>Deadline</label>
-      <div class="row form-group">
-        <div class="col-md-4">
-          <%= f.text_field :deadline, class: "form-control", data: { provide: "datepicker" }, placeholder: "Date" %>
-        </div>
-
-        <div class="col-md-4">
-          <%= f.text_field :days_notice, class: "form-control", placeholder: "Days Notice" %>
-        </div>
-      </div>
     <% end %>
     <%= content_tag :div, class: "tab-pane", id: "metadata-tab-#{task.id}" do %>
       <div class="center-block">

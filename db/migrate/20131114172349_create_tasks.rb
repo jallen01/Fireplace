@@ -8,8 +8,6 @@ class CreateTasks < ActiveRecord::Migration
 
       t.boolean :important
       t.boolean :quick
-      t.date :deadline
-      t.integer :days_notice
 
       t.timestamps
     end

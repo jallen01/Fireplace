@@ -11,10 +11,9 @@ $(function () {
 var main = function () {
     // Task Descriptions
     // =============
-    console.log('here');
+
     $('#tasks-list .list-group a').each(function(index, elem) {
         $(elem).hover(function () {
-            console.log($(this).attr('data-content'));
             $('#descriptions-panel').find('.panel-body').html($(this).attr('data-content'));
         }, function() {
             $('#descriptions-panel').find('.panel-body').empty();
@@ -24,11 +23,6 @@ var main = function () {
 
 $(document).ready(main);
 $(document).on("ajaxComplete", main);
-
-
-
-
-
 
 // User Context
 // ============
@@ -96,8 +90,6 @@ $(function(){
         modal_id = event.target.id
         this_modal = $(modal_id)
         if(modal_id.indexOf("edit-task-") != -1){ // if an edit-task modal has been opened
-            //custom_tag_classes = this_modal.find(".custom-tag")
-            //if($("#"+modal_id + " " + ))
             if(!$("#"+modal_id + " .custom-tag").hasClass("active")){
                 $("#"+modal_id + " .custom-form").hide()
             }
@@ -109,8 +101,6 @@ $(function(){
             }
         }
         if(modal_id.indexOf("edit-tag-") != -1){ // if an edit-task modal has been opened
-            //custom_tag_classes = this_modal.find(".custom-tag")
-            //if($("#"+modal_id + " " + ))
             if(!$("#"+modal_id + " .custom-day-range").hasClass("active")){
                 $("#"+modal_id + " .day-ranges-custom").hide()
             }

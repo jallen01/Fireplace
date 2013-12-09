@@ -77,8 +77,6 @@ ActiveRecord::Schema.define(version: 20131208230305) do
     t.string   "content"
     t.boolean  "important"
     t.boolean  "quick"
-    t.date     "deadline"
-    t.integer  "days_notice"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

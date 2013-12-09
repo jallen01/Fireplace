@@ -14,11 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery.turbolinks
-//= require jquery.ui.all
-//= require maps-google
-//= require bootstrap-typeahead
-//= require jquery.ui.addresspicker
 //= require twitter/bootstrap
-//= require bootstrap-datepicker
 //= require_tree .
 

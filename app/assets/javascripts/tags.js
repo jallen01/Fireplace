@@ -2,8 +2,6 @@
 
 $(function(){
 	// Custom day ranges
-	//$(".day-ranges-custom").hide()
-
     $("#new-tag-modal .day-ranges-custom").hide()
     $("#new-tag-modal .time-ranges-custom").hide()
     $(document).on("hidden.bs.modal", ".modal", function (event) {
@@ -46,7 +44,6 @@ $(function(){
     });
 
     // Custom time ranges
-    //$(".time-ranges-custom").hide()
 	$(document).on("change", '.custom-time-range :checkbox', function (event) {
         modal_id = $(this).parents(".modal").attr("id")
         var checkbox = $(event.target);
