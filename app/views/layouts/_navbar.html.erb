@@ -29,7 +29,7 @@
           <%= link_to "#{current_user.full_name} [ #{current_user.email} ]", edit_user_registration_url(current_user) %>
         </li>
         <li>
-          <%= link_to "Log out", destroy_user_session_url, method: :delete %>
+          <%= link_to "Log out", destroy_user_session_url, method: :delete, style: "margin-right: 20px" %>
         </li>
       <% end %>
     </ul>
