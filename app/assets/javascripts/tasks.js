@@ -166,9 +166,5 @@ $(function(){
         this_modal = $(modal_id)
     });
 
-    $(".modal-form-submit").click(function(){
-
-    });
-
 });
 

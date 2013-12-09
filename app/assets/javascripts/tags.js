@@ -23,7 +23,6 @@ $(function(){
         if (checkbox.is(":checked")) {
             $("#"+modal_id + " .day-button-bar").removeClass("active")
             $("#"+modal_id + " .day-button-bar :checked").attr("checked", false)
-            // show custom form
             $("#"+modal_id + " .day-ranges-custom").show()
         }else{
             $("#"+modal_id + " .spec-day").removeClass("active")
@@ -38,19 +37,16 @@ $(function(){
             $("#"+modal_id + " .spec-day").removeClass("active")
             $("#"+modal_id + " .custom-day-range").removeClass("active")
             $("#"+modal_id + " .spec-day :checked").attr("checked", false)
-            // hide custom form
             $("#"+modal_id + " .day-ranges-custom").hide()
         }   
     });
 
-    // Custom time ranges
 	$(document).on("change", '.custom-time-range :checkbox', function (event) {
         modal_id = $(this).parents(".modal").attr("id")
         var checkbox = $(event.target);
         if (checkbox.is(":checked")) {
             $("#"+modal_id + " .time-button-bar").removeClass("active")
             $("#"+modal_id + " .time-button-bar :checked").attr("checked", false)
-            // show custom form
             $("#"+modal_id + " .time-ranges-custom").show()
         }else{
             $("#"+modal_id + " .spec-time").removeClass("active")
@@ -65,7 +61,6 @@ $(function(){
             $("#"+modal_id + " .spec-time").removeClass("active")
             $("#"+modal_id + " .custom-time-range").removeClass("active")
             $("#"+modal_id + " .spec-time :checked").attr("checked", false)
-            // hide custom form
             $("#"+modal_id + " .time-ranges-custom").hide()
         }   
     });
@@ -76,7 +71,6 @@ $(function(){
         var checkbox = $(event.target);
         if (checkbox.is(":checked")) {
             $('.location-button-bar').removeClass("active")
-            // show custom form
             $(".location-custom").show()
         }else{
             $(".location-custom").hide()
@@ -86,7 +80,6 @@ $(function(){
         var checkbox = $(event.target);
         if (checkbox.is(":checked")) {
             $('.custom-location').removeClass("active")
-            // hide custom form
             $(".location-custom").hide()
         }   
     });
