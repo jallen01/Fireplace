@@ -16,7 +16,7 @@ class LocationsController < ApplicationController
         @location = @new_location
         @new_location = Location.new(user: current_user)
         @location.update(location_params)
-        flash[:list] = "Location Created"
+        flash.now[:list] = "Location Created"
       end
 
       respond_to do |format|
@@ -33,6 +33,11 @@ class LocationsController < ApplicationController
       flash[:list] = "Location Updated"
     end
 
+<<<<<<< HEAD
+=======
+    flash.now[:list] = "Location Updated"
+
+>>>>>>> Fix task preview
     respond_to do |format|
       format.js
     end
@@ -42,7 +47,7 @@ class LocationsController < ApplicationController
     @location_id = @location.id
     @location.destroy
 
-    flash[:list] = "Location Deleted"
+    flash.now[:list] = "Location Deleted"
 
     respond_to do |format|
       format.js

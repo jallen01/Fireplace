@@ -12,7 +12,7 @@ class DayRangesController < ApplicationController
       @day_range.update_days(@metadata[:day_range_select])
     end
 
-    flash[:list] = "Day Range Created"
+    flash.now[:list] = "Day Range Created"
 
     respond_to do |format|
       format.js
@@ -23,7 +23,7 @@ class DayRangesController < ApplicationController
     @day_range.update(day_range_params)
     @day_range.update_days(@metadata[:day_range_select])
 
-    flash[:list] = "Day Range Updated"
+    flash.now[:list] = "Day Range Updated"
 
     respond_to do |format|
       format.js
@@ -34,7 +34,7 @@ class DayRangesController < ApplicationController
     @day_range_id = @day_range.id
     @day_range.destroy
 
-    flash[:list] = "Day Range Deleted"
+    flash.now[:list] = "Day Range Deleted"
 
     respond_to do |format|
       format.js
