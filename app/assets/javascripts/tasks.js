@@ -5,7 +5,9 @@ var update_location_url = "";
 $(function () {
     update_location_url = $("#location-label").data("update-url");
 
-    $.post(update_location_url, { utc_offset: (-60)*(new Date().getTimezoneOffset()) });
+    var utc_offset = (-60)*(new Date().getTimezoneOffset());
+    console.log(utc_offset);
+    $.post(update_location_url, { utc_offset: utc_offset });
     watch_location();
     filter_tasks_list();
 });
