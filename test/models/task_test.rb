@@ -81,9 +81,7 @@ class TaskTest < ActiveSupport::TestCase
   test "relevant?" do
   	u = users(:user1)
   	ti1 = "FunTask"
-  	dl1 = Time.now.to_date+7
-  	dn1 = 14
-  	ta1 = Task.new(user: u, title: ti1, deadline: dl1, days_notice: dn1)
+  	ta1 = Task.new(user: u, title: ti1)
   	date1 = Time.now.to_date
   	time1 = SimpleTime.new(Time.now.hour, Time.now.min)
   	day1 = SimpleDay.new(Time.now.wday)
@@ -91,15 +89,19 @@ class TaskTest < ActiveSupport::TestCase
   	uc1 = { date: date1, time: time1, day: day1, location: loc1 }
   	assert(ta1.relevant?(uc1), "Task should be relevant, but was considered irrelevant")
   	ti2 = "PrettyFunTask"
-  	dl2 = Time.now.to_date+7
-  	dn2 = 3
-  	ta2 = Task.new(user: u, title: ti2, deadline: dl2, days_notice: dn2)
-  	date2 = Time.now.to_date
-  	time2 = SimpleTime.new(Time.now.hour, Time.now.min)
-  	day2 = SimpleDay.new(Time.now.wday)
-  	loc2 = locations(:location1)
-  	uc2 = { date: date2, time: time2, day: day2, location: loc2 }
-  	assert_not(ta2.relevant?(uc2), "Task should not be relevant, but was considered relevant")
+  	ta2 = Task.new(user: u, title: ti2)
+    d = SimpleDay.new(Time.now.wday).succ
+    dr = DayRange.new(user: u, name: "dr1")
+    dr.update_days([d])
+    md = { tags: [], day_ranges: [dr], time_ranges: [],
+      day_range_select: [], time_range_select: [], locations: [] }
+    ta2.update_metadata(md)
+    date2 = Time.now.to_date
+    time2 = SimpleTime.new(Time.now.hour, Time.now.min)
+    day2 = SimpleDay.new(Time.now.wday)
+    loc2 = locations(:location1)
+    uc2 = { date: date2, time: time2, day: day2, location: loc2 }
+    assert_not(ta2.relevant?(uc2), "Task should not be relevant, but was considered relevant")
   end
 
 end
