@@ -19,21 +19,30 @@ class LocationsController < ApplicationController
       @location.update(location_params)
     end
 
+    flash[:list] = "Location Created"
+
     respond_to do |format|
       format.js
     end
   end
-
   
   def update
     unless @location.errors.any?
       @location.update(location_params)
+    end
+
+    flash[:list] = "Location Updated"
+
+    respond_to do |format|
+      format.js
     end
   end
 
   def destroy
     @location_id = @location.id
     @location.destroy
+
+    flash[:list] = "Location Deleted"
 
     respond_to do |format|
       format.js
