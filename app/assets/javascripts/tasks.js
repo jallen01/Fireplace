@@ -1,3 +1,5 @@
+// Primary Author: Jonathan Allen (jallen01)
+
 var update_location_url = "";
 
 $(function () {
@@ -8,21 +10,17 @@ $(function () {
     filter_tasks_list();
 });
 
-var main = function () {
-    // Task Descriptions
-    // =============
+$(document).on("mouseover", "#tasks-list .list-group-item", function (event) {
+    var html_str = "<blockquote>";
+    html_str += "<h3><strong>" + $(event.target).data("title") + "</strong></h3>";
+    html_str += "<h5>" + $(event.target).data("content") + "</h5>";
+    html_str += "</blockquote>";
+    $("#task-content-panel").html(html_str);
+});
 
-    $('#tasks-list .list-group a').each(function(index, elem) {
-        $(elem).hover(function () {
-            $('#descriptions-panel').find('.panel-body').html($(this).attr('data-content'));
-        }, function() {
-            $('#descriptions-panel').find('.panel-body').empty();
-        });
-    });
-}
-
-$(document).ready(main);
-$(document).on("ajaxComplete", main);
+$(document).on("mouseout", "#tasks-list .list-group-item", function (event) {
+    $("#task-content-panel").empty();
+});
 
 // User Context
 // ============
@@ -77,6 +75,9 @@ var filter_tasks_list = function () {
 $(document).on("listUpdated", "#tasks-list", filter_tasks_list);
 $(document).on("change", ".filter-policy-toggle", filter_tasks_list);
 
+
+
+// Primary Author: Rebecca Krosnick (krosnick)
 
 // Task Form
 // =========

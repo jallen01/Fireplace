@@ -10,6 +10,7 @@ class TasksController < ApplicationController
 
   def create
     @new_task = current_user.create_task(task_params[:title], task_params[:content])
+    @new_task.update(task_params)
     
     unless @new_task.errors.any?
       @task = @new_task
@@ -18,7 +19,7 @@ class TasksController < ApplicationController
       @task.update_metadata(@metadata)
     end
 
-    flash[:list] = "Task Created"
+    flash.now[:list] = "Task Created"
 
     respond_to do |format|
       format.js
@@ -29,7 +30,7 @@ class TasksController < ApplicationController
     @task.update(task_params)
     @task.update_metadata(@metadata)
 
-    flash[:list] = "Task Updated"
+    flash.now[:list] = "Task Updated"
 
     respond_to do |format|
       format.js
@@ -40,7 +41,7 @@ class TasksController < ApplicationController
     @task_id = @task.id
     @task.destroy
 
-    flash[:list] = "Task Deleted"
+    flash.now[:list] = "Task Deleted"
 
     respond_to do |format|
       format.js

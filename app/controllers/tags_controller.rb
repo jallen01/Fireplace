@@ -12,7 +12,7 @@ class TagsController < ApplicationController
       @tag.update_metadata(@metadata)
     end
 
-    flash[:list] = "Tag Created"
+    flash.now[:list] = "Tag Created"
 
     respond_to do |format|
       format.js
@@ -23,7 +23,7 @@ class TagsController < ApplicationController
     @tag.update(tag_params)
     @tag.update_metadata(@metadata)
 
-    flash[:list] = "Tag Updated"
+    flash.now[:list] = "Tag Updated"
 
     respond_to do |format|
       format.js
@@ -34,7 +34,7 @@ class TagsController < ApplicationController
     @tag_id = @tag.id
     @tag.destroy
 
-    flash[:list] = "Tag Deleted"
+    flash.now[:list] = "Tag Deleted"
 
     respond_to do |format|
       format.js
