@@ -33,11 +33,6 @@ class LocationsController < ApplicationController
       flash[:list] = "Location Updated"
     end
 
-<<<<<<< HEAD
-=======
-    flash.now[:list] = "Location Updated"
-
->>>>>>> Fix task preview
     respond_to do |format|
       format.js
     end
