@@ -38,7 +38,6 @@ class Location < ActiveRecord::Base
   # Capitalize first letter of each word in name
   before_validation do
     unless name.nil?
-      puts "the name: #{name}"
       self.name = self.name.downcase.split.map(&:capitalize).join(' ') 
     end
   end
@@ -51,7 +50,7 @@ class Location < ActiveRecord::Base
   # -----------
 
   # Distance in miles.
-  def calc_distance(latidue, longitude)
+  def calc_distance(latitude, longitude)
     Geocoder::Calculations.distance_between([self.latitude, self.longitude], [latitude, longitude])
   end
 

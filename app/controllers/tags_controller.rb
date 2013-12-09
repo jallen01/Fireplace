@@ -12,6 +12,8 @@ class TagsController < ApplicationController
       @tag.update_metadata(@metadata)
     end
 
+    flash[:list] = "Tag Created"
+
     respond_to do |format|
       format.js
     end
@@ -20,11 +22,19 @@ class TagsController < ApplicationController
   def update
     @tag.update(tag_params)
     @tag.update_metadata(@metadata)
+
+    flash[:list] = "Tag Updated"
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   def destroy
     @tag_id = @tag.id
     @tag.destroy
+
+    flash[:list] = "Tag Deleted"
 
     respond_to do |format|
       format.js

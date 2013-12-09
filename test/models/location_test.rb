@@ -53,4 +53,14 @@ class LocationTest < ActiveSupport::TestCase
       "Calculated distance between boston and san fran too far from correct answer")
   end
 
+  # unit test for Location.get_address method
+  test "get address" do
+    u = users(:user1)
+    n = "FaveLocation"
+    l = Location.new(user: u, name: n,
+      street: "69 Cumming St", city: "Bumpass", state: "MA", zip_code: "02139")
+    expected_address_string = "69 Cumming St, Bumpass, MA, 02139"
+    assert_equal(expected_address_string, l.get_address, "Wrong string output returned by get_address")
+  end
+
 end

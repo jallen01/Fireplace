@@ -16,6 +16,7 @@ class LocationsController < ApplicationController
         @location = @new_location
         @new_location = Location.new(user: current_user)
         @location.update(location_params)
+        flash[:list] = "Location Created"
       end
 
       respond_to do |format|
@@ -23,19 +24,25 @@ class LocationsController < ApplicationController
       end
     end
   end
-
   
   def update
     if !is_address_valid
       @new_location.errors[:base] << "Need to enter all address parts" 
     else
       @location.update(location_params)
+      flash[:list] = "Location Updated"
+    end
+
+    respond_to do |format|
+      format.js
     end
   end
 
   def destroy
     @location_id = @location.id
     @location.destroy
+
+    flash[:list] = "Location Deleted"
 
     respond_to do |format|
       format.js
