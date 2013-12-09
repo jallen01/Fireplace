@@ -4,4 +4,7 @@ location1:
   id: 1
   user_id: 1
   name: Bestlocation
-  address_string: 69 Cumming St Bumpass MA 02139
+  street: 69 Cumming St
+  city: Bumpass
+  zip_code: 02139
+  state: MA
