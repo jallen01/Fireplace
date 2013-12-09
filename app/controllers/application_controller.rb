@@ -21,9 +21,8 @@ class ApplicationController < ActionController::Base
     location = current_user.get_locations.find_by(id: location_id)
 
     time_frame = session[:context_overrides][:time_frame] || :now
-    utc_offset = session[:utc_offset] || 0
     
-    current_user.get_context(time_frame, location, utc_offset)
+    current_user.get_context(time_frame, location, session[:utc_offset])
   end
   helper_method :current_user_context
 

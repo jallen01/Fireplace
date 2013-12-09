@@ -136,7 +136,6 @@ class User < ActiveRecord::Base
   def get_context(time_frame, location, utc_offset)
     context = {}
 
-    utc_offset = 0 if utc_offset.nil?
     time = Time.now.getlocal(utc_offset)
 
     context[:date] = Date.parse(time.to_s)
@@ -159,8 +158,8 @@ class User < ActiveRecord::Base
       context[:location] = nil
     else
       # :now or nil
-      context[:time] = SimpleTime.new(Time.now.hour, Time.now.min)
-      context[:day] = SimpleDay.new(Time.now.wday)
+      context[:time] = SimpleTime.new(time.hour, time.min)
+      context[:day] = SimpleDay.new(time.wday)
     end
 
     context
