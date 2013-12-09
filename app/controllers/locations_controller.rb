@@ -6,27 +6,29 @@ class LocationsController < ApplicationController
 
   def create
     @new_location = current_user.create_location(location_params[:name])
+    if !is_address_valid
+      @new_location.errors[:base] << "Need to enter all address parts" 
+    else
+      #@new_location = current_user.create_location(location_params[:name])
 
-    #valid_address = (street.blank? && city.blank? && state.blank? && zip_code.blank?) || ( !street.blank? && !city.blank? && !state.blank? && !zip_code.blank?)
-    #logger.debug("Is street blank?: #{street.blank?}")
-    #logger.debug("Is city blank?: #{city.blank?}")
-    #logger.debug("Is state blank?: #{state.blank?}")
-    #logger.debug("Is zip code blank?: #{zip_code.blank?}")
+      unless @new_location.errors.any?
+        logger.debug "entered unless statement"
+        @location = @new_location
+        @new_location = Location.new(user: current_user)
+        @location.update(location_params)
+      end
 
-    unless @new_location.errors.any?
-      @location = @new_location
-      @new_location = Location.new(user: current_user)
-      @location.update(location_params)
-    end
-
-    respond_to do |format|
-      format.js
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
   
   def update
-    unless @location.errors.any?
+    if !is_address_valid
+      @new_location.errors[:base] << "Need to enter all address parts" 
+    else
       @location.update(location_params)
     end
   end
@@ -54,5 +56,9 @@ class LocationsController < ApplicationController
           format.js { render status: 404 }
         end
       end 
+    end
+
+    def is_address_valid
+      valid_address = (location_params[:street].blank? && location_params[:city].blank? && location_params[:state].blank? && location_params[:zip_code].blank?) || ( !location_params[:street].blank? && !location_params[:city].blank? && !location_params[:state].blank? && !location_params[:zip_code].blank?)
     end
 end
