@@ -10,15 +10,15 @@ $(function () {
     filter_tasks_list();
 });
 
-$(document).on("mouseover", "#tasks-list .list-group-item", function (event) {
+$(document).on("mouseover", "#tasks-list .list-group-item", function () {
     var html_str = "<blockquote>";
-    html_str += "<h3><strong>" + $(event.target).data("title") + "</strong></h3>";
-    html_str += "<h5>" + $(event.target).data("content") + "</h5>";
+    html_str += "<h3><strong>" + $(this).data("title") + "</strong></h3>";
+    html_str += "<h5>" + $(this).data("content") + "</h5>";
     html_str += "</blockquote>";
     $("#task-content-panel").html(html_str);
 });
 
-$(document).on("mouseout", "#tasks-list .list-group-item", function (event) {
+$(document).on("mouseout", "#tasks-list .list-group-item", function () {
     $("#task-content-panel").empty();
 });
 
@@ -87,8 +87,8 @@ $(function(){
     $("#new-task-modal .day-ranges-custom").hide()
     $("#new-task-modal .time-ranges-custom").hide()
     
-    $(document).on("show.bs.modal", ".modal", function (event) {
-        modal_id = event.target.id
+    $(document).on("show.bs.modal", ".modal", function () {
+        modal_id = $(this).attr("id");
         this_modal = $(modal_id)
         if(modal_id.indexOf("edit-task-") != -1){ // if an edit-task modal has been opened
             if(!$("#"+modal_id + " .custom-tag").hasClass("active")){
@@ -111,8 +111,8 @@ $(function(){
         }
     });
 
-    $(document).on("hidden.bs.modal", ".modal", function (event) {
-        if(event.target.id === "new-task-modal"){
+    $(document).on("hidden.bs.modal", ".modal", function () {
+        if($(this).attr("id") === "new-task-modal"){
             $("#new-task-modal .custom-form").hide()
             $("#new-task-modal .custom-tag").removeClass("active")
             $("#new-task-modal .day-ranges-custom").hide()
@@ -126,9 +126,9 @@ $(function(){
             $("#new-task-modal .btn-time").removeClass("active")
         }
     });
-    $(document).on("change", ".custom-tag :checkbox", function(event) {
+    $(document).on("change", ".custom-tag :checkbox", function() {
         modal_id = $(this).parents(".modal").attr("id")
-        var checkbox = $(event.target);
+        var checkbox = $(this);
         if (checkbox.is(":checked")) {
             $("#"+modal_id + " .tag-button-bar").removeClass("active")
             $("#"+modal_id + " .tag-button-bar :checked").attr("checked", false)
@@ -144,9 +144,9 @@ $(function(){
             $("#"+modal_id + " .custom-form").hide()
         }
     });
-    $(document).on("change", ".tag-button-bar", function(event) {
+    $(document).on("change", ".tag-button-bar", function() {
         modal_id = $(this).parents(".modal").attr("id")
-        var checkbox = $(event.target);
+        var checkbox = $(this);
         if (checkbox.is(":checked")) {
             $("#"+modal_id + " .custom-tag").removeClass("active")
             $("#"+modal_id + " .custom-tag :checked").attr("checked", false)
@@ -162,7 +162,7 @@ $(function(){
     });
 
 
-    $(".modal-form-cancel").click(function(event){
+    $(".modal-form-cancel").click(function(){
         modal_id = $(this).parents(".modal").attr("id")
         this_modal = $(modal_id)
     });
