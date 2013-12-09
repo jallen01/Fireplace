@@ -11,6 +11,7 @@ $(function () {
 var main = function () {
     // Task Descriptions
     // =============
+    console.log('here');
     $('#tasks-list .list-group a').each(function(index, elem) {
         $(elem).hover(function () {
             console.log($(this).attr('data-content'));
