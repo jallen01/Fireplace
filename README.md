@@ -3,7 +3,7 @@ Fireplace
 *the to-do list that doesn't burn you out*
 
 
-*Sit by the Fireplace and relax:*
+**Sit by the Fireplace and relax:**
 http://fireplace-todo.herokuapp.com/
 
 
