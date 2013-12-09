@@ -13,8 +13,8 @@ $(function () {
     $("form").trigger("formCreated");
 });
 
-$(document).on("formCreated", function (event) {
-    initialize_form(event.target);
+$(document).on("formCreated", function () {
+    initialize_form(this);
 });
 
 var initialize_form = function (form) {
@@ -103,31 +103,31 @@ disable_modal = function (modal) {
 }
 
 // Remove hash on modal close
-$(document).on("hidden.bs.modal", ".modal", function (event) {
+$(document).on("hidden.bs.modal", ".modal", function () {
     removeHash();
-    $(event.target).find(".validation-errors").remove();
+    $(this).find(".validation-errors").remove();
 });
 
 // Reset form fields if data-form="reset"
-$(document).on("hidden.bs.modal", ".modal[data-form='reset']", function (event) {
-    reset_form($(event.target).find("form"));
+$(document).on("hidden.bs.modal", ".modal[data-form='reset']", function () {
+    reset_form($(this).find("form"));
 });
 
 // Register modal submit button. Submits form in modal with class "modal-form".
-$(document).on("click", ".modal-submit-btn", function (event) {
-    var modal = $(event.target).parents(".modal");
+$(document).on("click", ".modal-submit-btn", function () {
+    var modal = $(this).parents(".modal");
 
     modal.find(".modal-form").first().submit();
 
-    $(event.target).button("loading");
+    $(this).button("loading");
     disable_modal(modal);
 });
 
 // Register modal delete button. Disables modal buttons.
-$(document).on("click", ".modal-delete-btn", function (event) {
-    var modal = $(event.target).parents(".modal");
+$(document).on("click", ".modal-delete-btn", function () {
+    var modal = $(this).parents(".modal");
 
-    $(event.target).button("loading");
+    $(this).button("loading");
     disable_modal(modal);
 });
 
