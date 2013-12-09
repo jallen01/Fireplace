@@ -30,7 +30,7 @@ $(function(){
         	$("#"+modal_id + " .day-ranges-custom").hide()
         }
     });
-    $(document).on("change", '.day-button-bar', function () {
+    $(document).on("change", '.day-button-bar :checkbox', function () {
         modal_id = $(this).parents(".modal").attr("id")
         var checkbox = $(this);
         if (checkbox.is(":checked")) {
@@ -55,7 +55,7 @@ $(function(){
         	$("#"+modal_id + " .time-ranges-custom").hide()
         }
     });
-    $(document).on("change", '.time-button-bar', function () {
+    $(document).on("change", '.time-button-bar :checkbox', function () {
         modal_id = $(this).parents(".modal").attr("id")
         var checkbox = $(this);
         if (checkbox.is(":checked")) {
@@ -68,7 +68,7 @@ $(function(){
 
     // Custom locations
     $(".locations-custom").hide()
-    $(document).on("change", '.custom-location', function () {
+    $(document).on("change", '.custom-location :checkbox', function () {
         var checkbox = $(this);
         if (checkbox.is(":checked")) {
             $('.location-button-bar').removeClass("active")

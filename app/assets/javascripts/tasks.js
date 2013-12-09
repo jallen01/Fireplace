@@ -129,6 +129,7 @@ $(function(){
     $(document).on("change", ".custom-tag :checkbox", function() {
         modal_id = $(this).parents(".modal").attr("id")
         var checkbox = $(this);
+        console.log(checkbox.html())
         if (checkbox.is(":checked")) {
             $("#"+modal_id + " .tag-button-bar").removeClass("active")
             $("#"+modal_id + " .tag-button-bar :checked").attr("checked", false)
@@ -144,10 +145,13 @@ $(function(){
             $("#"+modal_id + " .custom-form").hide()
         }
     });
-    $(document).on("change", ".tag-button-bar", function() {
+    $(document).on("change", ".tag-button-bar :checkbox", function() {
         modal_id = $(this).parents(".modal").attr("id")
         var checkbox = $(this);
+        console.log(checkbox.html())
+        console.log("tag button bar changed")
         if (checkbox.is(":checked")) {
+            console.log("tag button bar pressed down")
             $("#"+modal_id + " .custom-tag").removeClass("active")
             $("#"+modal_id + " .custom-tag :checked").attr("checked", false)
             $("#"+modal_id + " .spec-tag").removeClass("active")
