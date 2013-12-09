@@ -1,9 +1,7 @@
 // Primary Author: Jonathan Allen (jallen01)
 
-var update_location_url = "";
-
 $(function () {
-    update_location_url = $("#location-label").data("update-url");
+    var update_location_url = $("#location-label").data("update-url");
 
     var utc_offset = (-60)*(new Date().getTimezoneOffset());
     $.post(update_location_url, { utc_offset: utc_offset });
@@ -22,31 +20,6 @@ $(document).on("mouseover", "#tasks-list .list-group-item", function () {
 $(document).on("mouseout", "#tasks-list .list-group-item", function () {
     $("#task-content-panel").empty();
 });
-
-// User Context
-// ============
-
-// Code from https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.watchPosition?redirectlocale=en-US&redirectslug=Web%2FAPI%2Fwindow.navigator.geolocation.watchPosition
-var watch_location = function () {
-    function success(pos) {
-      var crd = pos.coords;
-      var utc_offset = (-60)*(new Date().getTimezoneOffset());
-
-      $.post(update_location_url, { utc_offset: utc_offset, latitude: crd.latitude, longitude: crd.longitude });
-    };
-
-    function error(err) {
-      console.warn('ERROR(' + err.code + '): ' + err.message);
-    };
-
-    var options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0
-    };
-
-    var geo_watcher = navigator.geolocation.watchPosition(success, error, options);
-}
 
 // Tasks List
 // ==========
@@ -75,7 +48,6 @@ var filter_tasks_list = function () {
 }
 $(document).on("listUpdated", "#tasks-list", filter_tasks_list);
 $(document).on("change", ".filter-policy-toggle", filter_tasks_list);
-
 
 
 // Primary Author: Rebecca Krosnick (krosnick)

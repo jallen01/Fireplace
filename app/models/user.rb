@@ -111,20 +111,6 @@ class User < ActiveRecord::Base
     self.locations.ordered
   end
 
-  def get_closest_location(latitude, longitude)
-    closest_location_distance = 10*LOCATION_THRESHOLD
-    closest_location = nil
-    self.get_locations.each do |location|
-      distance = location.calc_distance(latitude, longitude)
-      if (distance <= closest_location_distance) && (distance <= LOCATION_THRESHOLD)
-        closest_location_distance = distance
-        closest_location = location
-      end
-    end
-
-    closest_location
-  end
-
   def create_task(title, content)
     Task.create(user: self, title: title, content: content)
   end

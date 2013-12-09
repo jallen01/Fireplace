@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_context
-    location_id = session[:context_overrides][:location_id] || session[:location_id]
+    location_id = session[:context_overrides][:location_id]
     location = current_user.get_locations.find_by(id: location_id)
 
     time_frame = session[:context_overrides][:time_frame] || :now

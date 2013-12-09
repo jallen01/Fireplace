@@ -5,14 +5,12 @@ TscizzleMichelleojKrosnickJallen01Final::Application.routes.draw do
   resources :users, only: [] do
     member do
       post 'update_context_overrides', defaults: { format: 'js' }
-      post 'update_location', defaults: { format: 'js' }
+      post 'update_utc_offset', defaults: { format: 'js' }
     end
   end
 
   resources :settings, only: [:index]
-
   resources :tasks, only: [:index, :create, :update, :destroy]
-
   resources :tags, only: [:create, :update, :destroy], defaults: { format: 'js' }
   resources :locations, only: [:create, :update, :destroy], defaults: { format: 'js' }
   resources :day_ranges, only: [:create, :update, :destroy], defaults: { format: 'js' }

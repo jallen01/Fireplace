@@ -41,9 +41,6 @@ group :production do
 	gem 'pg'
 end
 
-# Geocoder for locatoin
-gem 'geocoder'
-
 # Devise for user authentication
 gem 'devise'
 

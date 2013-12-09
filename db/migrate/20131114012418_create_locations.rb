@@ -4,11 +4,6 @@ class CreateLocations < ActiveRecord::Migration
       t.belongs_to :user
 
       t.string :name
-
-      t.float :latitude
-      t.float :longitude
-      t.text :address_string
-
       t.timestamps
     end
   end
