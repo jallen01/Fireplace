@@ -1,12 +1,10 @@
-<!-- Primary Author: Jonathan Allen (jallen01) -->
-
-<%= form_for time_range, remote: true, html: { class: "modal-form" } do |f| %>
+<%= form_for time_range, remote: true, html: { class: "modal-form time-range-form" } do |f| %>
   
   <%= render "layouts/form_errors", errors: time_range.errors %>
 
   <div class="form-group">
     <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control" %>
+    <%= f.text_field :name, class: "form-control", maxlength: TimeRange::NAME_MAX_LENGTH %>
   </div>
 
   <hr>

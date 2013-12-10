@@ -5,7 +5,7 @@ class TimeRange < ActiveRecord::Base
   # Constants
   # ---------
 
-  NAME_MAX_LENGTH = 10
+  NAME_MAX_LENGTH = 30
   
 
   # Attributes

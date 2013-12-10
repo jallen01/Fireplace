@@ -1,9 +1,3 @@
-var main = function () {
-}
-
-$(document).ready(main);
-$(document).on("ajaxComplete", main);
-
 // Forms
 // =====
 
@@ -18,43 +12,45 @@ $(document).on("formCreated", function () {
 var initialize_form = function (form) {
     $(form).find("[id^=_]").remove();
 
-    $(form).find("input[type=text], textarea").each(function (i, input) {
-        var id = $(input).attr("id");
-        var val = $(input).val();
+    $(form).find("input:text, textarea, input:checkbox, select").each(function () {
+        var id = $(this).attr("id");
+        var val = undefined;
 
-        var hidden = $("<input type='hidden'>").attr("id", "_" + id).val(val);
-        $(input).parent().append(hidden);
-    });
+        if ($(this).is("input:text, textarea")) {
+            val = $(this).val();
+        } else if ($(this).is("select")) {
+            val = $(this).find("option:selected").val();
+        } else if ($(this).is("input:checkbox")) {
+            val = $(this).prop("checked");
+        }
 
-    $(form).find("input[type=checkbox]").each(function (i, checkbox) {
-        var id = $(checkbox).attr("id");
-        var checked = $(checkbox).prop("checked");
-
-        var hidden = $("<input type='hidden'>").attr("id", "_" + id).val(checked);
-        $(checkbox).parent().append(hidden);
+        var html = $("<input type='hidden'>").attr("id", "_" + id).val(val);
+        $(this).parent().append(html);
     });
 }
 
 var reset_form = function (form) {
-    $(form).find("input[type=text], textarea").each(function (i, input) {
-        var id = String($(input).attr("id"));
-        var val = $(input).parent().find("#_" + id).val();
-        $(input).val(val);
-    });
+    $(form).find("input:text, textarea, input:checkbox, select").each(function () {
+        var id = $(this).attr("id");
+        var val = $(this).parent().find("#_" + id).val();
 
-    $(form).find("input[type=checkbox]").each(function (i, checkbox) {
-        var id = String($(checkbox).attr("id"));
-        var checked = $(checkbox).parent().find("#_" + id).val();
-
-        $(checkbox).prop("checked", checked === "true");
-        if ($(checkbox).parents("[data-toggle='buttons']").length !== 0) {
-            if (checked === "true") {
-                $(checkbox).parents(".btn").addClass("active");
-            } else {
-                $(checkbox).parents(".btn").removeClass("active");
+        if ($(this).is("input:text, textarea")) {
+            $(this).val(val);
+        } else if ($(this).is("select")) {
+            $(this).find("option[value='" + val + "']").prop("selected", true);
+        } else if ($(this).is("input:checkbox")) {
+            $(this).prop("checked", val === "true");
+            if ($(this).parents("[data-toggle='buttons']").length !== 0) {
+                if (val === "true") {
+                    $(this).parents(".btn").addClass("active");
+                } else {
+                    $(this).parents(".btn").removeClass("active");
+                }
             }
         }
     });
+
+    $(form).trigger("formReset");
 }
 
 
@@ -83,7 +79,6 @@ var removeHash = function () {
 // Modal Methods
 // =============
 
-
 enable_modal = function (modal) {
     $(modal).find("fieldset").attr("disabled", false);
     $(modal).find(".modal-submit-btn").button("reset");
@@ -102,8 +97,8 @@ disable_modal = function (modal) {
 
 // Remove hash on modal close
 $(document).on("hidden.bs.modal", ".modal", function () {
-    removeHash();
     $(this).find(".validation-errors").remove();
+    $(this).find(".nav-tabs a:first").tab("show"); 
 });
 
 // Reset form fields if data-form="reset"

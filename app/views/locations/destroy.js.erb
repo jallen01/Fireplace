@@ -1,7 +1,3 @@
-// Primary Author: Michelle Johnson (mchlljy)
-
-$("#location<%= @location.id %>").remove();
-
 var modal = $("<%= j "#edit-location-#{@location_id}-modal" %>");
 
 modal.modal("hide").on("hidden.bs.modal", function () {

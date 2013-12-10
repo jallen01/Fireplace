@@ -7,17 +7,19 @@
     <%= csrf_meta_tags %>
     <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.6.2.js"></script>
 
+    <!-- Mobile friendly -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- Bootstrap theme -->
     <link rel="stylesheet" href="http://bootswatch.com/flatly/bootstrap.min.css">
   </head>
   <body>
 
-    <%= render 'layouts/navbar' %>
+    <%= render "layouts/navbar" %>
 
     <main role="main">
       <div class="container page-container">
-        <div class="row">
-        <%= render 'layouts/messages' %>
+        <%= render "layouts/messages" %>
         <%= yield %>
       </div>
     </main>

@@ -1,6 +1,4 @@
-<!-- Primary Author: Jonathan Allen (jallen01) -->
-
-<%= form_for task, remote: true, html: { class: "modal-form" } do |f| %>
+<%= form_for task, remote: true, html: { class: "modal-form task-form" } do |f| %>
   <fieldset>
 
 	<ul class="nav nav-tabs">
@@ -10,10 +8,11 @@
 
   <div class="tab-content">
     <%= content_tag :div, class: "tab-pane active", id: "content-tab-#{task.id}" do %>
+    
       <%= render "layouts/form_errors", errors: task.errors %>
       <div class="form-group">
         <%= f.label :title %>
-        <%= f.text_field :title, class: "form-control" %>
+        <%= f.text_field :title, class: "form-control", maxlength: Task::TITLE_MAX_LENGTH %>
       </div>
 
       <div class="form-group">
@@ -42,20 +41,20 @@
         <div id="tags" class="btn-group" data-toggle="buttons">
           <!-- Predefined tags -->
           <% current_user.get_tags.each do |tag| %>
-            <%= content_tag :label, class: "btn btn-default btn-buffer tag-button-bar #{"active" if task.tags.include?(tag)}".html_safe do %>
+            <%= content_tag :label, class: "btn btn-default btn-buffer tag-toggle #{"active" if task.tags.include?(tag)}".html_safe do %>
               <%= check_box_tag "tags[]", tag.id, task.tags.include?(tag) %>
               <%= tag.name %>
             <% end %> 
           <% end %>
-          <%= content_tag :label, class: "btn btn-default btn-buffer custom-tag #{"active" if !task.hidden_tag.empty?}".html_safe do %>
-            <%= check_box_tag "custom-t", "custom" %>
+          <%= content_tag :label, class: "btn btn-default btn-buffer hidden-tag-toggle #{"active" if !task.hidden_tag.empty?}".html_safe do %>
+            <%= check_box_tag "" %>
             Custom
           <% end %> 
         </div>
 
         <hr>
 
-        <div class="custom-form">
+        <div class="hidden-tag-form hidden">
           <%= render "tags/metadata_form", tag: task.hidden_tag %>
         </div>
       </div>

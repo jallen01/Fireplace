@@ -3,7 +3,7 @@ class Task < ActiveRecord::Base
   # Constants
   # ---------
 
-  TITLE_MAX_LENGTH = 30
+  TITLE_MAX_LENGTH = 50
 
   
   # Attributes

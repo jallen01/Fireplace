@@ -1,11 +1,9 @@
-<!-- Primary Author: Jonathan Allen (jallen01) -->
-
-<%= form_for tag, remote: true, html: { class: "modal-form" } do |f| %>
+<%= form_for tag, remote: true, html: { class: "modal-form tag-form" } do |f| %>
   <%= render "layouts/form_errors", errors: tag.errors %>
 
   <div class="form-group">
     <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control" %>
+    <%= f.text_field :name, class: "form-control", maxlength: Tag::NAME_MAX_LENGTH %>
   </div>
 
   <hr>

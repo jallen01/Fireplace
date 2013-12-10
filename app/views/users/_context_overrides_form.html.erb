@@ -1,6 +1,4 @@
-<!-- Primary Author: Jonathan Allen (jallen01) -->
-
-<%= form_tag update_context_overrides_user_url(current_user), class: "modal-form", remote: true, method: :post do %>
+<%= form_tag update_context_overrides_user_url(current_user), class: "modal-form context-form", remote: true, method: :post do %>
   <div class="form-group">
     <label>Time Frame</label>
     <% time_frames = User::TIME_FRAMES.map { |time_frame| [time_frame.capitalize, time_frame] } %>

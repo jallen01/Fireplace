@@ -2,9 +2,13 @@ body {
   padding-top: 70px;
 }
 
+.hide {
+	display: none;
+}
+
 .center-block {
-	display: inline-block;
 	text-align: center;
+	display: block-inline;
 }
 
 // Buttons

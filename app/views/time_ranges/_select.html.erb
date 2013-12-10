@@ -1,7 +1,5 @@
-<!-- Primary Author: Jonathan Allen (jallen01) -->
-
 <!-- Custom time input -->
-<div class="btn-group" data-toggle="buttons" id="time-range-select">
+<div class="btn-group time-range-select" data-toggle="buttons" >
 
   <% SimpleTime.day_hours.each do |time| %>
     <%= content_tag :label, class: "btn btn-default btn-sm btn-buffer btn-time spec-time #{"active" if time_range.include_time?(time)}".html_safe do %>

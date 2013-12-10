@@ -1,12 +1,10 @@
-<!-- Primary Author: Michelle Johnson (mchlljy) -->
-
-<%= form_for location, remote: true, html: { class: "modal-form" } do |f| %>
+<%= form_for location, remote: true, html: { class: "modal-form location-form" } do |f| %>
   
   <%= render "layouts/form_errors", errors: location.errors %>
   
   <div class="form-group">
     <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control" %>
+    <%= f.text_field :name, class: "form-control", maxlength: Location::NAME_MAX_LENGTH %>
   </div>
 <% end %>
 
