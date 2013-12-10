@@ -18,10 +18,6 @@ class TasksController < ApplicationController
       @task.update_metadata(@metadata)
       flash.now[:list] = "Task Created"
     end
-
-    respond_to do |format|
-      format.js
-    end
   end
 
   def update
@@ -31,10 +27,6 @@ class TasksController < ApplicationController
     unless @task.errors.any?
       flash.now[:list] = "Task Updated"
     end
-
-    respond_to do |format|
-      format.js
-    end
   end
 
   def destroy
@@ -42,10 +34,6 @@ class TasksController < ApplicationController
     @task.destroy
 
     flash.now[:list] = "Task Deleted"
-
-    respond_to do |format|
-      format.js
-    end
   end
   
   private

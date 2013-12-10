@@ -12,10 +12,6 @@ class TagsController < ApplicationController
       @tag.update_metadata(@metadata)
       flash.now[:list] = "Tag Created"
     end
-
-    respond_to do |format|
-      format.js
-    end
   end
 
   def update

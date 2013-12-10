@@ -12,10 +12,6 @@ class LocationsController < ApplicationController
     end
 
     flash.now[:list] = "Location Created"
-
-    respond_to do |format|
-      format.js
-    end
   end
   
   def update
@@ -24,10 +20,6 @@ class LocationsController < ApplicationController
     unless @location.errors.any?
       flash[:list] = "Location Updated"
     end
-
-    respond_to do |format|
-      format.js
-    end
   end
 
   def destroy
@@ -35,10 +27,6 @@ class LocationsController < ApplicationController
     @location.destroy
 
     flash.now[:list] = "Location Deleted"
-
-    respond_to do |format|
-      format.js
-    end
   end
 
   private 

@@ -13,10 +13,6 @@ class TimeRangesController < ApplicationController
       @time_range.update_times(@metadata[:time_range_select])
       flash.now[:list] = "Time Range Created"
     end
-
-    respond_to do |format|
-      format.js
-    end
   end
 
   def update
@@ -26,10 +22,6 @@ class TimeRangesController < ApplicationController
     unless @time_range.errors.any?
       flash.now[:list] = "Time Range Updated"
     end
-
-    respond_to do |format|
-      format.js
-    end
   end
 
   def destroy
@@ -37,10 +29,6 @@ class TimeRangesController < ApplicationController
     @time_range.destroy
 
     flash.now[:list] = "Time Range Deleted"
-
-    respond_to do |format|
-      format.js
-    end
   end
 
   private

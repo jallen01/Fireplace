@@ -8,19 +8,11 @@ class UsersController < ApplicationController
     session[:context_overrides] = { time_frame: time_frame, location_id: location_id }
 
     @context = current_user_context
-
-    respond_to do |format|
-      format.js
-    end
   end
 
   def update_utc_offset
     session[:utc_offset] = Integer(params[:utc_offset]) unless params[:utc_offset].nil?
     
     @context = current_user_context
-
-    respond_to do |format|
-      format.js
-    end
   end
 end
