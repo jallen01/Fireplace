@@ -1,5 +1,3 @@
-# Primary Author: Jonathan Allen (jallen01)
-
 # Model to store a set of days. Must have a name unless a parent_tag is assigned.
 
 require 'simple_day'

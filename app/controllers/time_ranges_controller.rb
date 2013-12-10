@@ -4,15 +4,15 @@ class TimeRangesController < ApplicationController
 
   def create
     @new_time_range = current_user.create_time_range(time_range_params[:name])
-    
+    @new_time_range.update(time_range_params)
+
     unless @new_time_range.errors.any?
       @time_range = @new_time_range
       @new_time_range = TimeRange.new(user: current_user)
 
       @time_range.update_times(@metadata[:time_range_select])
+      flash.now[:list] = "Time Range Created"
     end
-    
-    flash.now[:list] = "Time Range Created"
 
     respond_to do |format|
       format.js
@@ -23,7 +23,13 @@ class TimeRangesController < ApplicationController
     @time_range.update(time_range_params)
     @time_range.update_times(@metadata[:time_range_select])
 
-    flash.now[:list] = "Time Range Updated"
+    unless @time_range.errors.any?
+      flash.now[:list] = "Time Range Updated"
+    end
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   def destroy

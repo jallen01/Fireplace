@@ -5,27 +5,8 @@
   <%= render "layouts/form_errors", errors: location.errors %>
   
   <div class="form-group">
-
     <%= f.label :name %>
     <%= f.text_field :name, class: "form-control" %>
-  </div>
-
-  <hr>
-
-  <div class="form-group loc" >
-    <hr>
-    <%= f.label "Street" %><br>
-    <%= f.text_field :street, class: "form-control" %>
-
-    <%= f.label "City" %><br>
-    <%= f.text_field :city, class: "form-control" %>
-
-    <%= f.label "State" %><br>
-    <%= f.text_field :state, class: "form-control" %>
-
-    <%= f.label "Zip Code" %><br>
-    <%= f.text_field :zip_code, class: "form-control" %>
-
   </div>
 <% end %>
 

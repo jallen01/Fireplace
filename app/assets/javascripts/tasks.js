@@ -1,11 +1,10 @@
-// Primary Author: Jonathan Allen (jallen01)
-
 $(function () {
-    var update_location_url = $("#location-label").data("update-url");
-
-    var utc_offset = (-60)*(new Date().getTimezoneOffset());
-    $.post(update_location_url, { utc_offset: utc_offset });
-    watch_location();
+    var update_utc_offset_url = $("#urls").data("update-utc-offset");
+    if (update_utc_offset !== undefined) {
+        var utc_offset = (-60)*(new Date().getTimezoneOffset());
+        $.post(update_location_url, { utc_offset: utc_offset });
+    }
+    
     filter_tasks_list();
 });
 
@@ -49,8 +48,6 @@ var filter_tasks_list = function () {
 $(document).on("listUpdated", "#tasks-list", filter_tasks_list);
 $(document).on("change", ".filter-policy-toggle", filter_tasks_list);
 
-
-// Primary Author: Rebecca Krosnick (krosnick)
 
 // Task Form
 // =========

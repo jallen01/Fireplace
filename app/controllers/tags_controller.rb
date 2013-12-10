@@ -4,15 +4,14 @@ class TagsController < ApplicationController
 
   def create
     @new_tag = current_user.create_tag(tag_params[:name])
+    @new_tag.update(tag_params)
 
     unless @new_tag.errors.any?
       @tag = @new_tag
       @new_tag = Tag.new(user: current_user)
-
       @tag.update_metadata(@metadata)
+      flash.now[:list] = "Tag Created"
     end
-
-    flash.now[:list] = "Tag Created"
 
     respond_to do |format|
       format.js
@@ -23,7 +22,9 @@ class TagsController < ApplicationController
     @tag.update(tag_params)
     @tag.update_metadata(@metadata)
 
-    flash.now[:list] = "Tag Updated"
+    unless @tag.errors.any?
+      flash.now[:list] = "Tag Updated"
+    end
 
     respond_to do |format|
       format.js
@@ -33,7 +34,7 @@ class TagsController < ApplicationController
   def destroy
     @tag_id = @tag.id
     @tag.destroy
-
+    
     flash.now[:list] = "Tag Deleted"
 
     respond_to do |format|

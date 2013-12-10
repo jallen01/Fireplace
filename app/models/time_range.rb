@@ -1,5 +1,3 @@
-# Primary Author: Jonathan Allen (jallen01)
-
 require 'simple_time'
 
 class TimeRange < ActiveRecord::Base

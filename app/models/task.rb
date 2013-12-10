@@ -1,4 +1,3 @@
-# Primary Author: Jonathan Allen (jallen01)
 class Task < ActiveRecord::Base
 
   # Constants

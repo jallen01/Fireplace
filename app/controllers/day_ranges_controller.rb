@@ -4,16 +4,16 @@ class DayRangesController < ApplicationController
 
   def create
     @new_day_range = current_user.create_day_range(day_range_params[:name])
+    @new_day_range.update(day_range_params)
     
     unless @new_day_range.errors.any?
       @day_range = @new_day_range
       @new_day_range = DayRange.new(user: current_user)
       
       @day_range.update_days(@metadata[:day_range_select])
+      flash.now[:list] = "Day Range Created"
     end
-
-    flash.now[:list] = "Day Range Created"
-
+    
     respond_to do |format|
       format.js
     end
@@ -21,9 +21,12 @@ class DayRangesController < ApplicationController
 
   def update
     @day_range.update(day_range_params)
-    @day_range.update_days(@metadata[:day_range_select])
+    
 
-    flash.now[:list] = "Day Range Updated"
+    unless @day_range.errors.any?
+      @day_range.update_days(@metadata[:day_range_select])
+      flash.now[:list] = "Day Range Updated"
+    end
 
     respond_to do |format|
       format.js

@@ -1,5 +1,3 @@
-// Primary Author: Jonathan Allen (jallen01)
-
 var main = function () {
 }
 

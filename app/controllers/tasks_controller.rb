@@ -1,6 +1,5 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
-  before_action :reset_context_overrides, only: [:index]
   before_action :set_task, except: [:index, :new, :create]
   before_action :set_context
 
@@ -17,9 +16,8 @@ class TasksController < ApplicationController
       @new_task = Task.new(user: current_user)
 
       @task.update_metadata(@metadata)
+      flash.now[:list] = "Task Created"
     end
-
-    flash.now[:list] = "Task Created"
 
     respond_to do |format|
       format.js
@@ -30,7 +28,9 @@ class TasksController < ApplicationController
     @task.update(task_params)
     @task.update_metadata(@metadata)
 
-    flash.now[:list] = "Task Updated"
+    unless @task.errors.any?
+      flash.now[:list] = "Task Updated"
+    end
 
     respond_to do |format|
       format.js
@@ -59,10 +59,6 @@ class TasksController < ApplicationController
           format.js { render status: 404 }
         end
       end
-    end
-
-    def reset_context_overrides
-      session[:context_overrides] = { time_frame: :now, location: nil }
     end
 
     def set_context

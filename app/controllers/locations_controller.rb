@@ -1,35 +1,27 @@
-# Primary Author: Michelle Johnson (mchlljy)
-
 class LocationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_location, except: [:create]
 
   def create
     @new_location = current_user.create_location(location_params[:name])
-    if !is_address_valid
-      @new_location.errors[:base] << "Need to enter all address parts" 
-    else
-      #@new_location = current_user.create_location(location_params[:name])
+    @new_location.update(location_params)
 
-      unless @new_location.errors.any?
-        logger.debug "entered unless statement"
-        @location = @new_location
-        @new_location = Location.new(user: current_user)
-        @location.update(location_params)
-        flash.now[:list] = "Location Created"
-      end
+    unless @new_location.errors.any?
+      @location = @new_location
+      @new_location = Location.new(user: current_user)
+    end
 
-      respond_to do |format|
-        format.js
-      end
+    flash.now[:list] = "Location Created"
+
+    respond_to do |format|
+      format.js
     end
   end
   
   def update
-    if !is_address_valid
-      @new_location.errors[:base] << "Need to enter all address parts" 
-    else
-      @location.update(location_params)
+    @location.update(location_params)
+
+    unless @location.errors.any?
       flash[:list] = "Location Updated"
     end
 
@@ -63,9 +55,5 @@ class LocationsController < ApplicationController
           format.js { render status: 404 }
         end
       end 
-    end
-
-    def is_address_valid
-      valid_address = (location_params[:street].blank? && location_params[:city].blank? && location_params[:state].blank? && location_params[:zip_code].blank?) || ( !location_params[:street].blank? && !location_params[:city].blank? && !location_params[:state].blank? && !location_params[:zip_code].blank?)
     end
 end

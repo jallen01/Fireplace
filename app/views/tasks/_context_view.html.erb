@@ -5,7 +5,7 @@
 <h4>
   <% location = current_user.get_locations.find_by(id: session[:context_overrides][:location_id]) %>
   <% location_name = location.nil? ? "All" : location.name.capitalize %>
-  <%= content_tag :span, "Location: #{location_name}", class: "label label-info", id: "location-label", data: { :"update-url" => update_location_user_url(current_user).html_safe } %>
+  <%= content_tag :span, "Location: #{location_name}", class: "label label-info", id: "location-label" %>
 </h4>
 
 <h5 class="text-info">Change Context</h5>

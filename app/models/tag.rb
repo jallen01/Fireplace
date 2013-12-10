@@ -1,4 +1,3 @@
-# Primary Author: Jonathan Allen (jallen01)
 class Tag < ActiveRecord::Base
 
   # Constants

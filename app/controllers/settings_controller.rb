@@ -6,11 +6,9 @@ class SettingsController < ApplicationController
     @new_location = Location.new(user: current_user)
     @new_time_range = TimeRange.new(user: current_user)
     @new_day_range = DayRange.new(user: current_user)
-  end
 
-  def locations_form
-  	respond_to do |format|               
-  	  format.js
-  	end   
+    respond_to do |format|               
+      format.js
+    end
   end
 end

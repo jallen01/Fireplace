@@ -1,4 +1,3 @@
-# Primary Author: Jonathan Allen (jallen01)
 class TaskTag < ActiveRecord::Base
 
   # Attributes
