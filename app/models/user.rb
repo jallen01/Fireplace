@@ -123,7 +123,6 @@ class User < ActiveRecord::Base
 
     time = Time.now.getlocal(utc_offset)
 
-    context[:date] = Date.parse(time.to_s)
     context[:time] = SimpleTime.new(time.hour, time.min)
     context[:day] = SimpleDay.new(time.wday)
     context[:location] = location
@@ -131,20 +130,12 @@ class User < ActiveRecord::Base
     case time_frame
     when :today
       context[:time] = nil
-      context[:location] = nil
     when :tomorrow
       context[:time] = nil
       context[:day] = context[:day].succ
-      context[:location] = nil
-      context[:date] += 1
     when :week
       context[:time] = nil
       context[:day] = nil
-      context[:location] = nil
-    else
-      # :now or nil
-      context[:time] = SimpleTime.new(time.hour, time.min)
-      context[:day] = SimpleDay.new(time.wday)
     end
 
     context

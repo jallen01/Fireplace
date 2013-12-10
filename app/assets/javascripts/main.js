@@ -27,6 +27,8 @@ var initialize_form = function (form) {
         var html = $("<input type='hidden'>").attr("id", "_" + id).val(val);
         $(this).parent().append(html);
     });
+
+    $(form).trigger("formReset");
 }
 
 var reset_form = function (form) {

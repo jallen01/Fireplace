@@ -14,7 +14,7 @@
             <% end %> 
           <% end %>
           <%= content_tag :label, class: "btn btn-default btn-buffer hidden-day-range-toggle #{"active" if !tag.hidden_day_range.empty?}" do %>
-            <%= check_box_tag "" %>
+            <%= check_box_tag "", nil, !tag.hidden_day_range.empty? %>
             Custom
           <% end %> 
         </div>
@@ -42,7 +42,7 @@
             <% end %> 
           <% end %>
           <%= content_tag :label, class: "btn btn-default btn-buffer hidden-time-range-toggle #{"active" if !tag.hidden_time_range.empty?}" do %>
-            <%= check_box_tag "" %>
+            <%= check_box_tag "", nil, !tag.hidden_time_range.empty? %>
             Custom
           <% end %> 
         </div>

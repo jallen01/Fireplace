@@ -13,7 +13,7 @@ $(document).on("formReset", reset_metadata_form);
 // Click hidden tag toggle
 $(document).on("change", ".hidden-tag-toggle :checkbox", function() {
     var modal = $(this).parents(".modal");
-
+    
     if ($(this).is(":checked")) {
         $(modal).find(".tag-toggle").removeClass("active");
         $(modal).find(".tag-toggle :checkbox").prop("checked", false);

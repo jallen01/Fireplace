@@ -47,7 +47,7 @@
             <% end %> 
           <% end %>
           <%= content_tag :label, class: "btn btn-default btn-buffer hidden-tag-toggle #{"active" if !task.hidden_tag.empty?}".html_safe do %>
-            <%= check_box_tag "" %>
+            <%= check_box_tag "", nil, !task.hidden_tag.empty? %>
             Custom
           <% end %> 
         </div>
