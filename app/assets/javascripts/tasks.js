@@ -1,6 +1,6 @@
 $(function () {
     var update_utc_offset_url = $("#urls").data("update-utc-offset");
-    if (update_utc_offset !== undefined) {
+    if (update_utc_offset_url !== undefined) {
         var utc_offset = (-60)*(new Date().getTimezoneOffset());
         $.post(update_location_url, { utc_offset: utc_offset });
     }
